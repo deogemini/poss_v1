@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\District;
+
+
+class DistrictController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $districts =  District::all();
+        foreach($districts as $district){
+            echo $district;
+        }
+    }
+
+     /** 
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate(
+            [
+                'name' =>  'required',    
+                'region_id'=>'required'          
+            ]
+            );
+            return District::create($request -> all());
+    }
+
+
+
+
+}

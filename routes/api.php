@@ -139,6 +139,7 @@ Route::get('/getSpecificWardOfficer/{ward_id}', [WardOfficersController::class, 
 Route::get('/getHeadTeachers', [HeadTeacherController::class, 'index']);
 Route::get('/getSpecificHeadTeacher/{headTeacher_id}', [HeadTeacherController::class, 'show']);
 Route::get('/getTeachers/{school_id}', [HeadTeacherController::class, 'getTeachersinSchool']);
+Route::get('/getTeachersOnDuty/{school_id}', [HeadTeacherController::class, 'getTeachersOnDutyinSchool']);
 Route::get('/setTeacheronDuty/{teacher_id}', [HeadTeacherController::class, 'isTeacherOnDuty']);
 Route::get('/unsetTeacheronDuty/{teacher_id}', [HeadTeacherController::class, 'isNotTeacherOnDuty']);
 Route::post('/addHeadTeacher', [HeadTeacherController::class, 'create']); 

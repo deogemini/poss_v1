@@ -45,6 +45,23 @@ class HeadTeacherController extends Controller
 
     }
 
+     // Display a listing of the teachers with the same school_id of the headTeacher.
+     public function getTeachersOnDutyinSchool($id){
+        // $school = School::where('id',$id)->first();
+        // $school = $school->id;
+        $users = School_Teachers::where('school_id', $id)->get(); 
+         
+        foreach($users as $user){
+            $teachersonduty = User::whereHas(
+                'roles' , function($user){
+                $user->where('name', 'isTeacherOnDuty');
+            })->get();
+        }
+         
+        return response()->json($teachersonduty);
+
+    }
+
     //creating new headTeacher in the system
     public function create(Request $request)
     {

@@ -171,7 +171,7 @@ Route::get('/getward/{{id}}', [WardController::class, 'index']);
 //-------starting of apis for management of teachers------------------
 Route::get('/teachers', [TeacherController::class, 'index']);
 Route::post('/addTeacher', [TeacherController::class, 'create']); 
-Route::post('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show']); 
+Route::get('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show']); 
 
 
 

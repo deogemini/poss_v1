@@ -104,7 +104,8 @@ class HeadTeacherController extends Controller
 
     public function show($id)
     {
-        //
+        $headTeacher = User::find($id);
+        return response()->json($headTeacher);
     }
 
   

@@ -105,7 +105,8 @@ class WardOfficersController extends Controller
      */
     public function show($id)
     {
-        //
+        $wardOfficer = User::find($id);
+        return response()->json($wardOfficer);
     }
 
     /**

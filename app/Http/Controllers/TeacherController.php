@@ -60,15 +60,7 @@ class TeacherController extends Controller
             $role->roles()->attach(2); 
             return response(['message' => 'A new teacher registered!', 
             'data'=> $user]);
-            
-        
-
-        
         }
-
-       
-
-
     }
 
     /**
@@ -90,7 +82,9 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        //
+       $teacher = User::find($id);
+
+       return response()->json($teacher);
     }
 
     /**

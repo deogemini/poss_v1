@@ -120,6 +120,7 @@ Route::get('/users/search/{name}', [UserController::class, 'search']);
 //----------------starting of apis for management of distictOfficers----------------------------
 Route::get('/districtOfficers', [DistrictOfficersController::class, 'index']);
 Route::post('/addDistrictOfficer', [DistrictOfficersController::class, 'create']);
+Route::get('/getSpecificDistrictOfficer/{districtOfficer_id}',  [DistrictOfficersController::class, 'show']);
 
 
 
@@ -128,12 +129,14 @@ Route::post('/addDistrictOfficer', [DistrictOfficersController::class, 'create']
 Route::get('/getHeadTeachers/{id}', [WardOfficersController::class, 'getHeadTeachersinWard']);
 Route::get('/getWardOfficers', [WardOfficersController::class, 'index']);
 Route::post('/addWardOfficer', [WardOfficersController::class, 'create']);
+Route::get('/getSpecificWardOfficer/{ward_id}', [WardOfficersController::class, 'show']);
 
 
 
 
 //-------------starting of apis for management of HeadTeachers------------------------------
 Route::get('/getHeadTeachers', [HeadTeacherController::class, 'index']);
+Route::get('/getSpecificHeadTeacher/{headTeacher_id}', [HeadTeacherController::class, 'show']);
 Route::get('/getTeachers/{school_id}', [HeadTeacherController::class, 'getTeachersinSchool']);
 Route::get('/setTeacheronDuty/{teacher_id}', [HeadTeacherController::class, 'isTeacherOnDuty']);
 Route::get('/unsetTeacheronDuty/{teacher_id}', [HeadTeacherController::class, 'isNotTeacherOnDuty']);
@@ -168,6 +171,7 @@ Route::get('/getward/{{id}}', [WardController::class, 'index']);
 //-------starting of apis for management of teachers------------------
 Route::get('/teachers', [TeacherController::class, 'index']);
 Route::post('/addTeacher', [TeacherController::class, 'create']); 
+Route::post('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show']); 
 
 
 

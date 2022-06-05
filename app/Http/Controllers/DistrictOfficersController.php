@@ -88,7 +88,8 @@ class DistrictOfficersController extends Controller
      */
     public function show($id)
     {
-        //
+        $districtOfficer = User::find($id);
+        return response()->json($districtOfficer);
     }
 
     /**

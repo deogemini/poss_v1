@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\School;
+use App\Models\Student;
+use App\Models\Stream;
+use App\Models\Grade;
+
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller
@@ -13,10 +17,80 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::all();   
-        foreach($schools as $school){
-        echo $school;
-        }
+    $schools =    School::query()->addSelect([
+      /** Total no of students in school */
+      'count_students' => Student::selectRaw('count(*)')
+          ->whereIn(
+            'stream_id', 
+            Stream::select('id')->whereIn(
+              'grade_id',
+              Grade::select('id')->whereColumn('school_id', 'schools.id')
+            )
+          ),
+           /** Total no of "gender = male" students in school */
+      'count_male' => Student::selectRaw('count(*)')
+      ->whereRaw('gender = "male"')
+      ->whereIn(
+        'stream_id', 
+        Stream::select('id')->whereIn(
+          'grade_id',
+          Grade::select('id')->whereColumn('school_id', 'schools.id')
+        )
+      ),
+  /** Total no of "gender = female" students in school */
+  'count_female' => Student::selectRaw('count(*)')
+      ->whereRaw('gender = "female"')
+      ->whereIn(
+        'stream_id', 
+        Stream::select('id')->whereIn(
+          'grade_id',
+          Grade::select('id')->whereColumn('school_id', 'schools.id')
+        )
+      ),
+        // /** Total no of "gender = other" students in school */
+        // 'count_other' => Student::selectRaw('count(*)')
+        // ->whereRaw('gender = "other"')
+        // ->whereIn(
+        //   'stream_id', 
+        //   Stream::select('id')->whereIn(
+        //     'grade_id',
+        //     Grade::select('id')->whereColumn('school_id', 'schools.id')
+        //   )
+       // )
+])->get();
+
+return response()->json(['schools'=>$schools]);
+//         $schools = School::all();   
+//         // foreach($schools as $school){
+        
+//         // echo $school;
+//         // }
+
+// //         $customers = Customer::select(['cliente'])->withCount('refunds')->whereHas('refunds.services', function($query){
+// //             $query->where('services.id', 1);
+// //         })
+// // ->get();
+
+// SELECT *
+// FROM schools && count(students has(gender == 'male'))
+// JOIN grade ON (grades.schools = schools.school_id)
+// JOIN streams ON (stream.schools = schools.school_id)
+// JOIN students ON (student.schools = schools.school_id)
+
+// $schools = School::select(['name'])->withCount('students')->where('students', function($query){
+//     $query->where('gender', 'male');
+// })
+// ->get();
+
+// foreach($schools as $school){
+//     echo $school->name .':'.$school->streams_count; echo'<hr />';
+// }
+// return $schools;
+//         // $school = School::has('grades')->get();
+//         // return $school ;
+
+//         $boys = Student::where('gender' == 'male');
+//         $girls = Student::where('gender' == 'female');
     }
 
     /**

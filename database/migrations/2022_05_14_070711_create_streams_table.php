@@ -20,7 +20,8 @@ class CreateStreamsTable extends Migration
             ->constrained('grades')
             ->onDelete('cascade');
             $table->timestamps();
-    });}
+    });
+}
 
     /**
      * Reverse the migrations.

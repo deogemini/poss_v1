@@ -65,6 +65,22 @@ class WardOfficersController extends Controller
         }
     }
 
+    
+    public function getSchoolsinWard($id){
+        //this will be the id of ward
+
+        // $ward = Ward::where('id', $id)->first();
+        // $ward = $ward->id;
+
+        $schools = School::where('ward_id',$id)->get();
+     
+        $schoolsTotal = count(School::where('ward_id',$id)->get());
+
+        return response(['message' => 'schools in wards', 
+                'data'=> $schools, 'totals schools' => $schoolsTotal]);
+       
+    }
+
     public function getHeadTeachersinWard($id){
                 //this will be the id of the school available in that ward
 

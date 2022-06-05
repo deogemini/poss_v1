@@ -120,6 +120,7 @@ Route::get('/users/search/{name}', [UserController::class, 'search']);
 //----------------starting of apis for management of distictOfficers----------------------------
 Route::get('/districtOfficers', [DistrictOfficersController::class, 'index']);
 Route::get('/getWardOfficers/{district_id}', [DistrictOfficersController::class, 'getWardOfficerinDistrict']);
+Route::get('/getWards/{district_id}', [DistrictOfficersController::class, 'getWardsinDistrict']);
 Route::post('/addDistrictOfficer', [DistrictOfficersController::class, 'create']);
 Route::get('/getSpecificDistrictOfficer/{districtOfficer_id}',  [DistrictOfficersController::class, 'show']);
 
@@ -129,6 +130,7 @@ Route::get('/getSpecificDistrictOfficer/{districtOfficer_id}',  [DistrictOfficer
 //----------------starting of apis for management of wardOfficers--------------------------
 Route::get('/getHeadTeachers/{id}', [WardOfficersController::class, 'getHeadTeachersinWard']);
 Route::get('/getWardOfficers', [WardOfficersController::class, 'index']);
+Route::get('/getSchools/{id}', [WardOfficersController::class, 'getSchoolsinWard']);
 Route::post('/addWardOfficer', [WardOfficersController::class, 'create']);
 Route::get('/getSpecificWardOfficer/{ward_id}', [WardOfficersController::class, 'show']);
 
@@ -159,6 +161,7 @@ Route::post('/addRegion', [RegionController::class, 'store']);
 Route::get('/getdistricts', [DistrictController::class, 'index']); 
 Route::post('/addDistrict', [DistrictController::class, 'store']); 
 Route::get('/getdistrict/{{id}}', [DistrictController::class, 'index']); 
+
 
 
 

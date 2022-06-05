@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grade;
 use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -42,6 +43,24 @@ class HeadTeacherController extends Controller
         }
          
         return response()->json($teachers);
+
+    }
+
+    
+    // Display a listing of the teachers with the same school_id of the headTeacher.
+    public function getStreams($id){
+        // $school = School::where('id',$id)->first();
+        // $school = $school->id;
+        // $grade = Grade::where('school_id', $id)->get(); 
+         
+        // foreach($users as $user){
+        //     $teachers = User::whereHas(
+        //         'roles' , function($user){
+        //         $user->where('name', 'isTeacher');
+        //     })->get();
+        // }
+         
+      //  return response()->json($teachers);
 
     }
 

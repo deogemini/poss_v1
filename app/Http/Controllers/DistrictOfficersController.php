@@ -70,6 +70,14 @@ class DistrictOfficersController extends Controller
 
 }
 
+public function getWardsinDistrict($id){
+        //this will be the id of the district available
+         $district = District::where('id', $id)->first();
+         $district_id = $district->id;
+         $wards = Ward::where('district_id', $district_id)->get();
+         return response()->json($wards);
+}
+
 public function getWardOfficerinDistrict($id){
     //this will be the id of the district available
      $district = District::where('id', $id)->first();

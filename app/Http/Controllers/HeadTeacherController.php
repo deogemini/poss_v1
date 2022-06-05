@@ -41,7 +41,7 @@ class HeadTeacherController extends Controller
             })->get();
         }
          
-        return $teachers;
+        return response()->json($teachers);
 
     }
 

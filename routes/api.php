@@ -119,6 +119,7 @@ Route::get('/users/search/{name}', [UserController::class, 'search']);
 
 //----------------starting of apis for management of distictOfficers----------------------------
 Route::get('/districtOfficers', [DistrictOfficersController::class, 'index']);
+Route::get('/getWardOfficers/{district_id}', [DistrictOfficersController::class, 'getWardOfficerinDistrict']);
 Route::post('/addDistrictOfficer', [DistrictOfficersController::class, 'create']);
 Route::get('/getSpecificDistrictOfficer/{districtOfficer_id}',  [DistrictOfficersController::class, 'show']);
 

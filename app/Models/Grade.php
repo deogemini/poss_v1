@@ -21,7 +21,7 @@ class Grade extends Model
      */
     public function streams()
     {
-        return $this->hasMany(Stream::class);
+        return $this->hasMany(Stream::class, 'grade_id', 'id');
     }
 
      /**

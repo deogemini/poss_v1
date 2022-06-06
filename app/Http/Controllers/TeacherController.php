@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grade;
 use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\School_Teachers;
+use App\Models\Stream;
 
 class TeacherController extends Controller
 {
@@ -25,6 +27,33 @@ class TeacherController extends Controller
 
     return response()->json(['teachers' => $teachers]);
             
+    }
+
+    public function getGrades($school_id){
+//         $grade = Grade::query()->select([
+//             'streams'=> Stream::all()->where('grade_id',Grade::select('id')->where('school_id', $school_id))
+//         ]);
+// return $grade;
+
+
+        // $schools =    School::query()->addSelect([
+        //     /** Total no of students in school */
+        //     'count_students' => Student::selectRaw('count(*)')
+        //         ->whereIn(
+        //           'stream_id', 
+        //           Stream::select('id')->whereIn(
+        //             'grade_id',
+        //             Grade::select('id')->whereColumn('school_id', 'schools.id')
+        //           )
+        //         ),
+        $grades = Grade::where('school_id', $school_id)->get();
+        foreach ($grades as $grade){
+            $grade_id = $grade->id;
+            $streams  = Stream::where('grade_id', $grade_id)->get();
+            return response()->json(['grade'=>$grades, 'streams' =>$streams]);
+
+        }
+
     }
     /**
      * Show the form for creating a new resource.
@@ -95,7 +124,7 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        //
+       // return response()->json(['grade'=>$grades, 'streams =>$streams]);
     }
 
     /**

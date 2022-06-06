@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
+        "barryvdh/laravel-debugbar": "^3.6",
         "doctrine/dbal": "^3.3",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
@@ -17,7 +18,8 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.4",
-        "paypal/rest-api-sdk-php": "^1.14"
+        "paypal/rest-api-sdk-php": "^1.14",
+        "staudenmeir/belongs-to-through": "^2.5"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

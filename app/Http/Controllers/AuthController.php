@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Officers_Districts;
+use App\Models\Officers_Wards;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RoleUser;
+use App\Models\School_Teachers;
 
 class AuthController extends Controller
 {
@@ -21,6 +25,9 @@ class AuthController extends Controller
         $user = User::where('email', $email)->first();
         $user_id = $user->id;
         $role_user = RoleUser::where('user_id', $user_id)->first();
+        $teacher_user = School_Teachers::where('user_id', $user_id)->first();
+        $district_officer = Officers_Districts::where('user_id', $user_id)->first();
+        $ward_officer = Officers_Wards::where('user_id', $user_id)->first();
 
 // starting to check and create token while login
         $token = $user->api_token;
@@ -34,13 +41,29 @@ class AuthController extends Controller
         }
 //ending to check and create token while login
         
+// to check if user  is teacher and get school_id
+       if($teacher_user){
+            $school_id = $teacher_user->school_id;
+            $id = $school_id;
+        }
+        // to check if user  isdistrict officer and get district_id
+        if($district_officer){
+          $district_id = $district_officer->district_id;
+          $id = $district_id;
+        }
+    //to check if user  isward officer and get district_id
+        if($ward_officer){
+            $ward_id = $ward_officer->ward_id;
+            $id = $ward_id;
+
+        }
         if($role_user){
         $role = $role_user->Role->name; 
+        
         }
-
-        if(auth()->attempt($loginData)){
+        if(auth()->attempt($loginData)){            
             return response(['message'=>'You have passed the authentication',
-             'data'=> $user, $role]);
+             'data'=> $user, 'role' => $role , 'id' => $id ?? 'Admin']);
         }else{
 
 

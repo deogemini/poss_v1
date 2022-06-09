@@ -30,4 +30,8 @@ class Student extends Model
     {
         return $this->belongsTo(Stream::class);
     }
+
+    public function school(){
+        return $this->belongsToThrough(Grade::class, Stream::class );
+    }
 }

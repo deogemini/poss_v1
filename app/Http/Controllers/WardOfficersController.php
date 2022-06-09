@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Ward;
 use App\Models\School;
-
+use App\Models\School_Teachers;
 
 class WardOfficersController extends Controller
 {
@@ -82,24 +82,23 @@ class WardOfficersController extends Controller
     }
 
     public function getHeadTeachersinWard($id){
-                //this will be the id of the school available in that ward
-
-        $ward = Ward::where('id', $id)->first();
-
-        $schools = School::where('ward_id',$ward)->get();
+    //this will be the id of the school available in that ward
+        $schools = School::where('ward_id',$id)->get(); 
         foreach($schools as $school){
             $school = $school->id;
-        $users = User::where('id', $school)->get();
-        }
+        $users = School_Teachers::where('school_id', $school)->get();
+    
         foreach($users as $user){
-          $headteachers = User::whereHas(
-            'roles' , function($user){
-            $user->where('name', 'isHeadTeacher');
-        })->get();
+            $headTeachers = User::where('id',$user->user_id)
+            ->whereHas(
+                'roles',
+                fn($query) => $query->where('name', 'isHeadTeacher')
+            )
+            ->get();
+    
+        return response()->json(['headTeachers' => $headTeachers]);
+        }
     }
-        
-        return $headteachers;
-
     }
 
     /**

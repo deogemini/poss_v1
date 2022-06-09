@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\Student;
 
@@ -59,7 +60,10 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+       // $school = School::where('id', $id)->first();
+
+
+        
     }
 
     /**

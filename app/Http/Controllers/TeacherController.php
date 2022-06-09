@@ -29,6 +29,21 @@ class TeacherController extends Controller
             
     }
 
+    // public function TeacherOnDuty($id){
+    //     $school = School::where('id', $id)->first();
+    //     $teachers = School_Teachers::where('school_id', $school)->get();
+    //     $teachers = User::with('schools')
+    //     ->whereHas(
+    //         'roles',
+    //         fn($query) => $query->where('name', 'isTeacher')
+    //     )
+    //     ->get();
+
+    // return response()->json(['teachers' => $teachers]);
+            
+
+    // }
+
     public function getGrades($school_id){
 //         $grade = Grade::query()->select([
 //             'streams'=> Stream::all()->where('grade_id',Grade::select('id')->where('school_id', $school_id))

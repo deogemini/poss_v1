@@ -93,7 +93,9 @@ Route::get('/roles/search/{name}', [RoleController::class, 'search']);
 //---------------------api for students--------------------------------
 Route::get('/students', [StudentController::class, 'index']);
 Route::post('/addStudents', [StudentController::class, 'create']);
-Route::get('/students/{id}', [StudentController::class, 'show']);
+// Route::get('/students/{id}', [StudentController::class, 'show']);
+Route::get('/getStudents/{school_id}', [StudentController::class, 'show']); 
+
 Route::put('/students/{id}', [StudentController::class, 'update']);
 Route::delete('/students/{id}', [StudentController::class, 'destroy']);
 //searching by  firstname
@@ -177,7 +179,6 @@ Route::get('/getward/{{id}}', [WardController::class, 'index']);
 Route::get('/teachers', [TeacherController::class, 'index']);
 Route::post('/addTeacher', [TeacherController::class, 'create']); 
 Route::get('/getGrades/{school_id}', [TeacherController::class, 'getGrades']); 
-Route::get('/getStudents/{school_id}', [TeacherController::class, 'getGrades']); 
 
 Route::get('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show']); 
 

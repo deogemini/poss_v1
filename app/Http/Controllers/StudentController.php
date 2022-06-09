@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\School;
+use App\Models\Grade;
+use App\Models\Stream;
 use Illuminate\Http\Request;
 use App\Models\Student;
 
@@ -40,7 +42,7 @@ class StudentController extends Controller
                'data'=> $student]);
         }
     
-
+ 
     /**
      * Store a newly created resource in storage.
      *
@@ -60,7 +62,12 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-       // $school = School::where('id', $id)->first();
+     $streams = Stream::where('grade_id', $id)->get();
+     foreach($streams as $stream){
+         $stream = $stream->id;
+         $students = Student::where('stream_id', $stream)->get();
+         return $students;
+     }
 
 
         

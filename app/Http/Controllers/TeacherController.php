@@ -68,7 +68,7 @@ class TeacherController extends Controller
 
         $streams  = Stream::where('grade_id', $grade_id)->with('school')->get();
         return response()->json(['grade'=>$grades, 'streams' =>$streams]);
-
+ 
         }
 
         $grades = Grade::where('school_id', $school_id)->get();

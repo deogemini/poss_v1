@@ -14,7 +14,7 @@ use App\Models\School_Teachers;
 
 class HeadTeacherController extends Controller
 {
-    //get all HeadTeachers in the system
+    //get all users with the role of HeadTeacher in the system
     public function index()
     {
         $headteachers = User::with('schools')
@@ -23,9 +23,7 @@ class HeadTeacherController extends Controller
             fn($query) => $query->where('name', 'isHeadTeacher')
         )
         ->get();
-
     return response()->json(['headteachers' => $headteachers]);
-       
     }
 
 
@@ -33,7 +31,7 @@ class HeadTeacherController extends Controller
     public function getTeachersinSchool($id){
         // $school = School::where('id',$id)->first();
         // $school = $school->id;
-        $users = School_Teachers::where('school_id', $id)->get(); 
+        $users = School_Teachers::where('school_id', $id)->get();
          
         foreach($users as $user){
             $teachers = User::whereHas(

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Region;
 
-
-class RegionController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,18 +13,10 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $regions = Region::all();
-        foreach($regions as $region){
-            echo $region;
-        }
+        //
     }
 
-    public function indexPage()
-    {
-        return view('components.regions');
-    }
-
-    /** 
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -44,13 +34,7 @@ class RegionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'name' =>  'required',              
-            ]
-            );
-
-            return Region::create($request -> all());
+        //
     }
 
     /**
@@ -61,8 +45,7 @@ class RegionController extends Controller
      */
     public function show($id)
     {
-        return Region::find($id);
-
+        //
     }
 
     /**
@@ -85,9 +68,7 @@ class RegionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $region = Region::find($id);
-        $region ->update($request->all());
-        return $region;
+        //
     }
 
     /**
@@ -98,17 +79,6 @@ class RegionController extends Controller
      */
     public function destroy($id)
     {
-        return Region::destroy($id);
-    }
-
-    /**
-     * this method will help in searches for a user by his/her name.
-     *
-     * @param  str  $role_name
-     * @return \Illuminate\Http\Response
-     */
-    public function search($name)
-    {
-         return Region::where('name', 'like', '%'.$name.'%')->get();
+        //
     }
 }

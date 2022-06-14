@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Ward;
 use App\Models\School;
+use App\Models\Grade;
+use App\Models\Student;
+use App\Models\Stream;
 use App\Models\School_Teachers;
 
 class WardOfficersController extends Controller
@@ -73,6 +76,22 @@ class WardOfficersController extends Controller
         // $ward = $ward->id;
 
         $schools = School::where('ward_id',$id)->get();
+
+        foreach($schools as $school){
+            $school_id = $school->id;
+         $school =   School::query()->addSelect([
+                /** Total no of students in school */
+                'count_students' => Student::selectRaw('count(*)')
+                    ->whereIn(
+                      'stream_id', 
+                      Stream::select('id')->whereIn(
+                        'grade_id',
+                        Grade::select('id')->whereColumn('school_id', 'schools.id')
+                      )
+                    ),
+                ]);
+                return $school;
+        }
      
         $schoolsTotal = count(School::where('ward_id',$id)->get());
 

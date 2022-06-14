@@ -75,7 +75,8 @@ public function getWardsinDistrict($id){
          $district = District::where('id', $id)->first();
          $district_id = $district->id;
          $wards = Ward::where('district_id', $district_id)->get();
-         return response()->json($wards);
+         $totalWards = $wards->count();
+         return response()->json(['Wards' => $wards, 'Total Wards' => $totalWards]);
 }
 
 public function getWardOfficerinDistrict($id){

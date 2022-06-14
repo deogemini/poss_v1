@@ -71,14 +71,22 @@ class WardOfficersController extends Controller
     
     public function getSchoolsinWard($id){
         //this will be the id of ward
-
-        // $ward = Ward::where('id', $id)->first();
-        // $ward = $ward->id;
-
-        $schools = School::where('ward_id',$id)->get();
+        $schools =    School::query()->addSelect([
+            /** Total no of students in school */
+            'count_students' => Student::selectRaw('count(*)')
+                ->whereIn(
+                  'stream_id', 
+                  Stream::select('id')->whereIn(
+                    'grade_id',
+                    Grade::select('id')->whereIn(
+                        'school_id',
+                        School::select('id')->where('ward_id', $id)
+                         )
+                    )
+                    ),
+            ])->get();
 
         $schoolsTotal = count(School::where('ward_id',$id)->get());
-
         return response(['message' => 'schools in wards', 
                 'data'=> $schools, 'totals schools' => $schoolsTotal]);
        

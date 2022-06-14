@@ -1,6 +1,12 @@
-@extends('layouts.main')
+@include('layouts.navbar')
 
-@section('content')
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+ 
+
+  @include('layouts.sidebar')
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -8,7 +14,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">REGIONS IN POSS</h1>
+            <h1 class="m-0">PROTECTING OUR STUDENTS IN SCHOOLS</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -84,4 +90,6 @@
     </div>
     <!-- /.content -->
   </div>
-  @endsection
+
+
+@include('layouts.footer')

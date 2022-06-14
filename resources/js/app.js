@@ -5,7 +5,7 @@
  */
 
 require('./bootstrap');
-require('./adminlte')
+// require('./adminlte')
 
 //window.Vue = require('vue').default;
 

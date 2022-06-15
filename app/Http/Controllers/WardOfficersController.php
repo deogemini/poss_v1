@@ -101,22 +101,6 @@ class WardOfficersController extends Controller
                 'total boys'=>$total_boys,
                 'total girls' => $total_girls,
                 'totals schools' => $schoolsTotal]);
-    
-
-    //    $schools =    School::query()->addSelect([
-    //     /** Total no of students in school */
-    //     'count_students' => Student::selectRaw('count(*)')
-    //         ->whereIn(
-    //           'stream_id', 
-    //           Stream::select('id')->whereIn(
-    //             'grade_id',
-    //             Grade::select('id')->whereIn(
-    //                 'school_id',
-    //                 School::select($school_id)
-    //                  )
-    //             )
-    //             ),
-    //     ])->get();
        
     }
 

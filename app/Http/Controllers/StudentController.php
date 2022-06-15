@@ -62,12 +62,21 @@ class StudentController extends Controller
      */
     public function show($id)
     {
+
+        $array_students = [];
      $streams = Stream::where('grade_id', $id)->get();
      foreach($streams as $stream){
-         $stream = $stream->id;
-         $students = Student::where('stream_id', $stream)->get();
-         return $students;
+         $stream_id = $stream->id;
+         $students = Student::where('stream_id', $stream_id)->get();
+         foreach($students as $student){
+            $array_students[] = $student; 
+
+         }
      }
+
+     return response(['message' => 'students in grade', 
+     'students'=> $array_students, 'total students' => count($array_students)]);
+
 
 
         

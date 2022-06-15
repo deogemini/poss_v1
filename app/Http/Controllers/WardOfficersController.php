@@ -72,16 +72,18 @@ class WardOfficersController extends Controller
     public function getSchoolsinWard($id){
         //this will be the id of ward
        $array_count = [];
+       $array_school = [];
        $schools = School::with('grades')->where('ward_id', $id)->get();
     
        foreach($schools as $school){
+        $array_school[] = $school;
         $data = count($school->grades);
         foreach($school->grades as $grade){
             $total = count($grade->streams);
             foreach($grade->streams as $stream){
                 $total_students = count($stream->students);
                 foreach($stream->students as $student){
-                   $array_count[] = $student->id;
+                   $array_count[] = $student;
                 }
             }
         }
@@ -89,7 +91,8 @@ class WardOfficersController extends Controller
 
        $schoolsTotal = School::where('ward_id',$id)->count();
        return response(['message' => 'schools in wards', 
-               'data'=> $array_count, 'totals schools' => $schoolsTotal]);
+              'schools'=>$array_school,
+               'total students'=> count($array_count), 'totals schools' => $schoolsTotal]);
       
 
     

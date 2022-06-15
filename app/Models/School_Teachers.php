@@ -11,11 +11,11 @@ class School_Teachers extends Model
 
     protected $table = "teachers/headTeachers_schools";
 
-    // public function users(){
-    //     return $this->belongto(User::class, 'user_id');
-    // }
+    public function users(){
+        return $this->belongto(User::class, 'user_id');
+    }
 
-    // public function schools(){
-    //     return $this->belongto(School::class, 'school_id');
-    // }
+    public function schools(){
+        return $this->belongto(School::class, 'school_id');
+    }
 }

@@ -31,19 +31,20 @@ class HeadTeacherController extends Controller
 
     // Display a listing of the teachers with the same school_id of the headTeacher.
     public function getTeachersinSchool($id){
-        // $school = School::where('id',$id)->first();
-        // $school = $school->id;
-        $users = School_Teachers::where('school_id', $id)->get(); 
+        // $school = School::where('id', $id)->first();
+        // $school_id = $school->id;
+        $users = School_Teachers::where('school_id', $id)->get();
+
          
         foreach($users as $user){
-            $teachers = User::whereHas(
-                'roles' , function($user){
-                $user->where('name', 'isTeacher');
+            $teachers = User::where('id',$user->user_id)
+            ->whereHas(
+                'roles' , function($query){  
+                $query->where('name', 'isTeacher');
             })->get();
-        }
-         
-        return response()->json($teachers);
+            return response()->json(['teachers' =>$teachers]);
 
+        }
     }
 
     

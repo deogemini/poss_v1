@@ -11,6 +11,7 @@ use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Stream;
 use App\Models\School_Teachers;
+use PDO;
 
 class WardOfficersController extends Controller
 {
@@ -71,35 +72,36 @@ class WardOfficersController extends Controller
     
     public function getSchoolsinWard($id){
         //this will be the id of ward
-       $array_count = [];
-       $array_school = [];
-       $schools = School::with('grades')->where('ward_id', $id)->get();
-    
-       foreach($schools as $school){
-        $array_school[] = $school;
-        $data = count($school->grades);
-        foreach($school->grades as $grade){
-            $total = count($grade->streams);
-            foreach($grade->streams as $stream){
-                $total_students = count($stream->students);
-                foreach($stream->students as $student){
-                   $array_count[] = $student;
-                }
-            }
-        }
-       }
-
-       $schoolsTotal = School::where('ward_id',$id)->count();
-       return response(['message' => 'schools in wards', 
-              'schools'=>$array_school,
-               'total students'=> count($array_count), 'totals schools' => $schoolsTotal]);
-      
-
-    
-
-
-      
+        $array_count = [];
+        $array_school = [];
+        $schools = School::where('ward_id', $id)->get();
      
+        foreach($schools as $school){
+            $array_school[] = $school;
+         $data = count($school->grades);
+         foreach($school->grades as $grade){
+             $total = count($grade->streams);
+             foreach($grade->streams as $stream){
+                 $total_students = count($stream->students);
+                 foreach($stream->students as $student){
+                    $array_count[] = $student;
+                    $boys = Student::where('id', $student->id)->where('gender', 'male')->get();
+                    $total_boys = $boys->count();
+                    $girls = Student::where('id', $student->id)->where('gender', 'female')->get();
+                    $total_girls = $girls->count();
+                 }
+             }
+         }
+        }
+ 
+        $schoolsTotal = School::where('ward_id',$id)->count();
+        return response(['message' => 'schools in wards', 
+                'schools'=>$array_school,
+                'total students'=> $array_count, 
+                'total boys'=>$total_boys,
+                'total girls' => $total_girls,
+                'totals schools' => $schoolsTotal]);
+    
 
     //    $schools =    School::query()->addSelect([
     //     /** Total no of students in school */
@@ -112,12 +114,10 @@ class WardOfficersController extends Controller
     //                 'school_id',
     //                 School::select($school_id)
     //                  )
-    //             )  
+    //             )
     //             ),
     //     ])->get();
-
        
-      
     }
 
     public function getHeadTeachersinWard($id){

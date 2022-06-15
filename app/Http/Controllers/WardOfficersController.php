@@ -71,25 +71,50 @@ class WardOfficersController extends Controller
     
     public function getSchoolsinWard($id){
         //this will be the id of ward
-        $schools =    School::query()->addSelect([
-            /** Total no of students in school */
-            'count_students' => Student::selectRaw('count(*)')
-                ->whereIn(
-                  'stream_id', 
-                  Stream::select('id')->whereIn(
-                    'grade_id',
-                    Grade::select('id')->whereIn(
-                        'school_id',
-                        School::select('id')->where('ward_id', $id)
-                         )
-                    )
-                    ),
-            ])->get();
+       $array_count = [];
+       $schools = School::with('grades')->where('ward_id', $id)->get();
+    
+       foreach($schools as $school){
+        $data = count($school->grades);
+        foreach($school->grades as $grade){
+            $total = count($grade->streams);
+            foreach($grade->streams as $stream){
+                $total_students = count($stream->students);
+                foreach($stream->students as $student){
+                   $array_count[] = $student->id;
+                }
+            }
+        }
+       }
 
-        $schoolsTotal = count(School::where('ward_id',$id)->get());
-        return response(['message' => 'schools in wards', 
-                'data'=> $schools, 'totals schools' => $schoolsTotal]);
+       $schoolsTotal = School::where('ward_id',$id)->count();
+       return response(['message' => 'schools in wards', 
+               'data'=> $array_count, 'totals schools' => $schoolsTotal]);
+      
+
+    
+
+
+      
+     
+
+    //    $schools =    School::query()->addSelect([
+    //     /** Total no of students in school */
+    //     'count_students' => Student::selectRaw('count(*)')
+    //         ->whereIn(
+    //           'stream_id', 
+    //           Stream::select('id')->whereIn(
+    //             'grade_id',
+    //             Grade::select('id')->whereIn(
+    //                 'school_id',
+    //                 School::select($school_id)
+    //                  )
+    //             )  
+    //             ),
+    //     ])->get();
+
        
+      
     }
 
     public function getHeadTeachersinWard($id){

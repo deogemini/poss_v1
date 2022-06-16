@@ -73,33 +73,72 @@ class WardOfficersController extends Controller
     public function getSchoolsinWard($id){
         //this will be the id of ward
     
-        $array_student = [];
-        $schools = School::all()->where('ward_id', $id);
-        foreach($schools as $school){
-         $school_id = $school->id;
-         $grades = Grade::all()->where('school_id', $school_id);
-         foreach($grades as $grade){
-            $grade_id = $grade->id;
-            $streams = Stream::all()->where('grade_id', $grade_id);
-             foreach($streams as $stream){
-                 $stream_id = $stream->id;
-                 $students = Student::all()->where('stream_id', $stream_id);
-                 foreach($students as $student){
-                    $total_students = array_push($array_student, $student);
-                    $boys = Student::all()->where('gender' ,$student->gender = 'male');
-                    $girls = Student::all()->where('gender' ,$student->gender = 'female');
-                 }
-              }
-         }
-        }
+        // $array_student = [];
+        // $schools = School::all()->where('ward_id', $id);
+        // foreach($schools as $school){
+        //  $school_id = $school->id;
+        //  $grades = Grade::all()->where('school_id', $school_id);
+        //  foreach($grades as $grade){
+        //     $grade_id = $grade->id;
+        //     $streams = Stream::all()->where('grade_id', $grade_id);
+        //      foreach($streams as $stream){
+        //          $stream_id = $stream->id;
+        //          $students = Student::all()->where('stream_id', $stream_id);
+        //          foreach($students as $student){
+        //             $total_students = array_push($array_student, $student);
+        //             $boys = Student::all()->where('gender' ,$student->gender = 'male');
+        //             $girls = Student::all()->where('gender' ,$student->gender = 'female');
+        //          }
+        //       }
+        //  }
+        // }
 
-        $schoolsTotal = School::where('ward_id',$id)->count();
-        return response(['message' => 'schools in wards', 
-                'schools'=>$schools,
-                'total students'=> $total_students, 
-                'total boys'=>$boys->count(),
-                'total girls' => $girls->count(),
-                'totals schools' => $schoolsTotal]);
+        // $schoolsTotal = School::where('ward_id',$id)->count();
+        // return response(['message' => 'schools in wards', 
+        //         'schools'=>$schools,
+        //         'total students'=> $total_students, 
+        //         'total boys'=>$boys->count(),
+        //         'total girls' => $girls->count(),
+        //         'totals schools' => $schoolsTotal]);
+
+
+        $schools = School::query()
+        ->where('ward_id',$id)
+        ->addSelect([
+            'total_students' => Student::selectRaw('count(*)')
+                ->whereIn(
+                    'stream_id', 
+                    Stream::select('id')->whereIn(
+                        'grade_id',
+                        Grade::select('id')->whereColumn('school_id', 'schools.id')
+                    )
+                ),
+            'total_boys' => Student::selectRaw('count(*)')
+                ->whereRaw('gender = "male"')
+                ->whereIn(
+                    'stream_id', 
+                    Stream::select('id')->whereIn(
+                        'grade_id',
+                        Grade::select('id')->whereColumn('school_id', 'schools.id')
+                    )
+                ),
+            'total_girls' => Student::selectRaw('count(*)')
+                ->whereRaw('gender = "female"')
+                ->whereIn(
+                    'stream_id', 
+                    Stream::select('id')->whereIn(
+                        'grade_id',
+                        Grade::select('id')->whereColumn('school_id', 'schools.id')
+                    )
+                )      
+        ])->get();
+
+    return response()->json([
+        'message' => 'schools in wards',
+        'schools' => $schools,
+        'total_students_in_ward' => $schools->sum('total_students'),
+        'total_schools' => $schools->count()
+    ]);
        
     }
 

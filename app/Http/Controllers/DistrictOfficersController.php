@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\District;
 use App\Models\Officers_Districts;
 use App\Models\Officers_Wards;
+use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Stream;
+use App\Models\Grade;
+use App\Models\Student;
 use App\Models\Ward;
 
 
@@ -71,12 +75,54 @@ class DistrictOfficersController extends Controller
 }
 
 public function getWardsinDistrict($id){
-        //this will be the id of the district available
-         $district = District::where('id', $id)->first();
-         $district_id = $district->id;
-         $wards = Ward::where('district_id', $district_id)->get();
-         $totalWards = $wards->count();
-         return response()->json(['Wards' => $wards, 'Total Wards' => $totalWards]);
+         $wards = Ward::query()
+         ->where('district_id', $id)
+         ->addSelect([
+        'total_students' => Student::selectRaw('count(*)')
+         ->whereIn(
+             'stream_id', 
+             Stream::select('id')->whereIn(
+                 'grade_id',
+                 Grade::select('id')->whereIn(
+                    'school_id',
+                    School::select('id')->whereColumn('ward_id', 'wards.id')
+                 )
+             )
+         ),
+         'total_boys' => Student::selectRaw('count(*)')
+         ->whereRaw('gender = "male"')
+         ->whereIn(
+             'stream_id', 
+             Stream::select('id')->whereIn(
+                 'grade_id',
+                 Grade::select('id')->whereIn(
+                    'school_id',
+                    School::select('id')->whereColumn('ward_id', 'wards.id')
+                 )
+             )
+                 ),
+                 'total_girls' => Student::selectRaw('count(*)')
+                 ->whereRaw('gender = "female"')
+                 ->whereIn(
+                     'stream_id', 
+                     Stream::select('id')->whereIn(
+                         'grade_id',
+                         Grade::select('id')->whereIn(
+                            'school_id',
+                            School::select('id')->whereColumn('ward_id', 'wards.id')
+                         )
+                     )
+                 )
+
+         
+        ])->get();
+
+        return response()->json([
+            'message' => 'wards in district',
+            'wards' => $wards,
+            'total_students_in_ward' => $wards->sum('total_students'),
+            'total_schools' => $wards->count()
+        ]);
 }
 
 public function getWardOfficerinDistrict($id){

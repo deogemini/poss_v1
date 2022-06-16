@@ -11,11 +11,7 @@ use App\Models\Stream;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ //get all users with the role being isTeacher
     public function index()
     {
         $teachers = User::with('schools')
@@ -29,39 +25,8 @@ class TeacherController extends Controller
             
     }
 
-    // public function TeacherOnDuty($id){
-    //     $school = School::where('id', $id)->first();
-    //     $teachers = School_Teachers::where('school_id', $school)->get();
-    //     $teachers = User::with('schools')
-    //     ->whereHas(
-    //         'roles',
-    //         fn($query) => $query->where('name', 'isTeacher')
-    //     )
-    //     ->get();
-
-    // return response()->json(['teachers' => $teachers]);
-            
-
-    // }
-
+//get Grades in a given school
     public function getGrades($school_id){
-//         $grade = Grade::query()->select([
-//             'streams'=> Stream::all()->where('grade_id',Grade::select('id')->where('school_id', $school_id))
-//         ]);
-// return $grade;
-
-
-        // $schools =    School::query()->addSelect([
-        //     /** Total no of students in school */
-        //     'count_students' => Student::selectRaw('count(*)')
-        //         ->whereIn(
-        //           'stream_id', 
-        //           Stream::select('id')->whereIn(
-        //             'grade_id',
-        //             Grade::select('id')->whereColumn('school_id', 'schools.id')
-        //           )
-        //         ),
-
         $grades = Grade::where('school_id', $school_id)->get();
         foreach ($grades as $grade){
             $grade_id = $grade->id;
@@ -80,11 +45,8 @@ class TeacherController extends Controller
         }
 
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    //add new teacher in the system
     public function create(Request $request)
     {
         $user = new User;
@@ -117,23 +79,12 @@ class TeacherController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
        $teacher = User::find($id);
@@ -141,35 +92,15 @@ class TeacherController extends Controller
        return response()->json($teacher);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
        // return response()->json(['grade'=>$grades, 'streams =>$streams]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

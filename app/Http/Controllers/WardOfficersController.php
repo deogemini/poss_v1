@@ -72,34 +72,33 @@ class WardOfficersController extends Controller
     
     public function getSchoolsinWard($id){
         //this will be the id of ward
-        $array_count = [];
-        $array_school = [];
-        $schools = School::where('ward_id', $id)->get();
-     
+    
+        $array_student = [];
+        $schools = School::all()->where('ward_id', $id);
         foreach($schools as $school){
-            $array_school[] = $school;
-         $data = count($school->grades);
-         foreach($school->grades as $grade){
-             $total = count($grade->streams);
-             foreach($grade->streams as $stream){
-                 $total_students = count($stream->students);
-                 foreach($stream->students as $student){
-                    $array_count[] = $student;
-                    $boys = Student::where('id', $student->id)->where('gender', 'male')->get();
-                    $total_boys = $boys->count();
-                    $girls = Student::where('id', $student->id)->where('gender', 'female')->get();
-                    $total_girls = $girls->count();
+         $school_id = $school->id;
+         $grades = Grade::all()->where('school_id', $school_id);
+         foreach($grades as $grade){
+            $grade_id = $grade->id;
+            $streams = Stream::all()->where('grade_id', $grade_id);
+             foreach($streams as $stream){
+                 $stream_id = $stream->id;
+                 $students = Student::all()->where('stream_id', $stream_id);
+                 foreach($students as $student){
+                    $total_students = array_push($array_student, $student);
+                    $boys = Student::all()->where('gender' ,$student->gender = 'male');
+                    $girls = Student::all()->where('gender' ,$student->gender = 'female');
                  }
-             }
+              }
          }
         }
- 
+
         $schoolsTotal = School::where('ward_id',$id)->count();
         return response(['message' => 'schools in wards', 
-                'schools'=>$array_school,
-                'total students'=> $array_count, 
-                'total boys'=>$total_boys,
-                'total girls' => $total_girls,
+                'schools'=>$schools,
+                'total students'=> $total_students, 
+                'total boys'=>$boys->count(),
+                'total girls' => $girls->count(),
                 'totals schools' => $schoolsTotal]);
        
     }

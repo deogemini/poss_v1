@@ -16,11 +16,7 @@ use App\Models\Ward;
 
 class DistrictOfficersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //get all users with the role of being isDistrictOfficer
     public function index()
     {
         $districtOfficers = User::with('districts')
@@ -34,11 +30,7 @@ class DistrictOfficersController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //add new district officer in the system
     public function create(Request $request)
     {
         $user = new User;
@@ -69,12 +61,11 @@ class DistrictOfficersController extends Controller
             return response(['message' => 'A new district Officer successfully registered!', 
                'data'=> $user, $role]);
 
-      
         }
+    }
 
-}
-
-public function getWardsinDistrict($id){
+    //get wards in a district
+    public function getWardsinDistrict($id){
          $wards = Ward::query()
          ->where('district_id', $id)
          ->addSelect([
@@ -123,82 +114,53 @@ public function getWardsinDistrict($id){
             'total_students_in_ward' => $wards->sum('total_students'),
             'total_schools' => $wards->count()
         ]);
-}
+    }
 
-public function getWardOfficerinDistrict($id){
+    //get Ward Officers in District
+    public function getWardOfficerinDistrict($id){
     //this will be the id of the district available
-     $district = District::where('id', $id)->first();
-     $district_id = $district->id;
-     $wards = Ward::where('district_id', $district_id)->get();
-    foreach($wards as $ward){
-      $ward = $ward->id;
-      $users = Officers_Wards::where('ward_id', $ward)->get();
-    
-    foreach($users as $user){
-        $user = $user->user_id;
-        $wardOfficers = User::where('id', $user)->whereHas( 
-        'roles' , 
-        fn($query) =>
-        $query->where('name', 'isWardOfficer')
-        )->get();
+        $district = District::where('id', $id)->first();
+        $district_id = $district->id;
+        $wards = Ward::where('district_id', $district_id)->get();
+        foreach($wards as $ward){
+        $ward = $ward->id;
+        $users = Officers_Wards::where('ward_id', $ward)->get();
+        
+        foreach($users as $user){
+            $user = $user->user_id;
+            $wardOfficers = User::where('id', $user)->whereHas( 
+            'roles' , 
+            fn($query) =>
+            $query->where('name', 'isWardOfficer')
+            )->get();
+            }
+            return $wardOfficers;
         }
-        return $wardOfficers;
-    }
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $districtOfficer = User::find($id);
         return response()->json($districtOfficer);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

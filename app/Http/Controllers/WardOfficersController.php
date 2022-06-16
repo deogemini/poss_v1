@@ -15,11 +15,7 @@ use PDO;
 
 class WardOfficersController extends Controller
 {
-    /**
-     * Display a listing of the headTeacher in sameward.
-     *
-     * @return \Illuminate\Http\Response
-     */
+//get all users with the role of isWardOfficer
     public function index()
     {
         $wardOfficers = User::with('wards')
@@ -32,11 +28,7 @@ class WardOfficersController extends Controller
     return response()->json(['wardOfficers' => $wardOfficers]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //add new user in the system with the role of isWardOfficer
     public function create(Request $request)
     {
         $user = new User;
@@ -69,40 +61,9 @@ class WardOfficersController extends Controller
         }
     }
 
-    
+    // get all schools in a given ward
     public function getSchoolsinWard($id){
-        //this will be the id of ward
-    
-        // $array_student = [];
-        // $schools = School::all()->where('ward_id', $id);
-        // foreach($schools as $school){
-        //  $school_id = $school->id;
-        //  $grades = Grade::all()->where('school_id', $school_id);
-        //  foreach($grades as $grade){
-        //     $grade_id = $grade->id;
-        //     $streams = Stream::all()->where('grade_id', $grade_id);
-        //      foreach($streams as $stream){
-        //          $stream_id = $stream->id;
-        //          $students = Student::all()->where('stream_id', $stream_id);
-        //          foreach($students as $student){
-        //             $total_students = array_push($array_student, $student);
-        //             $boys = Student::all()->where('gender' ,$student->gender = 'male');
-        //             $girls = Student::all()->where('gender' ,$student->gender = 'female');
-        //          }
-        //       }
-        //  }
-        // }
-
-        // $schoolsTotal = School::where('ward_id',$id)->count();
-        // return response(['message' => 'schools in wards', 
-        //         'schools'=>$schools,
-        //         'total students'=> $total_students, 
-        //         'total boys'=>$boys->count(),
-        //         'total girls' => $girls->count(),
-        //         'totals schools' => $schoolsTotal]);
-
-
-        $schools = School::query()
+         $schools = School::query()
         ->where('ward_id',$id)
         ->addSelect([
             'total_students' => Student::selectRaw('count(*)')
@@ -141,7 +102,7 @@ class WardOfficersController extends Controller
     ]);
        
     }
-
+//get headTeachers in ward 
     public function getHeadTeachersinWard($id){
     //this will be the id of the school available in that ward
         $schools = School::where('ward_id',$id)->get(); 
@@ -162,58 +123,27 @@ class WardOfficersController extends Controller
     }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $wardOfficer = User::find($id);
         return response()->json($wardOfficer);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

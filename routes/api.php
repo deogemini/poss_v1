@@ -141,6 +141,7 @@ Route::get('/getSpecificWardOfficer/{ward_id}', [WardOfficersController::class, 
 
 //-------------starting of apis for management of HeadTeachers------------------------------
 Route::get('/getHeadTeachers', [HeadTeacherController::class, 'index']);
+Route::get('/getAttendance/{grade_id}/{date}', [AttendanceController::class, 'getAttendanceReport']);
 Route::get('/getSpecificHeadTeacher/{headTeacher_id}', [HeadTeacherController::class, 'show']);
 Route::get('/getTeachers/{school_id}', [HeadTeacherController::class, 'getTeachersinSchool']);
 Route::get('/getTeachersOnDuty/{school_id}', [HeadTeacherController::class, 'getTeachersOnDutyinSchool']);

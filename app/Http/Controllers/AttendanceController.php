@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\AttendanceStudent;
 use App\Models\AttendanceTeacher;
+use App\Models\Stream;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 // use App\Http\Controllers\Str;
 
 class AttendanceController extends Controller
@@ -46,15 +50,29 @@ class AttendanceController extends Controller
 
         $att_checker = Attendance::where('status', $status)->first();
         $attendance = $att_checker->id;
-
+        
+        $actual_student =  Student::where('id', $attendanceStudent)->get();
+        foreach($actual_student as $student){
+         $stream_id = $student->stream_id;
+         $actual_stream = Stream::where('id', $stream_id)->get();
+         foreach($actual_stream as $stream){
+             $grade_id = $stream->grade_id;
+         }         
+        }
         $attendanceStudent = AttendanceStudent::insert([
             'attendance_id' => $attendance,
-            'student_id' => $attendanceStudent
+            'student_id' => $attendanceStudent,
+            'grade_id' => $grade_id,
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
 
         $attendanceUser = AttendanceTeacher::insert([
             'user_id' => $attendanceUser,
-            'attendance_id' => $attendance
+            'attendance_id' => $attendance,
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+            
         ]);
 
 
@@ -69,7 +87,6 @@ class AttendanceController extends Controller
         // $remark->save();
        }
        
-
        
         return response(['message' => 'A new attendance successfully registered!', 
                'data'=> $attendance]);
@@ -90,6 +107,25 @@ class AttendanceController extends Controller
             );
 
         return Attendance::create($request -> all());
+    }
+
+
+    public function getAttendanceReport($grade_id, $date){
+       // {{ date('d-m-Y', strtotime($date)) }}
+       $attendance_in_time = AttendanceStudent::where('created_at', 'LIKE', $date.'%')->get();
+       return $attendance_in_time;
+
+    //    count students with grade($grade_id)and the attendance status is present
+    //    count students with grade($grade_id)and the attendance status is Absent
+    //    count students where gender is male in grade($grade_id) and the attedance status is present
+    //    count students where gender is male in grade($grade_id) and the attedance status is absent
+    //    count students where gender is female in grade($grade_id) and the attedance status is present
+    //    count students where gender is female in grade($grade_id) and the attedance status is absent
+
+  
+    //    tables 
+    //    grades->streams->students->       attendance_student, attendance 
+    
     }
 
     /**

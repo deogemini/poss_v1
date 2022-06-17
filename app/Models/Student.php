@@ -18,9 +18,9 @@ class Student extends Model
      /**
      * The students that belong to the attendance.
      */
-    public function attendances()
+    public function attendanceStudent()
     {
-        return $this->belongsToMany(Attendance::class);
+        return $this->belongsToMany(AttendanceStudent::class);
     }
 
      /**

@@ -28,25 +28,25 @@ class TeacherController extends Controller
 
 //get Grades in a given school
     public function getGrades($school_id){
-          $grades = Grade::query()
+        $grades = Grade::query()
         ->where('school_id',$school_id)
         ->addSelect([
             'total_students' => Student::selectRaw('count(*)')
                 ->whereIn(
                     'stream_id', 
-                    Stream::select('id')
+                    Stream::select('id')->whereColumn('grade_id', 'grades.id')
                 ),
             'total_boys' => Student::selectRaw('count(*)')
                 ->whereRaw('gender = "male"')
                 ->whereIn(
                     'stream_id', 
-                    Stream::select('id')
+                    Stream::select('id')->whereColumn('grade_id', 'grades.id')
                 ),
             'total_girls' => Student::selectRaw('count(*)')
                 ->whereRaw('gender = "female"')
                 ->whereIn(
                     'stream_id', 
-                    Stream::select('id')
+                    Stream::select('id')->whereColumn('grade_id', 'grades.id')
                 )      
         ])->get();
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\School_Teachers;
 use App\Models\Stream;
+use App\Models\Student;
 
 class TeacherController extends Controller
 {
@@ -27,22 +28,29 @@ class TeacherController extends Controller
 
 //get Grades in a given school
     public function getGrades($school_id){
-        $grades = Grade::where('school_id', $school_id)->get();
-        foreach ($grades as $grade){
-            $grade_id = $grade->id;
+          $grades = Grade::query()
+        ->where('school_id',$school_id)
+        ->addSelect([
+            'total_students' => Student::selectRaw('count(*)')
+                ->whereIn(
+                    'stream_id', 
+                    Stream::select('id')
+                ),
+            'total_boys' => Student::selectRaw('count(*)')
+                ->whereRaw('gender = "male"')
+                ->whereIn(
+                    'stream_id', 
+                    Stream::select('id')
+                ),
+            'total_girls' => Student::selectRaw('count(*)')
+                ->whereRaw('gender = "female"')
+                ->whereIn(
+                    'stream_id', 
+                    Stream::select('id')
+                )      
+        ])->get();
 
-        $streams  = Stream::where('grade_id', $grade_id)->with('school')->get();
-        return response()->json(['grade'=>$grades, 'streams' =>$streams]);
- 
-        }
-
-        $grades = Grade::where('school_id', $school_id)->get();
-        foreach ($grades as $grade){
-            $grade_id = $grade->id;
-            $streams  = Stream::where('grade_id', $grade_id)->get();
-            return response()->json(['grade'=>$grades, 'streams' =>$streams]);
-
-        }
+        return response()->json(['grades'=>$grades]);
 
     }
 

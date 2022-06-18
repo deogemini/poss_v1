@@ -111,22 +111,57 @@ class AttendanceController extends Controller
 
 
     public function getAttendanceReport($grade_id, $date){
-       // {{ date('d-m-Y', strtotime($date)) }}
-       $attendance_in_time = AttendanceStudent::where('created_at', 'LIKE', $date.'%')->get();
-       return $attendance_in_time;
+       $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                    ->where('grade_id', $grade_id)
+                                    ->where('attendance_id' , "1")
+                                    ->addSelect([
+                            'total_present_student' => Student::selectRaw('count(*)')
+                                    ->whereIn(
+                                    'student_id',
+                                    Student::select('id')),
+                            'total_present_boys' => Student::selectRaw('count(*)')
+                                    ->whereRaw('gender = "male"')
+                                    ->whereIn(
+                                    'student_id',
+                                    Student::select('id')),
+                            'total_present_girls' => Student::selectRaw('count(*)')
+                                    ->whereRaw('gender = "female"')
+                                    ->whereIn(
+                                    'student_id',
+                                    Student::select('id'))
+                                    ])->get();
 
+       $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                    ->where('grade_id', $grade_id)
+                                    ->where('attendance_id' , "2")
+                                    ->addSelect([
+                            'total_absent_student' => Student::selectRaw('count(*)')
+                                     ->whereIn(
+                                         'student_id',
+                                         Student::select('id')),
+                            'total_absent_boys' => Student::selectRaw('count(*)')
+                                    ->whereRaw('gender = "male"')
+                                    ->whereIn(
+                                         'student_id',
+                                         Student::select('id')),
+                            'total_absent_girls' => Student::selectRaw('count(*)')
+                                    ->whereRaw('gender = "female"')
+                                    ->whereIn(
+                                         'student_id',
+                                         Student::select('id'))
+                                         ])->get();
+
+                        return response()->json(['message'=>'Attendance Report in Grade',
+                                                 'Present' => $attendance_fetched_present,
+                                                 'Absent' => $attendance_fetched_absent ]);
+                                    }                                             
     //    count students with grade($grade_id)and the attendance status is present
     //    count students with grade($grade_id)and the attendance status is Absent
     //    count students where gender is male in grade($grade_id) and the attedance status is present
     //    count students where gender is male in grade($grade_id) and the attedance status is absent
     //    count students where gender is female in grade($grade_id) and the attedance status is present
     //    count students where gender is female in grade($grade_id) and the attedance status is absent
-
-  
-    //    tables 
-    //    grades->streams->students->       attendance_student, attendance 
     
-    }
 
     /**
      * Display the specified resource.

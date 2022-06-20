@@ -111,49 +111,109 @@ class AttendanceController extends Controller
 
 
     public function getAttendanceReport($grade_id, $date){
-       $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        $Array_Student = [];
+        $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                     ->where('grade_id', $grade_id)
-                                    ->where('attendance_id' , "1")
-                                    ->addSelect([
-                            'total_present_student' => Student::selectRaw('count(*)')
-                                    ->whereIn(
-                                    'student_id',
-                                    Student::select('id')),
-                            'total_present_boys' => Student::selectRaw('count(*)')
-                                    ->whereRaw('gender = "male"')
-                                    ->whereIn(
-                                    'student_id',
-                                    Student::select('id')),
-                            'total_present_girls' => Student::selectRaw('count(*)')
-                                    ->whereRaw('gender = "female"')
-                                    ->whereIn(
-                                    'student_id',
-                                    Student::select('id'))
-                                    ])->get();
+                                    ->where('attendance_id' , "1")->get();
+        $total_present_student = $attendance_fetched_present->count();
+                          
+                                    foreach($attendance_fetched_present as $presentStatus){ 
+                                        $student_id = $presentStatus->student_id;
+                                         $boys_present = Student::where('id',$student_id)->where('gender', 'male')->get();
+                                         $total_boys_present = $boys_present->count();
+                                         $girls_present = Student::where('id',$student_id)->where('gender', 'female')->get();
+                                         $total_girls_present = $girls_present->count();
+                                    }
 
-       $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-                                    ->where('grade_id', $grade_id)
-                                    ->where('attendance_id' , "2")
-                                    ->addSelect([
-                            'total_absent_student' => Student::selectRaw('count(*)')
-                                     ->whereIn(
-                                         'student_id',
-                                         Student::select('id')),
-                            'total_absent_boys' => Student::selectRaw('count(*)')
-                                    ->whereRaw('gender = "male"')
-                                    ->whereIn(
-                                         'student_id',
-                                         Student::select('id')),
-                            'total_absent_girls' => Student::selectRaw('count(*)')
-                                    ->whereRaw('gender = "female"')
-                                    ->whereIn(
-                                         'student_id',
-                                         Student::select('id'))
-                                         ])->get();
+        $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                        ->where('grade_id', $grade_id)
+                                        ->where('attendance_id' , "2");
 
-                        return response()->json(['message'=>'Attendance Report in Grade',
-                                                 'Present' => $attendance_fetched_present,
-                                                 'Absent' => $attendance_fetched_absent ]);
+        $total_absent_student = $attendance_fetched_absent->count();
+
+                                          foreach($attendance_fetched_absent as $absentStatus){
+                                            $student_id = $absentStatus->student_id;
+                                            $boys_absent = Student::where('id',$student_id)::where('gender', 'male')->get();
+                                            $total_boys_absent = $boys_absent->count();
+                                            $girls_absent = Student::where('id',$student_id)::where('gender', 'male')->get();
+                                            $total_girls_absent = $girls_absent->count();
+                                    }
+                                 
+                                  
+                            //         ->addSelect([
+                            // 'total_present_student' => Student::selectRaw('count(*)')
+                            //         ->whereIn(
+                            //         'student_id',
+                            //         Stream::select('id')->where('grade_id', $grade_id)),
+                            // 'total_present_boys' => Student::selectRaw('count(*)')
+                            //         ->whereRaw('gender = "male"')
+                            //         ->whereIn(
+                            //         'student_id',
+                            //         Student::select('id')->where('grade_id', $grade_id)),
+                            // 'total_present_girls' => Student::selectRaw('count(*)')
+                            //         ->whereRaw('gender = "female"')
+                            //         ->whereIn(
+                            //         'student_id',
+                            //         Student::select('id')->where('grade_id', $grade_id))
+                            //         ])->get();
+
+   
+    //                                 }
+                            //         ->addSelect([
+                            // 'total_absent_student' => Student::selectRaw('count(*)')
+                            //          ->whereIn(
+                            //              'student_id',
+                            //              Student::select('id')->where('grade_id', $grade_id)),
+                            // 'total_absent_boys' => Student::selectRaw('count(*)')
+                            //         ->whereRaw('gender = "male"')
+                            //         ->whereIn(
+                            //              'student_id',
+                            //              Student::select('id')->where('grade_id', $grade_id)),
+                            // 'total_absent_girls' => Student::selectRaw('count(*)')
+                            //         ->whereRaw('gender = "female"')
+                            //         ->whereIn(
+                            //              'student_id',
+                            //              Student::select('id')->where('grade_id', $grade_id))
+                            //              ])->get();
+
+                        // return response()->json(['message'=>'Attendance Report in Grade',
+                        //                          'Present' => $attendance_fetched_present,
+                        //                          'Absent' => $attendance_fetched_absent ]);
+
+
+                                                 $present_student_arr = [];
+                                                 $absent_student_arr = [];
+                                             
+                                                 foreach ($attendance_fetched_present as $present) {
+                                                     $present_student_arr[] = array(
+                                                         'total_present_students' => $present[$total_present_student],
+                                                         'total_boys_present' => $present[$total_boys_present],
+                                                         'total_girls_present' => $present[$total_girls_present],
+                                                        //  'created_at' => $present['created_at'],
+                                                     );
+                                                 }
+                                             
+                                                 foreach ($attendance_fetched_absent as $absent) {
+                                                     $absent_student_arr[] = array(
+                                                         'total_absent_students' => $absent[$total_absent_student],
+                                                         'total_boys_absent' => $absent[$total_boys_absent],
+                                                         'total_girls_absent' => $absent[$total_girls_absent],
+                                                        //  'created_at' => $present['created_at'],
+                                                     );
+                                                 }
+                                             
+                                             
+                                             
+                                                 return response()->json(['message'=>'Attendance Report in Grade',
+                                                                                          'Present' => $present_student_arr,
+                                                                                          'Absent' => $absent_student_arr ]);
+
+
+
+
+
+
+
                                     }                                             
     //    count students with grade($grade_id)and the attendance status is present
     //    count students with grade($grade_id)and the attendance status is Absent

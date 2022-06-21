@@ -15,12 +15,12 @@ class AttendanceTeacherSeeder extends Seeder
     public function run()
     {
         DB::table('attendance_user')->insert([[
-            "user_id" => "3",
+            "user_id" => "1",
             'attendance_id'=> "1",
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],[
-        "user_id" => "2",
+        "user_id" => "1",
         'attendance_id'=> "2",
         'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
         'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')

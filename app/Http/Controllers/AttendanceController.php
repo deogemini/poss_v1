@@ -121,14 +121,12 @@ class AttendanceController extends Controller
         $attendance_fetched = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                     ->where('grade_id', $grade_id)->get();
         $total_students = $attendance_fetched->count();
-
         //total present students fetched
         $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                     ->where('grade_id', $grade_id)
                                     ->where('attendance_id' , "1")->get();
         //total present students are counted
          $total_present_student = $attendance_fetched_present->count();
-     
          //starting to get total boys and girls and counting them here
                                     foreach($attendance_fetched_present as $presentStatus){ 
                                         $student_id = $presentStatus->student_id;
@@ -146,9 +144,8 @@ class AttendanceController extends Controller
         $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                         ->where('grade_id', $grade_id)
                                         ->where('attendance_id' , "2")->get();
-          //total absent students are counted                               
+        //total absent students are counted                               
         $total_absent_student = $attendance_fetched_absent->count();
-        
         //starting to get total boys and girls and counting them here
                             foreach($attendance_fetched_absent as $absentStatus){ 
                                         $student_id = $absentStatus->student_id;
@@ -163,9 +160,6 @@ class AttendanceController extends Controller
                                          }
                                         
                                     }
-
-        
-
         return response()->json(['message'=>'Attendance Report in Grade',
                                             'Total Students' => $total_students,
                                             'Present' => $total_present_student,

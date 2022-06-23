@@ -128,56 +128,57 @@ class AttendanceController extends Controller
         //total present students are counted
          $total_present_student = $attendance_fetched_present->count();
          //starting to get total boys and girls and counting them here
-                                    foreach($attendance_fetched_present as $presentStatus){ 
-                                        $student_id = $presentStatus->student_id;
-                                         $boys_present = Student::where('id',$student_id)->where('gender', 'male')->get();
-                                         foreach($boys_present as $presentboy){
-                                            $Array_student_boys_present[] = $presentboy->id;
-                                         }
-                                         $girls_present = Student::where('id',$student_id)->where('gender', 'female')->get();
-                                         foreach($girls_present as $presentGirl){
-                                            $Array_student_girls_present[] = $presentGirl->id;
-                                         }
-                                        
-                                    }
+
+         //male
+         $male_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                    ->where('grade_id', $grade_id)
+                                    ->where('attendance_id' , "1")
+                                    ->whereHas('student' , function($query){
+                                        return $query->where('gender', 'male');
+                                    })
+                                    ->count();
+
+        $female_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                    ->where('grade_id', $grade_id)
+                                    ->where('attendance_id' , "1")
+                                    ->whereHas('student' , function($query){
+                                        return $query->where('gender', 'female');
+                                    })
+                                    ->count();
 
         $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                         ->where('grade_id', $grade_id)
                                         ->where('attendance_id' , "2")->get();
         //total absent students are counted                               
         $total_absent_student = $attendance_fetched_absent->count();
-        //starting to get total boys and girls and counting them here
-                            foreach($attendance_fetched_absent as $absentStatus){ 
-                                        $student_id = $absentStatus->student_id;
-                                         $boys_absent = Student::where('id',$student_id)->where('gender', 'male')->get();
-                                         foreach($boys_absent as $absentboy){
-                                            $Array_student_boys_absent[] = $absentboy->id;
-                                         }
-                                         
-                                         $girls_absent = Student::where('id',$student_id)->where('gender', 'female')->get();
-                                         foreach($girls_absent as $absentgirl){
-                                            $Array_student_girls_absent[] = $absentgirl->id;
-                                         }
-                                        
-                                    }
+
+        $male_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        ->where('grade_id', $grade_id)
+        ->where('attendance_id' , "2")
+        ->whereHas('student' , function($query){
+            return $query->where('gender', 'male');
+        })
+        ->count();
+
+        $female_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                ->where('grade_id', $grade_id)
+                ->where('attendance_id' , "2")
+                ->whereHas('student' , function($query){
+                    return $query->where('gender', 'female');
+                })
+                ->count();
+    
         return response()->json(['message'=>'Attendance Report in Grade',
                                             'Total Students' => $total_students,
                                             'Present' => $total_present_student,
-                                           'Total_boys_present' => count($Array_student_boys_present),
-                                            'Total_girls_present' => count($Array_student_girls_present),
+                                           'Total_boys_present' => $male_present,//count($Array_student_boys_present),
+                                            'Total_girls_present' => $female_present,//count($Array_student_girls_present),
                                             'Absent' => $total_absent_student,
-                                            'Total_boys_absent' => count($Array_student_boys_absent),
-                                            'Total_girls_absent' => count($Array_student_girls_absent)
+                                            'Total_boys_absent' => $male_absent,
+                                            'Total_girls_absent' => $female_absent
                                          ]);
                                  } 
                                                                                                                         
-    //    count students with grade($grade_id)and the attendance status is present
-    //    count students with grade($grade_id)and the attendance status is Absent
-    //    count students where gender is male in grade($grade_id) and the attedance status is present
-    //    count students where gender is male in grade($grade_id) and the attedance status is absent
-    //    count students where gender is female in grade($grade_id) and the attedance status is present
-    //    count students where gender is female in grade($grade_id) and the attedance status is absent
-    
 
     /**
      * Display the specified resource.

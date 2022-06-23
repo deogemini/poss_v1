@@ -119,4 +119,65 @@ class AuthController extends Controller
     
 }
 
+
+public function webLogin(Request $request){
+    $loginData = $request->validate([
+        'email' => 'email|required',
+        'password' => 'required'
+    ]);
+
+    $email = $request->email;
+    $user = User::where('email', $email)->first();
+    $user_id = $user->id;
+    $role_user = RoleUser::where('user_id', $user_id)->first();
+    $teacher_user = School_Teachers::where('user_id', $user_id)->first();
+    $district_officer = Officers_Districts::where('user_id', $user_id)->first();
+    $ward_officer = Officers_Wards::where('user_id', $user_id)->first();
+
+// starting to check and create token while login
+    $token = $user->api_token;
+    if($token){
+        $token = $user->api_token;
+    }else{
+          $token = Str::random(60);
+          $user->api_token= $token;
+          $user->save();
+          
+    }
+//ending to check and create token while login
+    
+// to check if user  is teacher and get school_id
+   if($teacher_user){
+        $school_id = $teacher_user->school_id;
+        $id = $school_id;
+    }
+    // to check if user  isdistrict officer and get district_id
+    if($district_officer){
+      $district_id = $district_officer->district_id;
+      $id = $district_id;
+    }
+//to check if user  isward officer and get district_id
+    if($ward_officer){
+        $ward_id = $ward_officer->ward_id;
+        $id = $ward_id;
+
+    }
+    if($role_user){
+    $role = $role_user->Role->name; 
+    
+    }
+    if(auth()->attempt($loginData)){            
+        return view('dashboard.dashboard');
+    }else{
+
+
+        //  function to remove the role of teacher on duty
+
+$response = ['message' => 'Invalid credentials !'];
+return response($response, 401);
+    }
+
+
+}
+
 }

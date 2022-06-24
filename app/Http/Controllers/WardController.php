@@ -12,9 +12,8 @@ class WardController extends Controller
      public function index()
     {  
         $wards = Ward::all();
-        foreach($wards as $ward){
-            echo $ward;
-        }
+        return response()->json($wards);
+        
         
     }
 

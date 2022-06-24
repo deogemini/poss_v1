@@ -14,9 +14,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-       foreach($roles = Role::all() as $role){
-           echo $role;
-       }
+       $roles = Role::all();
+           return response()->json($roles);
     }
 
     /**

@@ -16,9 +16,7 @@ class UserController extends Controller
     {
 
         $users = User::all();
-     foreach($users as $user){
-            echo $user;
-        }
+        return response()->json($users);
 
     }
 

@@ -14,9 +14,7 @@ class StreamController extends Controller
     public function index()
     {
         $streams = Stream::all();   
-        foreach($streams as $stream){
-        echo $stream;
-        }
+        return response()->json($streams);
     }
 
     /**

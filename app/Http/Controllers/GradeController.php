@@ -16,10 +16,9 @@ class GradeController extends Controller
     {
         
         $grades = Grade::all();
-        foreach($grades as $grade){
-            echo $grade;
+        return response()->json($grades);
 
-        }
+        
     }
 
     /**

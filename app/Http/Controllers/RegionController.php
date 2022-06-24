@@ -16,9 +16,8 @@ class RegionController extends Controller
     public function index()
     {
         $regions = Region::all();
-        foreach($regions as $region){
-            echo $region;
-        }
+       return response()->json($regions);
+        
     }
 
     /** 

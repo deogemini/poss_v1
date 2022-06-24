@@ -18,10 +18,7 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
-        foreach($students as $student){
-            echo $student;
-
-        }
+        return response()->json($students);
         
     }
 

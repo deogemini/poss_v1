@@ -175,7 +175,8 @@ class AttendanceController extends Controller
                                             'Total_girls_present' => $female_present,//count($Array_student_girls_present),
                                             'Absent' => $total_absent_student,
                                             'Total_boys_absent' => $male_absent,
-                                            'Total_girls_absent' => $female_absent
+                                            'Total_girls_absent' => $female_absent,
+                                            'Date' => $date
                                          ]);
                                  } 
                                                                                                                         

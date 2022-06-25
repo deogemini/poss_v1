@@ -60,14 +60,22 @@ class AttendanceController extends Controller
              $grade_id = $stream->grade_id;
          }         
         }
-        $attendanceStudent = AttendanceStudent::insert([
-            'attendance_id' => $attendance,
-            'student_id' => $attendanceStudent,
-            'grade_id' => $grade_id,
-            'created_at'=> Carbon::now(),
-            'updated_at'=> Carbon::now(),
-        ]);
+      
 
+        $date = Carbon::now()->format('Y-m-d');
+        $record_check_attendance_student = AttendanceStudent::where('updated_at', 'LIKE', '%'.$date.'%')->where('attendance_id', $attendance)->where('grade_id', $grade_id)->where('student_id', $attendanceStudent)->get();
+        if(count($record_check_attendance_student) > 1){
+            return response()->json(['message'=>"This attendance record has been already saved"]);
+        }else{
+            $attendanceStudent = AttendanceStudent::insert([
+                'attendance_id' => $attendance,
+                'student_id' => $attendanceStudent,
+                'grade_id' => $grade_id,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ]);
+    
+        }
        
         $attendanceUser = AttendanceTeacher::insert([
             'user_id' => $attendanceUser,
@@ -82,8 +90,6 @@ class AttendanceController extends Controller
         // $remark->remark = "dhcsdjcs";
         // $remark->save();
        }
-       
-       
         return response(['message' => 'A new attendance successfully recorded!', 
                'data'=> $attendance]);
     }

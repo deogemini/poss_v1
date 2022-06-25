@@ -68,6 +68,7 @@ class AttendanceController extends Controller
             'updated_at'=> Carbon::now(),
         ]);
 
+       
         $attendanceUser = AttendanceTeacher::insert([
             'user_id' => $attendanceUser,
             'attendance_id' => $attendance,
@@ -75,13 +76,7 @@ class AttendanceController extends Controller
             'updated_at'=> Carbon::now(),
             
         ]);
-
-
-
-
         }
-
-
         // $remark = new Remark;
         // $remark->attendance_id =  $attendanceUser;
         // $remark->remark = "dhcsdjcs";
@@ -89,7 +84,7 @@ class AttendanceController extends Controller
        }
        
        
-        return response(['message' => 'A new attendance successfully registered!', 
+        return response(['message' => 'A new attendance successfully recorded!', 
                'data'=> $attendance]);
     }
 

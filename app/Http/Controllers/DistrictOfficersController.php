@@ -112,6 +112,8 @@ class DistrictOfficersController extends Controller
             'message' => 'wards in district',
             'wards' => $wards,
             'total_students_in_ward' => $wards->sum('total_students'),
+            'total_boys_in_ward' => $wards->sum('total_boys'),
+            'total_girls_in_ward' => $wards->sum('total_girls'),
             'total_schools' => $wards->count()
         ]);
     }

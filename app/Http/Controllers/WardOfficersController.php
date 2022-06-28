@@ -98,6 +98,8 @@ class WardOfficersController extends Controller
         'message' => 'schools in wards',
         'schools' => $schools,
         'total_students_in_ward' => $schools->sum('total_students'),
+        'total_boys_in_ward' => $schools->sum('total_boys'),
+        'total_girls_in_ward' => $schools->sum('total_girls'),
         'total_schools' => $schools->count()
     ]);
        

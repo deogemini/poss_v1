@@ -50,7 +50,14 @@ class TeacherController extends Controller
                 )      
         ])->get();
 
-        return response()->json(['grades'=>$grades]);
+        return response()->json([
+            'message' => 'grades in school',
+            'grades' => $grades,
+            'total_students_in_school' => $grades->sum('total_students'),
+            'total_boys_in_school' => $grades->sum('total_boys'),
+            'total_girls_in_school' => $grades->sum('total_girls'),
+            'total_grades' => $grades->count()
+        ]);
 
     }
 

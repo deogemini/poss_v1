@@ -22,5 +22,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/login', [AuthController::class, 'webLogin'])->name('webLogin');
+Route::post('/dashboard', [AuthController::class, 'webLogin'])->name('webLogin');
+Route::get('/privacy_policy', function () {
+    return view('/privacy_policy');
+});
 

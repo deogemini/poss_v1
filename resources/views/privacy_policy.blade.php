@@ -19,7 +19,7 @@
 <div class="container">
 <h1>PRIVACY POLICY</h1>
 <p>
-This Privacy policy explains our practices, including regarding your  use, and disclosure of certain information, including your information in connection with the Poss application.Occasionally Poss is implemented into an environment where it is integrated with a Student Information System or Learning Management System . These integrations are to monitor attendance of secondary students by the teachers and may require your personal information to ensure accounts in each system are synchronized
+This Privacy policy explains our practices regarding your usage and disclosure of certain information in connection with the Poss application.Occasionally Poss is implemented into an environment where it is integrated with a Student Information System or Learning Management System . These integrations are to monitor attendance of secondary students by the teachers and may require your personal information to ensure accounts in each system are synchronized
 </p>
 <h2>Security</h2>
 <p>We use reasonable administrative, logical, physical and managerial measures to safeguard your personal information against loss, theft and unauthorized access, use and modification. These measures are designed to provide a level of security appropriate to the risks of processing your personal information.</p>

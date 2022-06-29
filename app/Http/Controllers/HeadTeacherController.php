@@ -68,7 +68,7 @@ class HeadTeacherController extends Controller
                 'schools' , fn($query) =>
                 $query->where('id', $id))->get();
 
-    return response()->json(['teachers' =>$teachersOnDuty]);
+    return response()->json(['teachersOnDuty' =>$teachersOnDuty]);
 
     }
 

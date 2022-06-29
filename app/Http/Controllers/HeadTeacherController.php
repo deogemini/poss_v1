@@ -39,9 +39,6 @@ class HeadTeacherController extends Controller
                     $query->where('id', $id))->get();
 
         return response()->json(['teachers' =>$teachers]);
-       
-       
-
     }
 
     
@@ -127,7 +124,7 @@ class HeadTeacherController extends Controller
         $user = User::find($id);
         $user->roles()->sync(2); 
         $user->save();
-        return response(['message' => 'A new TeacherOnDuty has been successfully removed!',
+        return response(['message' => 'A Teacher On Duty has been successfully removed!',
          'data'=> $user]);
     }
 

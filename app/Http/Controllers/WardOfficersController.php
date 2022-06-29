@@ -106,11 +106,21 @@ class WardOfficersController extends Controller
     }
 //get headTeachers in ward 
     public function getHeadTeachersinWard($id){
+    //     $headTeachers = User::whereHas(
+    //         'roles' , fn($query) =>
+    //         $query->where('name', 'isHeadTeacher'))->
+    //         whereHas(
+    //             'wards' , fn($query) =>
+    //             $query->where('id', $id))->get();
+
+    //  return response()->json(['headTeachers' => $headTeachers]);
     //this will be the id of the school available in that ward
         $schools = School::where('ward_id',$id)->get(); 
+        // $headTeachers =[];
         foreach($schools as $school){
             $school = $school->id;
         $users = School_Teachers::where('school_id', $school)->get();
+       
     
         foreach($users as $user){
             $headTeachers = User::where('id',$user->user_id)

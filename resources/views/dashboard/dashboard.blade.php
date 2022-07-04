@@ -8,7 +8,7 @@
                 <div class="card border-primary">
                     <div class="card-body">
                         <div class="card-title">Schools</div>
-                        <p class="card-text">{{ \App\Models\School::all()->count() }}</p>
+                        <p class="card-text">{{ \App\Models\School::all()->count() }} Schools</p>
                         
                     </div>
                     <!-- <div class="icon">
@@ -21,7 +21,7 @@
                 <div class="card border-secondary">
                     <div class="card-body">
                         <div class="card-title">Wards</div>
-                        <p class="card-text">{{ \App\Models\Ward::all()->count() }}</p>
+                        <p class="card-text">{{ \App\Models\Ward::all()->count() }}  Wards</p>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="card border-success">
                     <div class="card-body">
                         <div class="card-title">Districts</div>
-                        <p class="card-text">{{ \App\Models\District::all()->count() }}</p>
+                        <p class="card-text">{{ \App\Models\District::all()->count() }} Districts</p>
                         
                     </div>
                     <!-- <div class="icon">
@@ -41,7 +41,7 @@
                 <div class="card border-info">
                     <div class="card-body">
                         <div class="card-title">Students</div>
-                        <p class="card-text">{{ \App\Models\Student::all()->count() }}</p>
+                        <p class="card-text">{{ \App\Models\Student::all()->count() }}  Students</p>
                        
                     </div>
                     <!-- <div class="icon">

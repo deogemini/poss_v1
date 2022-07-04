@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card-group mb-0">
-          <form action="{{ url('/dashboard')}}" method="post">
+          <form action="{{ url('/login')}}" method="post">
             @csrf
           <div class="card p-4">
             <div class="card-body">

@@ -218,7 +218,7 @@ a.article:hover {
 
         <ul class="list-unstyled components">
         <li>
-                <a href="#"> 
+                <a href="{{ url ('/dashboard') }}"> 
                 <i class="fa fa-home" aria-hidden="true"></i>
                 <span>Home</span>
                 </a>

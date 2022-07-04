@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +22,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/dashboard', [AuthController::class, 'webLogin'])->name('webLogin');
+Route::post('/login', [AuthController::class, 'webLogin'])->name('webLogin');
+Route::get('/dashboard', [HomeController::class, 'index'])->name('index');
 Route::get('/logout', [AuthController::class, 'webLogout'])->name('webLogout');
 Route::get('/privacy_policy', function () {
     return view('/privacy_policy');

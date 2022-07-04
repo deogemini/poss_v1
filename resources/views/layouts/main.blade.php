@@ -218,11 +218,16 @@ a.article:hover {
 
         <ul class="list-unstyled components">
         <li>
-                <a href="#">Home</a>
+                <a href="#"> 
+                <i class="fa fa-home" aria-hidden="true"></i>
+                <span>Home</span>
+                </a>
             </li>
          
             <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Users</a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fa fa-users" aria-hidden="true"></i>
+<span>Users</span></a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li>
                         <a href="#">District Officers</a>
@@ -239,8 +244,12 @@ a.article:hover {
                 </ul>
             </li>
             <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Locations</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
+                <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fa fa-compass" aria-hidden="true"></i><span>
+                    Locations
+                </span>
+                </a>
+                <ul class="collapse list-unstyled" id="pageSubmenu1">
                     <li>
                         <a href="#">Regions</a>
                     </li>
@@ -256,17 +265,29 @@ a.article:hover {
                 </ul>
             </li>
             <li>
-                <a href="#">Students
+                <a href="#">
+                    <i class="fa fa-child" aria-hidden="true"></i>
+                    <span>Students</span>
                 </a>
             </li>
             <li>
-                <a href="#">Attendance Reports</a>
+                <a href="#">
+                <i class="fa fa-file"></i>
+                    <span>Attendance Reports
+                    </span>
+                    </a>
             </li>
             <li>
-            <a href="{{ url('/privacy_policy')}}">Privacy Policy</a>
+            <a href="{{ url('/privacy_policy')}}">
+            <i class="fa fa-user-secret" aria-hidden="true"></i>
+            <span>Privacy Policy</span>
+                </a>
             </li>
             <li>
-                <a href="{{ url('/logout') }}">Logout</a>
+                <a href="{{ url('/logout') }}">
+                <i class="fa fa-power-off" aria-hidden="true"></i>
+            <span>Logout</span>
+                    </a>
             </li>
         </ul>
 

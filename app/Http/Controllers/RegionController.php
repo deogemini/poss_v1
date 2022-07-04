@@ -19,6 +19,12 @@ class RegionController extends Controller
        return response()->json($regions);
         
     }
+    public function view()
+    {
+        $regions = Region::all();
+       return view('dashboard.region.index', compact('regions'));
+        
+    }
 
     /** 
      * Show the form for creating a new resource.

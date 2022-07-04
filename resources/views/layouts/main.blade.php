@@ -266,7 +266,7 @@ a.article:hover {
             <a href="{{ url('/privacy_policy')}}">Privacy Policy</a>
             </li>
             <li>
-                <a href="#">Logout</a>
+                <a href="{{ url('/logout') }}">Logout</a>
             </li>
         </ul>
 

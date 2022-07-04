@@ -91,6 +91,11 @@ class AuthController extends Controller
 
      }
 
+     public function webLogout(Request $request) {
+        Auth::logout();
+        return redirect('/');
+      }
+
 
 //to create new user
     public function register(Request $request){

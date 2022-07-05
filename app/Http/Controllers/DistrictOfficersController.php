@@ -6,6 +6,7 @@ use App\Models\District;
 use App\Models\Officers_Districts;
 use App\Models\Officers_Wards;
 use App\Models\School;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Stream;
@@ -28,6 +29,25 @@ class DistrictOfficersController extends Controller
 
     return response()->json(['districtOfficers' => $districtOfficers]);
 
+    }
+
+    public function view()
+    {
+        $districtOfficers = User::with('districts')
+        ->whereHas(
+            'roles',
+            fn($query) => $query->where('name', 'isDistrictOfficer')
+        )
+        ->get();
+        // foreach($districtOfficers as $districtOfficer){
+        //     $district = $districtOfficer->districts;
+        // }
+        //  return $districtOfficers;
+        $districts =  District::all();
+        $regions =  Region::all();
+
+        return view('dashboard.districtOfficers.index', compact(['districtOfficers','districts', 'regions']));
+        
     }
 
     //add new district officer in the system

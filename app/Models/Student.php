@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
+
+    use \Znck\Eloquent\Traits\BelongsToThrough;
+
     use HasFactory;
     protected $fillable = [
         'student_name',
@@ -30,8 +33,14 @@ class Student extends Model
     {
         return $this->belongsTo(Stream::class);
     }
+    // public function school()
+    // {
+    //     return $this->belongsTo(School::class);
+    // }
 
     public function grade(){
         return $this->belongsToThrough(Grade::class, Stream::class );
     }
+ 
+  
 }

@@ -232,7 +232,7 @@ a.article:hover {
 <span>Users</span></a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li>
-                        <a href="#">District Officers</a>
+                        <a href="/districtOfficer">District Officers</a>
                     </li>
                     <li>
                         <a href="#">Ward Officers</a>
@@ -271,7 +271,7 @@ a.article:hover {
                 </a>
             </li>
             <li>
-                <a href="/schools">
+                <a href="/students">
                     <i class="fa fa-child" aria-hidden="true"></i>
                     <span>Students</span>
                 </a>

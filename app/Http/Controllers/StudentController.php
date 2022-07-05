@@ -79,6 +79,20 @@ class StudentController extends Controller
         
     }
 
+    public function view()
+    {
+        $students = Student::all();
+        $schools = School::all();
+        $streams = Stream::all();
+        $grades = Grade::all();
+        // $wards = Ward::all();
+        // $districts =  District::all();
+        // $regions =  Region::all();
+
+        return view('dashboard.student.index', compact(['students', 'streams','grades','schools']));
+        
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -25,6 +25,10 @@ class School extends Model
     public function streams(){
         return $this->hasManyThrough(Stream::class, Grade::class);
     }
+
+    public function ward(){
+        return $this->belongsTo(Ward::class);
+    }
     
       /**
      * Get the users for the school.

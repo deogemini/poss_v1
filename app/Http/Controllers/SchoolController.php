@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\School;
+use App\Models\Ward;
+use App\Models\District;
+use App\Models\Region;
 use App\Models\Student;
 use App\Models\Stream;
 use App\Models\Grade;
@@ -64,6 +67,17 @@ return response()->json(['schools'=>$schools]); }
         $school->save();
         return response(['message' => 'A new school registered!', 'data'=>array('name'=>$school->name, 'educationLevel'=>$school->educationLevel, 'ward' => $school->ward_id)]);
 
+    }
+
+    public function view()
+    {
+        $schools = School::all();
+        $wards = Ward::all();
+        $districts =  District::all();
+        $regions =  Region::all();
+
+        return view('dashboard.school.index', compact(['schools','wards', 'districts', 'regions']));
+        
     }
 
     /**

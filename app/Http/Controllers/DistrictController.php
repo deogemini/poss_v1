@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\District;
+use App\Models\Region;
 
 
 class DistrictController extends Controller
@@ -19,6 +20,16 @@ class DistrictController extends Controller
         return response()->json($districts);
         
     }
+    public function view()
+    {
+        $districts =  District::all();
+        $regions =  Region::all();
+
+        return view('dashboard.district.index', compact(['districts', 'regions']));
+        
+    }
+
+
 
      /** 
      * Show the form for creating a new resource.

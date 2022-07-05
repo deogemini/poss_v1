@@ -256,18 +256,22 @@ a.article:hover {
                         <a href="/regions">Regions</a>
                     </li>
                     <li>
-                        <a href="#">Districts</a>
+                        <a href="/districts">Districts</a>
                     </li>
                     <li>
-                        <a href="#">Wards</a>
+                        <a href="/wards">Wards</a>
                     </li>
-                    <li>
-                        <a href="#"></a>
-                    </li>
+            
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="/schools">
+                    <i class="fa fa-school" aria-hidden="true"></i>
+                    <span>Schools</span>
+                </a>
+            </li>
+            <li>
+                <a href="/schools">
                     <i class="fa fa-child" aria-hidden="true"></i>
                     <span>Students</span>
                 </a>

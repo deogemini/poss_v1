@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\WardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +29,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/login', [AuthController::class, 'webLogin'])->name('webLogin');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('index');
 Route::get('/regions', [RegionController::class, 'view'])->name('view');
+Route::get('/districts', [DistrictController::class, 'view'])->name('view');
+Route::get('/wards', [WardController::class, 'view'])->name('view');
+Route::get('/schools', [SchoolController::class, 'view'])->name('view');
 Route::get('/logout', [AuthController::class, 'webLogout'])->name('webLogout');
 Route::get('/privacy_policy', function () {
     return view('/privacy_policy');

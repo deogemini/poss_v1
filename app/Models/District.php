@@ -24,6 +24,10 @@ class District extends Model
         return $this->hasMany(Ward::class);
      }
 
+     public function region(){
+        return $this->belongsTo(Region::class);
+     }
+
      
     public function districtOfficers()
     {

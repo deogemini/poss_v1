@@ -5,6 +5,7 @@
 <div class="row">
   <div class="col-md-8" style="margin-bottom: 10px ;">
     <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-role">Add Region</a>
+    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-role">Upload File</a>
   </div>
 </div>
 <div class="row">
@@ -47,18 +48,9 @@
             </tr>
           </tfoot>
         </table>
-
-
-
-
       </div>
     </div>
-
-
   </div>
-
-
-
 </div>
 
 

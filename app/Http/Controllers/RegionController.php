@@ -50,7 +50,10 @@ class RegionController extends Controller
             ]
             );
 
-            return Region::create($request -> all());
+         Region::create([
+            'name' => $request -> name]);
+     
+            return back()->with('msg', 'Region Added Successfully');
     }
 
     /**

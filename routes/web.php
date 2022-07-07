@@ -35,6 +35,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/login', [AuthController::class, 'webLogin'])->name('webLogin');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('index');
 Route::get('/regions', [RegionController::class, 'view'])->name('view');
+Route::post('/addRegion', [RegionController::class, 'store'])->name('store');
 Route::get('/districts', [DistrictController::class, 'view'])->name('view');
 Route::get('/wards', [WardController::class, 'view'])->name('view');
 Route::get('/schools', [SchoolController::class, 'view'])->name('view');

@@ -310,6 +310,15 @@ a.article:hover {
             </div>
             <a class="navbar-brand">PROTECTING OUR STUDENTS IN SCHOOL (POSS)</a>  
         </nav>
+        <section class="content">
+                @if (\Session::has('msg'))
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success alert-dismissible">{{ \Session('msg') }}</div>
+                        </div>
+                    </div>
+                @endif
+        </section>
 
         <main class="py-4">
             @yield('content')

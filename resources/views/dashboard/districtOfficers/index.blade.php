@@ -5,6 +5,7 @@
 <div class="row">
   <div class="col-md-8" style="margin-bottom: 10px ;">
     <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-role">Add District Officer</a>
+    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-role">Upload File</a>
   </div>
 </div>
 <div class="row">
@@ -30,9 +31,6 @@
               <td>{{ $districtOfficer->firstname }} {{ $districtOfficer->lastname }} </td>
               @foreach($districtOfficer->districts as $district)
               <td>{{ $district->name ?? '-' }}</td>
-              @endforeach
-              @foreach($districtOfficer->districts as $district)
-              <!-- <td>{{ $district->region_id ?? '-' }}</td> -->
               <td>{{ App\Models\Region::where('id',$district->region_id )->pluck('name')[0 ?? '-']}}</td>
               @endforeach
               <td>

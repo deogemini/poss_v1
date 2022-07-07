@@ -6,6 +6,8 @@ use App\Models\Officers_Wards;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Ward;
+use App\Models\District;
+use App\Models\Region;
 use App\Models\School;
 use App\Models\Grade;
 use App\Models\Student;
@@ -102,8 +104,29 @@ class WardOfficersController extends Controller
         'total_girls_in_ward' => $schools->sum('total_girls'),
         'total_schools' => $schools->count()
     ]);
+
+    
        
     }
+
+
+
+    public function view()
+    {
+        $wardOfficers = User::with('wards')
+        ->whereHas(
+            'roles',
+            fn($query) => $query->where('name', 'isWardOfficer')
+        )
+        ->get();
+        // return $wardOfficers;
+        $wards = Ward::all();
+        $districts =  District::all();
+        $regions =  Region::all();
+
+        return view('dashboard.wardOfficers.index', compact(['wardOfficers', 'wards','districts', 'regions']));
+        
+    } 
 //get headTeachers in ward 
     public function getHeadTeachersinWard($id){
     //     $headTeachers = User::whereHas(

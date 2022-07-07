@@ -111,6 +111,13 @@ class AttendanceController extends Controller
         return Attendance::create($request -> all());
     }
 
+    public function view()
+    {
+       
+       return view('dashboard.attendanceReports.index');
+        
+    }
+
 
     public function getAttendanceReport($grade_id, $date){
         $Array_student_boys_present= [];

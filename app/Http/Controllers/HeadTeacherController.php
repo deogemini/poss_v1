@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Grade;
 use App\Models\School;
+use App\Models\Ward;
+use App\Models\District;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\RoleUser;
@@ -27,6 +30,25 @@ class HeadTeacherController extends Controller
     return response()->json(['headteachers' => $headteachers]);
        
     }
+
+    public function view()
+    {
+        $headTeachers = User::with('schools')
+        ->whereHas(
+            'roles',
+            fn($query) => $query->where('name', 'isHeadTeacher')
+        )
+        ->get();
+        // return $headTeachers;
+        $schools = School::all();
+        // return $wardOfficers;
+        $wards = Ward::all();
+        $districts =  District::all();
+        $regions =  Region::all();
+
+        return view('dashboard.headTeachers.index', compact(['headTeachers','schools',  'wards','districts', 'regions']));
+        
+    } 
 
 
     // Display a listing of the teachers with the same school_id of the headTeacher.

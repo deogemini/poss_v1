@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Grade;
 use App\Models\School;
+use App\Models\Ward;
+use App\Models\District;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\School_Teachers;
@@ -60,6 +63,23 @@ class TeacherController extends Controller
         ]);
 
     }
+
+    public function view(){
+        $Teachers = User::with('schools')
+        ->whereHas(
+            'roles',
+            fn($query) => $query->where('name', 'isTeacher')
+        )
+        ->get();
+        // return $headTeachers;
+        $schools = School::all();
+        $wards = Ward::all();
+        $districts =  District::all();
+        $regions =  Region::all();
+
+        return view('dashboard.teachers.index', compact(['Teachers','schools',  'wards','districts', 'regions']));
+    }
+   
 
     //add new teacher in the system
     public function create(Request $request)

@@ -39,10 +39,6 @@ class DistrictOfficersController extends Controller
             fn($query) => $query->where('name', 'isDistrictOfficer')
         )
         ->get();
-        // foreach($districtOfficers as $districtOfficer){
-        //     $district = $districtOfficer->districts;
-        // }
-        //  return $districtOfficers;
         $districts =  District::all();
         $regions =  Region::all();
 

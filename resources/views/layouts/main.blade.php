@@ -235,13 +235,13 @@ a.article:hover {
                         <a href="/districtOfficer">District Officers</a>
                     </li>
                     <li>
-                        <a href="#">Ward Officers</a>
+                        <a href="/wardOfficer">Ward Officers</a>
                     </li>
                     <li>
-                        <a href="#">Head Masters</a>
+                        <a href="headTeacher">Head Masters</a>
                     </li>
                     <li>
-                        <a href="#">Teachers</a>
+                        <a href="teacher">Teachers</a>
                     </li>
                 </ul>
             </li>
@@ -277,7 +277,7 @@ a.article:hover {
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="/attendanceReports">
                 <i class="fa fa-file"></i>
                     <span>Attendance Reports
                     </span>

@@ -41,7 +41,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <th>#</th>
+              <th>C/N</th>
               <th>Name</th>
               <th>Actions</th>
             </tr>

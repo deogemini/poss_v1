@@ -13,7 +13,7 @@
     <div class="card">
       <div class="card-body">
 
-        <table class="table table-striped data-table table-bordered table-hover display" id="example" style="width:100%">
+      <table id="example" class="table table-striped table-bordered" style="width:100%">
           <thead>
             <tr>
               <th scope="col">C/N</th>
@@ -85,10 +85,10 @@
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Add Excel File</h4>
                 </div>
-                <form action="/addRegion" method="post" role="form" enctype="multipart/form-data">
+                <form action="/addBulkRegions" method="post" role="form" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        @include('dashboard.region.create')
+                        @include('dashboard.region.addExcelFile')
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -111,12 +111,9 @@
 
 @endsection
 
-<script>
-  $(document).ready(function() {
-    $('#example').DataTable({
-      paging: false,
-      ordering: false,
-      info: false,
-    });
-  });
-</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+   <script>
+       $(document).ready(function() {
+           $('#example').DataTable();
+       } );
+   </script>

@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ImportRegion;
 use Illuminate\Http\Request;
 use App\Models\Region;
-
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class RegionController extends Controller
 {
@@ -54,6 +62,14 @@ class RegionController extends Controller
             'name' => $request -> name]);
      
             return back()->with('msg', 'Region Added Successfully');
+    }
+
+    public function addExcel(Request $request)
+    {
+
+        Excel::import(new ImportRegion, $request->file('file')->store('files'));
+        return redirect()->back()->with('msg', "Regions Added Successfully");
+  
     }
 
     /**

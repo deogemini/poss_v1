@@ -39,7 +39,7 @@ Route::resource('/region', RegionController::class);
 Route::resource('/roles', RoleController::class);
 //Route::post('/addRegion', [RegionController::class, 'store'])->name('store');
 Route::post('/addBulkRegions', [RegionController::class, 'addExcel'])->name('addExcel');
-Route::get('/districts', [DistrictController::class, 'view'])->name('view');
+Route::resource('/districts', DistrictController::class);
 Route::get('/wards', [WardController::class, 'view'])->name('view');
 Route::get('/schools', [SchoolController::class, 'view'])->name('view');
 Route::get('/students', [StudentController::class, 'view'])->name('view');

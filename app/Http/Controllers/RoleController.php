@@ -15,7 +15,7 @@ class RoleController extends Controller
     public function index()
     {
        $roles = Role::all();
-           return response()->json($roles);
+           return view('dashboard.roles.index', compact('roles'));
     }
 
     /**
@@ -43,7 +43,8 @@ class RoleController extends Controller
             ]
             );
 
-        return Role::create($request -> all());
+        Role::create($request -> all());
+        return back()->with('msg','Role created successsfully');
     }
 
     /**
@@ -76,11 +77,11 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        $role = Role::find($id);
+        $role = Role::find($role->id);
         $role ->update($request->all());
-        return $role;
+        return back()->with('msg','Role updated successsfully');
     }
 
     /**
@@ -89,9 +90,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        return Role::destroy($id);
+        $role->delete();
+        return back()->with('msg', 'One Role deleted successsfuli');
 
     }
 

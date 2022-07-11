@@ -292,6 +292,23 @@ a.article:hover {
             <span>Privacy Policy</span>
                 </a>
             </li>
+
+            <li>
+                <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fa fa-wrench" aria-hidden="true"></i>
+<span>System Settings</span></a>
+                <ul class="collapse list-unstyled" id="pageSubmenu3">
+                    <li>
+                        <a href="/roles">User Roles</a>
+                    </li>
+                    <li>
+                        <a href="/auditReports">Audit Reports</a>
+                    </li>
+
+                </ul>
+            </li>
+
+
             <li>
                 <a href="{{ url('/logout') }}">
                 <i class="fa fa-power-off" aria-hidden="true"></i>

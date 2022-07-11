@@ -10,6 +10,7 @@ use App\Http\Controllers\HeadTeacherController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\WardController;
@@ -35,6 +36,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/login', [AuthController::class, 'webLogin'])->name('webLogin');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('index');
 Route::get('/regions', [RegionController::class, 'view'])->name('view');
+Route::resource('/roles', RoleController::class);
 Route::post('/addRegion', [RegionController::class, 'store'])->name('store');
 Route::post('/addBulkRegions', [RegionController::class, 'addExcel'])->name('addExcel');
 Route::get('/districts', [DistrictController::class, 'view'])->name('view');

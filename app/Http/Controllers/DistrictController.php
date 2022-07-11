@@ -54,7 +54,7 @@ class DistrictController extends Controller
 
     public function show($id)
     {
-        return Region::find($id);
+        return District::find($id);
 
     }
 

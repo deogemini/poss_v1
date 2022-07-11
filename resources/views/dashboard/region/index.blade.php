@@ -29,29 +29,65 @@
               <td>{{ $region->name }}</td>
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-role-{{$region->id}}">Edit</a>
-                <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){
+                <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this Region ?')){
                               	getElementById('delete-role-{{$region->id}}').submit()}">Delete</a>
-                <form action="/roles/{{$region->id}}" method="post" style="display: inline-block;" id="delete-role-{{$region->id}}">
+                <form action="/region/{{$region->id}}" method="post" style="display: inline-block;" id="delete-role-{{$region->id}}">
                   @csrf
                   @method('DELETE')
                 </form>
 
               </td>
             </tr>
-            @endforeach
-          </tbody>
-          <tfoot>
-            <tr>
-              <th>C/N</th>
-              <th>Name</th>
-              <th>Actions</th>
-            </tr>
-          </tfoot>
-        </table>
+           
       </div>
     </div>
   </div>
 </div>
+
+
+ <!-- edit modal -->
+ <div class="modal fade" id="modal-edit-role-{{ $region->id }}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Edit Region</h4>
+                              </div>
+                              <form action="/region/{{ $region->id }}" method="post" role="form">
+                                @csrf
+                                @method('PATCH')
+                                 <div class="modal-body">
+                                    @include('dashboard.region.edit')
+                                 </div>
+                               <div class="modal-footer">
+                                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                 <button type="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                             </form>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                        @endforeach
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>C/N</th>
+              <th>Name of role</th>
+              <th>Actions</th>
+            </tr>
+          </tfoot>
+        </table>
+            </div>
+            <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
 
    <!--add modal-->
    <div class="modal fade" id="modal-add-level">
@@ -62,7 +98,7 @@
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Add Region</h4>
                 </div>
-                <form action="/addRegion" method="post" role="form">
+                <form action="/region" method="post" role="form">
                     @csrf
                     <div class="modal-body">
                         @include('dashboard.region.create')

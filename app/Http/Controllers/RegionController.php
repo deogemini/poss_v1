@@ -24,15 +24,15 @@ class RegionController extends Controller
     public function index()
     {
         $regions = Region::all();
-       return response()->json($regions);
+        return view('dashboard.region.index', compact('regions'));;
         
     }
-    public function view()
-    {
-        $regions = Region::all();
-       return view('dashboard.region.index', compact('regions'));
+    // public function view()
+    // {
+    //     $regions = Region::all();
+    //    return view('dashboard.region.index', compact('regions'));
         
-    }
+    // }
 
     /** 
      * Show the form for creating a new resource.
@@ -102,11 +102,11 @@ class RegionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Region $region)
     {
-        $region = Region::find($id);
+        $region = Region::find($region->id);
         $region ->update($request->all());
-        return $region;
+        return back()->with('msg','Region updated successsfully');
     }
 
     /**
@@ -115,9 +115,10 @@ class RegionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Region $region)
     {
-        return Region::destroy($id);
+        $region->delete();
+        return back()->with('msg', 'One Region deleted successsfully');
     }
 
     /**

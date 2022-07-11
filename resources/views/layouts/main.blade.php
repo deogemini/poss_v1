@@ -256,7 +256,7 @@ a.article:hover {
                 </a>
                 <ul class="collapse list-unstyled" id="pageSubmenu1">
                     <li>
-                        <a href="/regions">Regions</a>
+                        <a href="/region">Regions</a>
                     </li>
                     <li>
                         <a href="/districts">Districts</a>
@@ -359,9 +359,10 @@ a.article:hover {
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2022 Copyright:
-    <a href="/"> poss.com</a>
+    <a href="/"> www.POSS.com</a>
   </div>
   <!-- Copyright -->
+
 
 </footer>
 <!-- Footer -->

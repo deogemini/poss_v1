@@ -79,6 +79,7 @@
           <tfoot>
             <tr>
             <th scope="col">C/N</th>
+            <th scope="col">Name of Ward</th>
               <th scope="col">Name of District</th>
               <th scope="col">Name of Region</th>
               <th scope="col">Actions</th>

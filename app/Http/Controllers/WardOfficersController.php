@@ -10,6 +10,7 @@ use App\Models\District;
 use App\Models\Region;
 use App\Models\School;
 use App\Models\Grade;
+use App\Models\Role;
 use App\Models\Student;
 use App\Models\Stream;
 use App\Models\School_Teachers;
@@ -26,8 +27,13 @@ class WardOfficersController extends Controller
             fn($query) => $query->where('name', 'isWardOfficer')
         )
         ->get();
+        // return $wardOfficers;
+        $wards = Ward::all();
+        $roles = Role::all();
+        $districts =  District::all();
+        $regions =  Region::all();
 
-    return response()->json(['wardOfficers' => $wardOfficers]);
+        return view('dashboard.wardOfficers.index', compact(['wardOfficers','roles', 'wards','districts', 'regions']));
     }
 
     //add new user in the system with the role of isWardOfficer
@@ -110,23 +116,6 @@ class WardOfficersController extends Controller
     }
 
 
-
-    public function view()
-    {
-        $wardOfficers = User::with('wards')
-        ->whereHas(
-            'roles',
-            fn($query) => $query->where('name', 'isWardOfficer')
-        )
-        ->get();
-        // return $wardOfficers;
-        $wards = Ward::all();
-        $districts =  District::all();
-        $regions =  Region::all();
-
-        return view('dashboard.wardOfficers.index', compact(['wardOfficers', 'wards','districts', 'regions']));
-        
-    } 
 //get headTeachers in ward 
     public function getHeadTeachersinWard($id){
     //     $headTeachers = User::whereHas(
@@ -160,7 +149,34 @@ class WardOfficersController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $user = new User;
+        $user->firstname = $request['firstname'];
+        $user->lastname = $request['lastname'];
+        $user->phonenumber = $request['phonenumber'];
+        $user->email = $request['email'];
+        $user->password = bcrypt($user->lastname);
+        $user->save();
+
+        if($user->save()){   
+                     
+        $user_id = $user->id;
+        $ward_id = $request['ward_id'];
+        $user_check = User::where('id', $user_id)->first();
+        $wardOfficer = $user_check->id;
+
+        $ward_officers = Officers_Wards::insert([
+            'user_id' => $wardOfficer,
+            'ward_id' => $ward_id
+        ]);
+        
+            $user_id = $user->id;
+            $role = User::find($user_id);
+        // role 5 is for isWardOfficer, thus we attach this role to this user object 
+        // ...this will create a record in user_role table
+            $role->roles()->attach(5); 
+            return back()->with('msg','Ward Officer was created successsfully');
+
+        }
     }
 
     public function show($id)

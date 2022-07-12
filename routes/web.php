@@ -45,7 +45,7 @@ Route::resource('/schools', SchoolingController::class);
 Route::get('/students', [StudentController::class, 'view'])->name('view');
 Route::get('/attendanceReports', [AttendanceController::class, 'view'])->name('view');
 Route::resource('/districtOfficer', DistrictOfficersController::class);
-Route::get('/wardOfficer', [WardOfficersController::class, 'view'])->name('view');
+Route::resource('/wardOfficer', WardOfficersController::class);
 Route::get('/headTeacher', [HeadTeacherController::class, 'view'])->name('view');
 Route::get('/teacher', [TeacherController::class, 'view'])->name('view');
 Route::get('/logout', [AuthController::class, 'webLogout'])->name('webLogout');

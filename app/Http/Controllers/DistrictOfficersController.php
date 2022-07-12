@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Stream;
 use App\Models\Grade;
+use App\Models\Role;
 use App\Models\Student;
 use App\Models\Ward;
 
@@ -26,8 +27,11 @@ class DistrictOfficersController extends Controller
             fn($query) => $query->where('name', 'isDistrictOfficer')
         )
         ->get();
+        $roles = Role::all();
+        $districts =  District::all();
+        $regions =  Region::all();
 
-    return response()->json(['districtOfficers' => $districtOfficers]);
+        return view('dashboard.districtOfficers.index', compact(['districtOfficers','roles','districts', 'regions']));
 
     }
 
@@ -158,7 +162,34 @@ class DistrictOfficersController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $user = new User;
+        $user->firstname = $request['firstname'];
+        $user->lastname = $request['lastname'];
+        $user->phonenumber = $request['phonenumber'];
+        $user->email = $request['email'];
+        $user->password = bcrypt($user->lastname);
+        $user->save();
+
+        if($user->save()){   
+                     
+        $user_id = $user->id;
+        $district_id = $request['district_id'];
+        $user_check = User::where('id', $user_id)->first();
+        $districtOfficer = $user_check->id;
+
+        $district_officers = Officers_Districts::insert([
+            'user_id' => $districtOfficer,
+            'district_id' => $district_id
+        ]);
+        
+            $user_id = $user->id;
+            $role = User::find($user_id);
+        // role 6 is for isDistrictOfficer, thus we attach this role to this user object 
+        // ...this will create a record in user_role table
+            $role->roles()->attach(6); 
+            return back()->with('msg','Distirct Officer was created successsfully');
+
+        }
     }
 
     public function show($id)
@@ -174,13 +205,48 @@ class DistrictOfficersController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
-    }
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|unique:users,email,'.$user->id
+        ]);
 
-    public function destroy($id)
+        $user->update([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'phonenumber' => $request->phonenumber,
+        ]);
+
+        if($user->update()){   
+                     
+            $user_id = $user->id;
+            $district_id = $request['district_id'];
+            $user_check = User::where('id', $user_id)->first();
+            $districtOfficer = $user_check->id;
+    
+            $district_officers = Officers_Districts::insert([
+                'user_id' => $districtOfficer,
+                'district_id' => $district_id
+            ]);
+
+            
+            $user_id = $user->id;
+            $role = User::find($user_id);
+        // role 6 is for isDistrictOfficer, thus we attach this role to this user object 
+        // ...this will create a record in user_role table
+            $role->roles()->attach(6); 
+            return back()->with('msg','Distirct Officer was Updated successfully');
+
+    }
+}
+
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return back()->with('msg', 'One District Officer deleted successful');
     }
 }

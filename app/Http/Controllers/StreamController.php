@@ -100,7 +100,8 @@ class StreamController extends Controller
      */
     public function destroy($id)
     {
-        return Stream::destroy($id);
+        Stream::destroy($id);
+        return back()->with('msg', "The Stream will be deleted");
     }
 
     /**

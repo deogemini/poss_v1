@@ -1,8 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\District;
 use App\Models\Grade;
+use App\Models\Region;
+use App\Models\School;
 use App\Models\Schools;
+use App\Models\Ward;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -16,7 +21,12 @@ class GradeController extends Controller
     {
         
         $grades = Grade::all();
-        return response()->json($grades);
+        $schools = School::all();
+        $wards = Ward::all();
+        $districts = District::all();
+        $regions = Region::all();
+
+        return view('dashboard.grade.index', compact(['grades', 'schools', 'wards', 'districts', 'regions']));
 
         
     }
@@ -46,7 +56,8 @@ class GradeController extends Controller
             ]
             );
 
-        return Grade::create($request -> all());
+        Grade::create($request -> all());
+        return back()->with('msg', 'New Grade was created');
     }
 
     /**
@@ -82,7 +93,7 @@ class GradeController extends Controller
     {
         $grade = Grade::find($id);
         $grade ->update($request->all());
-        return $grade;
+        return back()->with('msg', 'The Grade was Updated');
     }
 
     /**
@@ -94,7 +105,7 @@ class GradeController extends Controller
     public function destroy(Grade $grade)
     {
         $grade -> delete();
-        return back()->with('Message', 'Grade Deleted');
+        return back()->with('msg', 'Grade Deleted');
     }
 
     /**

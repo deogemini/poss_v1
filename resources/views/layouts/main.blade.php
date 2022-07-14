@@ -267,11 +267,25 @@ a.article:hover {
             
                 </ul>
             </li>
+
             <li>
-                <a href="/schools">
-                    <i class="fa fa-school" aria-hidden="true"></i>
-                    <span>Schools</span>
+                <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fa fa-school" aria-hidden="true"></i><span>
+                    School Management
+                </span>
                 </a>
+                <ul class="collapse list-unstyled" id="pageSubmenu4">
+                    <li>
+                        <a href="/schools">School</a>
+                    </li>
+                    <li>
+                        <a href="/grades">Grade</a>
+                    </li>
+                    <li>
+                        <a href="/streams">Stream</a>
+                    </li>
+            
+                </ul>
             </li>
             <li>
                 <a href="/students">

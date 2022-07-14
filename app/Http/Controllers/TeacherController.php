@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Grade;
 use App\Models\School;
 use App\Models\Ward;
+use App\Models\Role;
 use App\Models\District;
 use App\Models\Region;
 use Illuminate\Http\Request;
@@ -18,14 +19,19 @@ class TeacherController extends Controller
  //get all users with the role being isTeacher
     public function index()
     {
-        $teachers = User::with('schools')
+        $Teachers = User::with('schools')
         ->whereHas(
             'roles',
             fn($query) => $query->where('name', 'isTeacher')
         )
         ->get();
+        $roles = Role::all();
+        $schools = School::all();
+        $wards = Ward::all();
+        $districts =  District::all();
+        $regions =  Region::all();
 
-    return response()->json(['teachers' => $teachers]);
+        return view('dashboard.teachers.index', compact(['Teachers','roles', 'schools',  'wards','districts', 'regions']));
             
     }
 
@@ -117,7 +123,33 @@ class TeacherController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $user = new User;
+        $user->firstname = $request['firstname'];
+        $user->lastname = $request['lastname'];
+        $user->phonenumber = $request['phonenumber'];
+        $user->email = $request['email'];
+        $user->password = bcrypt($user->lastname);
+        $user->save();
+
+
+        $user_id = $user->id;
+        $school_id = $request['school_id'];
+        $user_check = User::where('id', $user_id)->first();
+        $teacher = $user_check->id;
+
+        $teacherinschool = School_Teachers::insert([
+            'user_id' => $teacher,
+            'school_id' => $school_id
+        ]);
+
+        if($user->save()){   
+            $user_id = $user->id;
+            $role = User::find($user_id);
+        // role 2 is for isTeacher, thus we attach this role to this user object 
+        // ...this will create a record in user_role table
+            $role->roles()->attach(2); 
+            return back()->with('message','A new teacher registered!');
+        }
     }
 
     public function show($id)

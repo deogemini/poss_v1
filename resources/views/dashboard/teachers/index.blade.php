@@ -4,7 +4,7 @@
 
 <div class="row">
   <div class="col-md-8" style="margin-bottom: 10px ;">
-    <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-role">Add Teacher</a>
+    <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-teacher">Add Teacher</a>
     <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-role">Upload File</a>
   </div>
 </div>
@@ -41,10 +41,10 @@
               @endforeach
            
               <td>
-                <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-role-{{$Teacher->id}}">Edit</a>
-                <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){
+                <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-teacher-{{$Teacher->id}}">Edit</a>
+                <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this Teacher ?')){
                               	getElementById('delete-role-{{$Teacher->id}}').submit()}">Delete</a>
-                <form action="/roles/{{$Teacher->id}}" method="post" style="display: inline-block;" id="delete-role-{{$Teacher->id}}">
+                <form action="/teacher/{{$Teacher->id}}" method="post" style="display: inline-block;" id="delete-role-{{$Teacher->id}}">
                   @csrf
                   @method('DELETE')
                 </form>
@@ -66,19 +66,36 @@
             </tr>
           </tfoot>
         </table>
-
-
-
-
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-add-teacher">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add Teacher</h4>
+                </div>
+                <form action="/teacher" method="post" role="form">
+                    @csrf
+                    <div class="modal-body">
+                        @include('dashboard.teachers.create')
+                    </div>
+                    <div class="modal-footer">        
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
 
 
-  </div>
-
-
-
-</div>
 
 
 

@@ -51,7 +51,7 @@ Route::get('/attendanceReports', [AttendanceController::class, 'view'])->name('v
 Route::resource('/districtOfficer', DistrictOfficersController::class);
 Route::resource('/wardOfficer', WardOfficersController::class);
 Route::resource('/headTeacher', HeadTeacherController::class);
-Route::get('/teacher', [TeacherController::class, 'view'])->name('view');
+Route::resource('/teacher', TeacherController::class);
 Route::get('/logout', [AuthController::class, 'webLogout'])->name('webLogout');
 Route::get('/privacy_policy', function () {
     return view('/privacy_policy');

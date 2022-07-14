@@ -67,12 +67,12 @@
 
 
 <div class="col-md-12">
-     <div class="form-group {{ $errors->has('district_id') ? 'has-error':'' }}">
-        <label class="required">District</label>
-           <select class="form-control select2" name="district_id" style="width: 100%;">
-            <option value="">--Select District--</option>
-              @foreach ($districts as $district)
-                  <option value="{{$district->id}}">{{$district->name}}</option>
+     <div class="form-group {{ $errors->has('school_id') ? 'has-error':'' }}">
+        <label class="required">School</label>
+           <select class="form-control select2" name="school_id" style="width: 100%;">
+            <option value="">--Select School--</option>
+              @foreach ($schools as $school)
+                  <option value="{{$school->id}}">{{$school->name}}</option>
               @endforeach
         </select>
       </div>

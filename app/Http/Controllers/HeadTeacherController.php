@@ -7,6 +7,7 @@ use App\Models\School;
 use App\Models\Ward;
 use App\Models\District;
 use App\Models\Region;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\RoleUser;
@@ -20,19 +21,6 @@ class HeadTeacherController extends Controller
     //get all HeadTeachers in the system
     public function index()
     {
-        $headteachers = User::with('schools')
-        ->whereHas(
-            'roles',
-            fn($query) => $query->where('name', 'isHeadTeacher')
-        )
-        ->get();
-
-    return response()->json(['headteachers' => $headteachers]);
-       
-    }
-
-    public function view()
-    {
         $headTeachers = User::with('schools')
         ->whereHas(
             'roles',
@@ -41,12 +29,19 @@ class HeadTeacherController extends Controller
         ->get();
         // return $headTeachers;
         $schools = School::all();
+        $roles = Role::all();
         // return $wardOfficers;
         $wards = Ward::all();
         $districts =  District::all();
         $regions =  Region::all();
 
-        return view('dashboard.headTeachers.index', compact(['headTeachers','schools',  'wards','districts', 'regions']));
+        return view('dashboard.headTeachers.index', compact(['headTeachers','roles', 'schools',  'wards','districts', 'regions']));
+       
+    }
+
+    public function view()
+    {
+       
         
     } 
 
@@ -126,6 +121,39 @@ class HeadTeacherController extends Controller
              'data'=> $user]);
         
         }
+
+    }
+
+    public function store(Request $request){
+
+        $user = new User;
+        $user->firstname = $request['firstname'];
+         $user->lastname = $request['lastname'];
+         $user->phonenumber = $request['phonenumber'];
+         $user->email = $request['email'];
+         $user->password = bcrypt($user->lastname);
+         $user->save();
+ 
+         
+         $user_id = $user->id;
+         $school_id = $request['school_id'];
+         $user_check = User::where('id', $user_id)->first();
+         $headTeacher = $user_check->id;
+ 
+         $teacherinschool = School_Teachers::insert([
+             'user_id' => $headTeacher,
+             'school_id' => $school_id
+         ]);
+ 
+         if($user->save()){   
+             $user_id = $user->id;
+             $role = User::find($user_id);
+         // role 4 is for isHeadTeacher, thus we attach this role to this user object 
+         // ...this will create a record in user_role table
+             $role->roles()->attach(4); 
+             return back()->with('msg','A new Head Teacher successfully registered!');
+         
+         }
 
     }
 

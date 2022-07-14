@@ -50,7 +50,7 @@ Route::get('/students', [StudentController::class, 'view'])->name('view');
 Route::get('/attendanceReports', [AttendanceController::class, 'view'])->name('view');
 Route::resource('/districtOfficer', DistrictOfficersController::class);
 Route::resource('/wardOfficer', WardOfficersController::class);
-Route::get('/headTeacher', [HeadTeacherController::class, 'view'])->name('view');
+Route::resource('/headTeacher', HeadTeacherController::class);
 Route::get('/teacher', [TeacherController::class, 'view'])->name('view');
 Route::get('/logout', [AuthController::class, 'webLogout'])->name('webLogout');
 Route::get('/privacy_policy', function () {

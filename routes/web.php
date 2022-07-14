@@ -13,6 +13,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SchoolingController;
+use App\Http\Controllers\StreamController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\WardController;
 
@@ -44,6 +45,7 @@ Route::resource('/districts', DistrictController::class);
 Route::resource('/wards', WardController::class);
 Route::resource('/grades', GradeController::class);
 Route::resource('/schools', SchoolingController::class);
+Route::resource('/streams', StreamController::class);
 Route::get('/students', [StudentController::class, 'view'])->name('view');
 Route::get('/attendanceReports', [AttendanceController::class, 'view'])->name('view');
 Route::resource('/districtOfficer', DistrictOfficersController::class);

@@ -1,6 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\District;
+use App\Models\Grade;
+use App\Models\Region;
+use App\Models\Ward;
+use App\Models\School;
 use App\Models\Stream;
 use Illuminate\Http\Request;
 
@@ -13,8 +19,13 @@ class StreamController extends Controller
      */
     public function index()
     {
-        $streams = Stream::all();   
-        return response()->json($streams);
+        $streams = Stream::all();
+        $grades = Grade::all();
+        $wards = Ward::all();
+        $schools = School::all();
+        $districts = District::all();
+        $regions = Region::all();
+        return view('dashboard.streams.index', compact(['streams', 'grades' , 'wards',  'schools', 'districts', 'regions']));
     }
 
     /**

@@ -17,7 +17,8 @@
           <thead>
             <tr>
               <th scope="col">C/N</th>
-              <th scope="col">Name of Officer</th>
+              <th scope="col">Name of District Officer</th>
+              <th scope="col">Email of District Officer</th>
               <th scope="col">Name of District</th>
               <th scope="col">Name of Region</th>
               <th scope="col">Actions</th>
@@ -29,6 +30,7 @@
             <tr>
               <td> {{ $loop-> index + 1 }}</td>
               <td>{{ $districtOfficer->firstname }} {{ $districtOfficer->lastname }} </td>
+              <td>{{ $districtOfficer->email }}</td>
               @foreach($districtOfficer->districts as $district)
               <td>{{ $district->name ?? '-' }}</td>
               <td>{{ App\Models\Region::where('id',$district->region_id )->pluck('name')[0 ?? '-']}}</td>
@@ -81,7 +83,8 @@
           <tfoot>
             <tr>
             <th scope="col">C/N</th>
-            <th scope="col">Name of Officer</th>
+            <th scope="col">Name of District Officer</th>
+            <th scope="col">Email of District Officer</th>
               <th scope="col">Name of District</th>
               <th scope="col">Name of Region</th>
               <th scope="col">Actions</th>

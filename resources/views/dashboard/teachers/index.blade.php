@@ -18,6 +18,7 @@
             <tr>
               <th scope="col">C/N</th>
               <th scope="col">Name of School teacher</th>
+              <th scope="col">Email of School teacher</th>
               <th scope="col">Name of School</th>
               <th scope="col">Name of Ward</th>
               <th scope="col">Name of District</th>
@@ -31,6 +32,7 @@
             <tr>
               <td> {{ $loop-> index + 1 }}</td>
               <td>{{ $Teacher->firstname }} {{ $Teacher->lastname }} </td>
+              <td>{{ $Teacher->email }}</td>
               @foreach($Teacher->schools as $school)
               <td>{{ $school->name ?? '-' }} {{$school->educationLevel}}</td>
               <td>{{ App\Models\Ward::where('id' , $school->ward_id)->pluck('name')[0] }} </td>
@@ -55,6 +57,7 @@
             <tr>
             <th scope="col">C/N</th>
             <th scope="col">Name of School teacher</th>
+            <th scope="col">Email of School teacher</th>
               <th scope="col">Name of School</th>
               <th scope="col">Name of Ward</th>
               <th scope="col">Name of District</th>

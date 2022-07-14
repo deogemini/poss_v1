@@ -102,7 +102,7 @@
         <!-- /.col -->
     </div>
 
-<!-- <div class="modal fade" id="modal-add-grade">
+<div class="modal fade" id="modal-add-grade">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -110,7 +110,7 @@
                 <span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Add Grade</h4>
             </div>
-            <form action="/grade" method="post" role="form">
+            <form action="/grades" method="post" role="form">
                 @csrf
              <div class="modal-body">
                 @include('dashboard.grade.create')
@@ -124,8 +124,8 @@
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-      </div> -->
-      <!-- /.modal -->
+      </div>
+    
 
 
 

@@ -136,7 +136,6 @@
         });
       }
     });
-    $('#grade_id, #stream_id').val("");
     $('#stream').removeClass('d-none');
 
   });

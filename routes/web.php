@@ -46,7 +46,7 @@ Route::resource('/districts', DistrictController::class);
 Route::resource('/wards', WardController::class);
 Route::resource('/grades', GradeController::class);
 Route::get('/grade', [StudentController::class, 'gradesinschool'])->name('grade.gradesinschool');
-Route::get('/stream', [StreamController::class, 'streamsingrade'])->name('stream.streamsingrade');
+Route::get('/stream', [StudentController::class, 'streamsingrade'])->name('stream.streamsingrade');
 Route::resource('/schools', SchoolingController::class);
 Route::resource('/schoolsgrade', SchoolController::class);
 Route::resource('/streams', StreamController::class);

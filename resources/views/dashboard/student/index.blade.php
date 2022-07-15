@@ -122,7 +122,7 @@
 
   });
 
-  $('#stream_id').change(function(){
+  $('#grade_id').change(function(){
     var $stream = $('#stream_id');
     $.ajax({
       url: "{{route('stream.streamsingrade')}}",
@@ -136,7 +136,7 @@
         });
       }
     });
-    $('#grade_id, #stream_id').val("");
+
     $('#stream').removeClass('d-none');
 
   });

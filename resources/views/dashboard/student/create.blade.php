@@ -1,45 +1,15 @@
 <div class="row">
 
 <div class="col-md-12">
-    <div class="form-group {{ $errors->has('firstname') ? 'has-error':'' }}">
-        <label class="required" for="firstname">First Name</label>
-        <input type="text" name="firstname" class="form-control" placeholder="" value="{{old('firstname')}}" required>
-        @error('name')
-         <span class="help-block">{{ $errors->first('firstname') }}</span>
+    <div class="form-group {{ $errors->has('student_name') ? 'has-error':'' }}">
+        <label class="required" for="student_name">Full Student Name
+        </label>
+        <input type="text" name="student_name" class="form-control" placeholder="" value="{{old('student_name')}}" required>
+        @error('student_name')
+         <span class="help-block">{{ $errors->first('student_name') }}</span>
         @enderror
       </div>
 </div>
-
-<div class="col-md-12">
-    <div class="form-group {{ $errors->has('lastname') ? 'has-error':'' }}">
-        <label class="required" for="lastname">Last Name</label>
-        <input type="text" name="lastname" class="form-control" placeholder="" value="{{old('lastname')}}" required>
-        @error('name')
-         <span class="help-block">{{ $errors->first('lastname') }}</span>
-        @enderror
-      </div>
-</div>
-
-<div class="col-md-12">
-    <div class="form-group {{ $errors->has('phonenumber') ? 'has-error':'' }}">
-        <label class="required" for="lastname">Phone Number</label>
-        <input type="text" name="phonenumber" class="form-control" placeholder="" value="{{old('phonenumber')}}">
-        @error('phonenumber')
-         <span class="help-block">{{ $errors->first('phonenumber') }}</span>
-        @enderror
-      </div>
-</div>
-
-<div class="col-md-12">
-    <div class="form-group {{ $errors->has('email') ? 'has-error':'' }}">
-        <label class="required" for="name">Email</label>
-        <input type="email" name="email" class="form-control" placeholder="example@gmail.com" value="{{old('email')}}" required>
-        @error('email')
-         <span class="help-block">{{ $errors->first('email') }}</span>
-        @enderror
-      </div>
-</div>
-
 
 <div class="col-md-12">
      <div class="form-group {{ $errors->has('gender') ? 'has-error':'' }}">
@@ -57,7 +27,7 @@
 <div class="col-md-12">
      <div class="form-group {{ $errors->has('school_id') ? 'has-error':'' }}">
         <label class="required">School</label>
-           <select class="form-control select2" name="school_id" style="width: 100%;">
+           <select class="form-control select2" id="school_id"  name="school_id" style="width: 100%;">
             <option value="">--Select School--</option>
               @foreach ($schools as $school)
                   <option value="{{$school->id}}">{{$school->name}} {{$school->educationLevel}}</option>
@@ -66,5 +36,33 @@
       </div>
 </div>
 
+
+
+<div class="col-md-12">
+             <div class="form-group {{ $errors->has('grade_id') ? 'has-error':'' }} d-none" id="grade">
+                <label class="required">Grade</label>
+                   <select class="form-control" id="grade_id" name="grade_id" style="width: 100%;">
+                    <option value="">--Select Grade--</option>  
+                      </select>
+                 @error('grade_id')
+                   <span class="help-block">{{ $errors->first('grade_id') }}</span>
+                 @enderror
+              </div>
+        </div>
+
+<div class="col-md-12">
+             <div class="form-group {{ $errors->has('stream_id') ? 'has-error':'' }} d-none" id="stream">
+                <label class="required">Stream</label>
+                   <select class="form-control" id="stream_id" name="stream_id" style="width: 100%;">
+                    <option value="">--Select Stream--</option>   
+                    </select>
+                 @error('stream_id')
+                   <span class="help-block">{{ $errors->first('stream_id') }}</span>
+                 @enderror
+              </div>
+        </div>
+
 </div>
+
+
   

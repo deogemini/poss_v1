@@ -111,7 +111,7 @@
         school_id: $(this).val()
       },
       success: function(data){
-        $grade.html('<option value="" selected>Chooseee Grade</option>');
+        $grade.html('<option value="" selected>--Choose Grade--</option>');
         $.each(data, function(id, value){
           $grade.append('<option value="'+id+'">' +value+'</option>');
         });
@@ -130,7 +130,7 @@
         grade_id: $(this).val()
       },
       success: function(data){
-        $stream.html('<option value="" selected>Choose Stream</option>');
+        $stream.html('<option value="" selected>--Choose Stream--</option>');
         $.each(data, function(id, value){
           $stream.append('<option value="'+id+'">' +value+'</option>');
         });

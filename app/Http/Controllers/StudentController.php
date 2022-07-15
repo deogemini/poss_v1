@@ -37,7 +37,7 @@ class StudentController extends Controller
         return response()->json($grades);
     }
     public function streamsingrade(){
-        $streams = Stream::whereHas('grades', function($query){
+        $streams = Stream::whereHas('grade', function($query){
             $query->whereId(request()->input('grade_id', 0));
         })->pluck('name', 'id');
 

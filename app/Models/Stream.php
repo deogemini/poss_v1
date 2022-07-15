@@ -30,7 +30,7 @@ class Stream extends Model
     /**
      * Get the Grade that owns the stream.
      */
-    public function grades()
+    public function grade()
     {
         return $this->belongsTo(Grade::class);
     }

@@ -106,7 +106,7 @@
     $('#school_id').change(function(){
     var $grade = $('#grade_id');
     $.ajax({
-      url: "{{route('grade.index')}}",
+      url: "{{route('grade.gradesinschool')}}",
       data: {
         school_id: $(this).val()
       },
@@ -125,7 +125,7 @@
   $('#stream_id').change(function(){
     var $stream = $('#stream_id');
     $.ajax({
-      url: "{{route('stream.index')}}",
+      url: "{{route('stream.streamsingrade')}}",
       data: {
         grade_id: $(this).val()
       },
@@ -136,6 +136,7 @@
         });
       }
     });
+    $('#grade_id, #stream_id').val("");
     $('#stream').removeClass('d-none');
 
   });

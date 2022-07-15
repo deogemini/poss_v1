@@ -45,8 +45,8 @@ Route::post('/addBulkRegions', [RegionController::class, 'addExcel'])->name('add
 Route::resource('/districts', DistrictController::class);
 Route::resource('/wards', WardController::class);
 Route::resource('/grades', GradeController::class);
-Route::get('/grade', [GradeController::class, 'index'])->name('grade.index');
-Route::get('/stream', [StreamController::class, 'index'])->name('stream.index');
+Route::get('/grade', [StudentController::class, 'gradesinschool'])->name('grade.gradesinschool');
+Route::get('/stream', [StreamController::class, 'streamsingrade'])->name('stream.streamsingrade');
 Route::resource('/schools', SchoolingController::class);
 Route::resource('/schoolsgrade', SchoolController::class);
 Route::resource('/streams', StreamController::class);

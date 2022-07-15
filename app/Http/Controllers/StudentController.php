@@ -29,6 +29,21 @@ class StudentController extends Controller
         
     }
 
+    public function gradesinschool(){
+        $grades = Grade::whereHas('school', function($query){
+            $query->whereId(request()->input('school_id', 0));
+        })->pluck('name', 'id');
+
+        return response()->json($grades);
+    }
+    public function streamsingrade(){
+        $streams = Stream::whereHas('grades', function($query){
+            $query->whereId(request()->input('grade_id', 0));
+        })->pluck('name', 'id');
+
+        return response()->json($streams);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

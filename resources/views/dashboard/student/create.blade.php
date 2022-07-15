@@ -57,7 +57,7 @@
                     <option value="">--Select Stream--</option>   
                     </select>
                  @error('stream_id')
-                   <span class="help-block">{{ $errors->first('select_id') }}</span>
+                   <span class="help-block">{{ $errors->first('stream_id') }}</span>
                  @enderror
               </div>
         </div>

@@ -32,7 +32,7 @@ class Stream extends Model
      */
     public function grades()
     {
-        return $this->belongsTo(Grade::class, 'grade_id', 'id');
+        return $this->belongsTo(Grade::class);
     }
 
     public function school(){

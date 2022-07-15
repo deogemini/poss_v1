@@ -10,6 +10,7 @@ use App\Models\Stream;
 use App\Models\Grade;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SchoolController extends Controller
 {
@@ -145,6 +146,15 @@ return response()->json(['schools'=>$schools]); }
     {
         return School::destroy($id);
 
+    }
+
+    // public function getgrades(Request $request, $id){
+    //   $grades = Grade::where('school_id', $id)->get();
+    //   return response(['data'=> $grades]);
+    // }
+    public function getgrades(){
+      $schools = DB::table('schools')->get();
+      return $schools;
     }
 
      /**

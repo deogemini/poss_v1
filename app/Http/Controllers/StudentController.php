@@ -18,7 +18,14 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
-        return response()->json($students);
+        $schools = School::all();
+        $streams = Stream::all();
+        $grades = Grade::all();
+        // $wards = Ward::all();
+        // $districts =  District::all();
+        // $regions =  Region::all();
+
+        return view('dashboard.student.index', compact(['students', 'streams','grades','schools']));
         
     }
 
@@ -48,7 +55,13 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = new Student;
+        $student->student_name = $request['student_name'];
+        $student->gender = $request['gender'];
+        $student->stream_id = $request['stream_id'];
+        $student->save();  
+
+        return back()->with('msg' ,'A student successfully registered!');
     }
 
     /**

@@ -53,7 +53,8 @@ class StreamController extends Controller
             ]
             );
 
-        return Stream::create($request -> all());
+         Stream::create($request -> all());
+         return back()->with('msg', "new stream was registered");
     }
 
     /**

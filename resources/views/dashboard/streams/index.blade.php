@@ -149,4 +149,29 @@
 
 
 
+<script>
+   $(document).ready(function(){
+    $('#school_id').change(function(){
+    var $grade = $('#grade_id');
+    $.ajax({
+      url: "{{route('grade.gradesinschool')}}",
+      data: {
+        school_id: $(this).val()
+      },
+      success: function(data){
+        $grade.html('<option value="" selected>--Choose Grade--</option>');
+        $.each(data, function(id, value){
+          $grade.append('<option value="'+id+'">' +value+'</option>');
+        });
+      }
+    });
+    $('#grade_id, #stream_id').val("");
+    $('#grade').removeClass('d-none');
+
+  });
+});
+</script>
+
+
+
 @endsection

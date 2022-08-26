@@ -71,7 +71,7 @@
         <label class="required">Ward</label>
            <select class="form-control select2" name="ward_id" style="width: 100%;">
             <option value="">--Select Ward--</option>
-              @foreach ($wards as $wards)
+              @foreach ($wards as $ward)
                   <option value="{{$ward->id}}">{{$ward->name}}</option>
               @endforeach
         </select>

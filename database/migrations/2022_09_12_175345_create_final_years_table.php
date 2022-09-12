@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStreamsTable extends Migration
+class CreateFinalYearsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateStreamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('streams', function (Blueprint $table) {
+        Schema::create('final_years', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->bigInteger('year');
             $table->timestamps();
-    });
-}
+        });
+    }
 
     /**
      * Reverse the migrations.
@@ -27,6 +27,6 @@ class CreateStreamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('streams');
+        Schema::dropIfExists('final_years');
     }
 }

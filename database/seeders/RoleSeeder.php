@@ -51,6 +51,12 @@ class RoleSeeder extends Seeder
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],
+    [
+            'id'=>7,
+            'name'=>'isReseacher',
+            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+    ],
     
     ]);
 

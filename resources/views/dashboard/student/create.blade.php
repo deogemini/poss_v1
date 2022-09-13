@@ -48,17 +48,15 @@
 
 
 <div class="col-md-12">
-             <div class="form-group {{ $errors->has('stream_id') ? 'has-error':'' }} d-none" id="stream">
-                <label class="required">Finishing Year</label>
-                   <select class="form-control" id="stream_id" name="stream_id" style="width: 100%;">
-                    <option value="">--Select Finishing Year--</option>   
-                    </select>
-                 @error('stream_id')
-                   <span class="help-block">{{ $errors->first('stream_id') }}</span>
-                 @enderror
-              </div>
-        </div>
+     <div class="form-group {{ $errors->has('final_year_id') ? 'has-error':'' }}">
+        <label class="required">Final Year</label>
+           <select class="form-control select2" id="final_year_id"  name="final_year_id" style="width: 100%;">
+            <option value="">--Select Final Year--</option>
+              @foreach ($finalYears as $finalYear)
+                  <option value="{{$finalYear->id}}">{{$finalYear->year}}</option>
+              @endforeach
+        </select>
+      </div>
 </div>
-
 
   

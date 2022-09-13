@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\District;
-use App\Models\Grade;
-use App\Models\Region;
-use App\Models\Ward;
-use App\Models\School;
-use App\Models\Stream;
+use App\Models\FinalYears;
 use Illuminate\Http\Request;
 
-class StreamController extends Controller
+class FinishingYearController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +14,8 @@ class StreamController extends Controller
      */
     public function index()
     {
-        $streams = Stream::all();
-        return view('dashboard.streams.index', compact(['streams']));
+        $finalYears = FinalYears::all();
+        return view('dashboard.finalyear.index', compact(['finalYears']));
     }
 
     /**
@@ -43,12 +38,14 @@ class StreamController extends Controller
     {
         $request->validate(
             [
-                'name' =>  'required',
+                'year' =>  'required',              
             ]
             );
 
-         Stream::create($request -> all());
-         return back()->with('msg', "new stream was registered");
+         FinalYears::create([
+            'year' => $request -> year]);
+     
+            return back()->with('msg', 'Final Year Added Successfully');
     }
 
     /**
@@ -59,7 +56,7 @@ class StreamController extends Controller
      */
     public function show($id)
     {
-        return Stream::find($id);
+        //
     }
 
     /**
@@ -82,9 +79,7 @@ class StreamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $stream = Stream::find($id);
-        $stream ->update($request->all());
-        return $stream;
+        //
     }
 
     /**
@@ -95,18 +90,6 @@ class StreamController extends Controller
      */
     public function destroy($id)
     {
-        Stream::destroy($id);
-        return back()->with('msg', "The Stream will be deleted");
-    }
-
-    /**
-     * this method will help in searches for a name.
-     *
-     * @param  str  $name
-     * @return \Illuminate\Http\Response
-     */
-    public function search($name)
-    {
-         return Stream::where('name', 'like', '%'.$name.'%')->get();
+        //
     }
 }

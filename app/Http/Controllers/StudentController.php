@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FinalYears;
 use App\Models\School;
 use App\Models\Grade;
 use App\Models\Stream;
@@ -18,6 +19,7 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
+        $finalYears = FinalYears::all();
         $schools = School::all();
         $streams = Stream::all();
         $grades = Grade::all();
@@ -25,7 +27,11 @@ class StudentController extends Controller
         // $districts =  District::all();
         // $regions =  Region::all();
 
-        return view('dashboard.student.index', compact(['students', 'streams','grades','schools']));
+        return view('dashboard.student.index', compact(['students', 'streams','grades','schools', 'finalYears']));
+        
+    }
+
+    public function getcurrentStudentGrade(){
         
     }
 
@@ -55,6 +61,8 @@ class StudentController extends Controller
         $student->student_name = $request['student_name'];
         $student->gender = $request['gender'];
         $student->stream_id = $request['stream_id'];
+        $student->school_id = $request['school_id'];
+        $student->final_year_id = $request['final_year_id'];
         $student->save();  
 
         return response(['message' => 'A student successfully registered!', 
@@ -71,9 +79,11 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $student = new Student;
-        $student->student_name = $request['student_name'];
+               $student->student_name = $request['student_name'];
         $student->gender = $request['gender'];
         $student->stream_id = $request['stream_id'];
+        $student->school_id = $request['school_id'];
+        $student->final_year_id = $request['final_year_id'];
         $student->save();  
 
         return back()->with('msg' ,'A student successfully registered!');

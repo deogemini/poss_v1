@@ -219,7 +219,7 @@ a.article:hover {
     <!-- Sidebar -->
     <nav id="sidebar">
         <div class="sidebar-header">
-            <h3>Admin Dashboard</h3>
+            <h3>POSS Dashboard</h3>
         </div>
 
         <ul class="list-unstyled components">
@@ -278,10 +278,7 @@ a.article:hover {
                 <ul class="collapse list-unstyled" id="pageSubmenu4">
                     <li>
                         <a href="/schools">School</a>
-                    </li>
-                    <li>
-                        <a href="/grades">Grade</a>
-                    </li>
+</li>
                     <li>
                         <a href="/streams">Stream</a>
                     </li>
@@ -318,6 +315,9 @@ a.article:hover {
                     </li>
                     <li>
                         <a href="/auditReports">Audit Reports</a>
+                    </li>
+                    <li>
+                        <a href="/finishingYears">Finishing Year</a>
                     </li>
 
                 </ul>

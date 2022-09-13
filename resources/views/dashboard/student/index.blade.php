@@ -20,7 +20,8 @@
               <th scope="col">C/N</th>
               <th scope="col">Name of Student</th>
               <th scope="col">Gender</th>
-              <th scope="col">Name of Class</th>
+              <th scope="col">Stream</th>
+              <th scope="col">Class</th>
               <th scope="col">Name of School</th>
               <th scope="col">Actions</th>
             </tr>
@@ -32,8 +33,9 @@
               <td> {{ $loop-> index + 1 }}</td>
               <td>{{ $student->student_name }}</td>
               <td>{{ $student->gender }}</td>
-              <td>{{ $student->grade->name }}</td>
-              <td>{{ $student->grade->school->name }}</td>
+              <td>{{ $student->stream->name }}</td>
+              <td>{{ $student->grade }}</td>
+              <td>{{ $student->school->name }}</td>
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-student-{{$student->id}}">Edit</a>
                 <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){
@@ -52,7 +54,8 @@
             <th scope="col">C/N</th>
               <th scope="col">Name of Student</th>
               <th scope="col">Gender</th>
-              <th scope="col">Name of Class</th>
+              <th scope="col">Stream</th>
+              <th scope="col">Class</th>
               <th scope="col">Name of School</th>
               <th scope="col">Actions</th>
             </tr>
@@ -100,49 +103,4 @@
     });
   });
 </script>
-
-<script>
-  $(document).ready(function(){
-    $('#school_id').change(function(){
-    var $grade = $('#grade_id');
-    $.ajax({
-      url: "{{route('grade.gradesinschool')}}",
-      data: {
-        school_id: $(this).val()
-      },
-      success: function(data){
-        $grade.html('<option value="" selected>--Choose Grade--</option>');
-        $.each(data, function(id, value){
-          $grade.append('<option value="'+id+'">' +value+'</option>');
-        });
-      }
-    });
-    $('#grade_id, #stream_id').val("");
-    $('#grade').removeClass('d-none');
-
-  });
-
-  $('#grade_id').change(function(){
-    var $stream = $('#stream_id');
-    $.ajax({
-      url: "{{route('stream.streamsingrade')}}",
-      data: {
-        grade_id: $(this).val()
-      },
-      success: function(data){
-        $stream.html('<option value="" selected>--Choose Stream--</option>');
-        $.each(data, function(id, value){
-          $stream.append('<option value="'+id+'">' +value+'</option>');
-        });
-      }
-    });
-    $('#stream').removeClass('d-none');
-
-  });
-});
-</script>
-
-
-  
-
 @endsection

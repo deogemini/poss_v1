@@ -21,6 +21,10 @@ class School extends Model
     {
         return $this->hasMany(Grade::class);
     }
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
 
     public function streams(){
         return $this->hasManyThrough(Stream::class, Grade::class);

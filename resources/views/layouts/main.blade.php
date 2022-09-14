@@ -317,6 +317,9 @@ a.article:hover {
                         <a href="/auditReports">Audit Reports</a>
                     </li>
                     <li>
+                        <a href="/userProfile">User Profile</a>
+                    </li>
+                    <li>
                         <a href="/finishingYears">Finishing Year</a>
                     </li>
 

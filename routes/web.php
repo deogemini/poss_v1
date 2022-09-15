@@ -45,6 +45,8 @@ Route::resource('/roles', RoleController::class);
 Route::post('/addBulkRegions', [RegionController::class, 'addExcel'])->name('addExcel');
 Route::resource('/districts', DistrictController::class);
 Route::resource('/finishingYears', FinishingYearController::class);
+Route::post('/addBulkStudent', [StudentController::class, 'import'])->name('import');
+Route::get('/exportStudents', [StudentController::class, 'exportStudents'])->name('exportStudents');
 Route::resource('/wards', WardController::class);
 Route::resource('/grades', GradeController::class);
 Route::get('/grade', [StudentController::class, 'gradesinschool'])->name('grade.gradesinschool');

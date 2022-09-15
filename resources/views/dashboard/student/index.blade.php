@@ -5,9 +5,10 @@
 <div class="row">
   <div class="col-md-8" style="margin-bottom: 10px ;">
     <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-student">Add Student</a>
-    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-role">Add Students via Excell File</a>
-    <a href="javascript::void()" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-add-role">Download Excel file template</a>
-  </div>
+    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-excelfile">Upload File</a>
+   <a href="/exportStudents" class="btn btn-info btn-xs">Download Excel File</a>
+   
+    </div>
 </div>
 <div class="row">
   <div class="col-md-12">
@@ -23,6 +24,7 @@
               <th scope="col">Stream</th>
               <th scope="col">Class</th>
               <th scope="col">Name of School</th>
+
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -90,6 +92,36 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+  </div>
+
+    <div class="modal fade" id="modal-add-excelfile">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add Excel File</h4>
+                </div>
+                <form action="/addBulkStudent" method="post" role="form" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        @include('dashboard.student.addStudentinExcell')
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+@endsection
+
+   
+
 
 
 
@@ -103,4 +135,3 @@
     });
   });
 </script>
-@endsection

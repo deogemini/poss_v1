@@ -8,6 +8,10 @@ use App\Models\Grade;
 use App\Models\Stream;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ImportStudent;
+use App\Exports\ExportStudent;
 
 class StudentController extends Controller
 {
@@ -31,9 +35,21 @@ class StudentController extends Controller
         
     }
 
-    public function getcurrentStudentGrade(){
-        
+
+    public function importView(Request $request){
+        return view('importFile');
     }
+  
+    public function import(Request $request){
+        Excel::import(new ImportStudent, 
+                      $request->file('file'));
+        return redirect()->back();
+    }
+  
+    public function exportStudents(Request $request){
+        return Excel::download(new ExportStudent, 'students.xlsx');
+    }
+
 
     public function gradesinschool(){
         $grades = Grade::whereHas('school', function($query){

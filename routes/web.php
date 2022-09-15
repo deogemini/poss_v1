@@ -64,4 +64,3 @@ Route::get('/logout', [AuthController::class, 'webLogout'])->name('webLogout');
 Route::get('/privacy_policy', function () {
     return view('/privacy_policy');
 });
-

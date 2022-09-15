@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Officers_Districts;
 use App\Models\Officers_Wards;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -64,6 +65,7 @@ class AuthController extends Controller
         if(auth()->attempt($loginData)){            
             return response(['message'=>'You have passed the authentication',
              'data'=> $user, 'role' => $role , 'id' => $id ?? 'Admin']);
+             
         }else{
 
 
@@ -169,10 +171,10 @@ public function webLogin(Request $request){
     }
     if($role_user){
     $role = $role_user->Role->name; 
-    
     }
-    if(auth()->attempt($loginData)){            
-        return view('dashboard.dashboard');
+    if(auth()->attempt($loginData)){ 
+        $user = User::where('email', $loginData)->first(); 
+        return view('dashboard.dashboard', compact(['user']));
     }else{
 
 

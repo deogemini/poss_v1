@@ -4,14 +4,14 @@
         </div>
 
         <ul class="list-unstyled components">
-
+          
         <li>
                 <a href="{{ url ('/dashboard') }}"> 
                 <i class="fa fa-home" aria-hidden="true"></i>
                 <span>Home</span>
                 </a>
             </li>
-         
+
             <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fa fa-users" aria-hidden="true"></i>
@@ -67,12 +67,14 @@
             
                 </ul>
             </li>
+            @if($role == 'isHeadTeacher')
             <li>
                 <a href="/students">
                     <i class="fa fa-child" aria-hidden="true"></i>
                     <span>Students</span>
                 </a>
             </li>
+            @endif
             <li>
                 <a href="/attendanceReports">
                 <i class="fa fa-file"></i>

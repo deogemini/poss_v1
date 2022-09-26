@@ -173,8 +173,12 @@ public function webLogin(Request $request){
     $role = $role_user->Role->name; 
     }
     if(auth()->attempt($loginData)){ 
-        $user = User::where('email', $loginData)->first(); 
-        return view('dashboard.dashboard', compact(['user']));
+        $user = Auth::user(); 
+        $user_id = $user->id;
+        $role_user = RoleUser::where('user_id', $user_id)->first();
+        $role_name = Role::where('id', $role_user->role_id)->first();
+        $role = $role_name->name;
+        return view('dashboard.dashboard', compact(['user_id', 'role']));
     }else{
 
 

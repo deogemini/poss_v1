@@ -4,14 +4,33 @@ namespace App\Exports;
 
 use App\Models\Student;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ExportStudent implements FromCollection
+class ExportStudent implements FromArray, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection()
+
+    public function array(): array
     {
-        return Student::all();
+        return [];
+    } 
+
+
+    // public function collection()
+    // {
+    //     return Student::all();
+    // }
+
+    public function headings(): array
+    {
+        return [
+            'Name of Student',
+            'Gender',
+            'Stream',
+            'Finishing Year'
+        ];
     }
 }

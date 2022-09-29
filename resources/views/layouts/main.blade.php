@@ -286,7 +286,17 @@ $role = $role_name->name;
             </li>
 
             @endif
-            @if($role == 'isHeadTeacher' || 'isAdmin')
+
+            @if($role == 'isHeadTeacher')
+            <li>
+                <a href="/studentsinschool">
+                    <i class="fa fa-child" aria-hidden="true"></i>
+                    <span>Students at Your School</span>
+                </a>
+            </li>
+            @endif
+
+            @if($role == 'isAdmin')
             <li>
                 <a href="/students">
                     <i class="fa fa-child" aria-hidden="true"></i>

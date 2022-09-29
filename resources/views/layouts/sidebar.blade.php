@@ -69,12 +69,18 @@
             </li>
             @if($role == 'isHeadTeacher')
             <li>
+                <a href="/studentsinschool">
+                    <i class="fa fa-child" aria-hidden="true"></i>
+                    <span>Students at Your School</span>
+                </a>
+            </li>
+            @endif
+            <li>
                 <a href="/students">
                     <i class="fa fa-child" aria-hidden="true"></i>
                     <span>Students</span>
                 </a>
             </li>
-            @endif
             <li>
                 <a href="/attendanceReports">
                 <i class="fa fa-file"></i>

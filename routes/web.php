@@ -17,6 +17,7 @@ use App\Http\Controllers\SchoolingController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StreamController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentsforHeadMastersController;
 use App\Http\Controllers\WardController;
 
 /*
@@ -55,6 +56,7 @@ Route::resource('/schools', SchoolingController::class);
 Route::resource('/schoolsgrade', SchoolController::class);
 Route::resource('/streams', StreamController::class);
 Route::resource('/students', StudentController::class);
+Route::resource('/studentsinschool', StudentsforHeadMastersController::class);
 Route::get('/attendanceReports', [AttendanceController::class, 'view'])->name('view');
 Route::resource('/districtOfficer', DistrictOfficersController::class);
 Route::resource('/wardOfficer', WardOfficersController::class);

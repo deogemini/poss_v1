@@ -17,7 +17,7 @@ class SchoolSeeder extends Seeder
     {
         DB::table('schools')->insert([[
             'id'=>1,
-            'name'=>'Minazini',
+            'name'=>'Kurasini',
             'educationLevel' => 'Secondary',
             'ward_id' => '1',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),

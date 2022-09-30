@@ -44,7 +44,7 @@ $role = $role_name->name;
               <td>{{ $student->gender }}</td>
               <td>{{ $student->stream->name }}</td>
               <td>{{ $student->grade }}</td>
-              <td>{{ $student->school->name }}</td>
+              <td>{{ $student->school->name }}  {{ $student->school->educationLevel }}  </td>
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-student-{{$student->id}}">Edit</a>
                 <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){

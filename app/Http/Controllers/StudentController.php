@@ -119,7 +119,7 @@ class StudentController extends Controller
             $array_students[] = $student;
      }
 
-     return response(['message' => 'students in grade', 
+     return response(['message' => 'students in school', 
      'students'=> $array_students, 'total students' => count($array_students)]);
 
 

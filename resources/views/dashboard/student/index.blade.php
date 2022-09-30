@@ -12,8 +12,8 @@ $role = $role_name->name;
 <div class="row">
   <div class="col-md-8" style="margin-bottom: 10px ;">
     <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-student">Add Student</a>
-    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-excelfile">Upload File</a>
-   <a href="/exportStudents" class="btn btn-info btn-xs">Download Excel File</a>
+    <!-- <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-excelfile">Upload File</a> -->
+   <a href="/exportStudents" class="btn btn-info btn-xs">Download Data in Excel File</a>
    
     </div>
 </div>

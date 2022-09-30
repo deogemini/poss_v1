@@ -45,7 +45,7 @@ class StudentsforHeadMastersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $student = new Student;
         $student->student_name = $request['student_name'];

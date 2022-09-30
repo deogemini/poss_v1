@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class ImportStudent implements ToCollection, WithHeadingRow
+class ImportStudent implements ToModel
 {
     /**
     * @param array $row
@@ -21,23 +21,23 @@ class ImportStudent implements ToCollection, WithHeadingRow
    
 
 
-    public function collection(Collection $rows)
+    public function model(array $rows)
     {
 
              foreach ($rows as $row) {
 
             DB::beginTransaction();
 
-            $stream = Stream::where("name", "=",$row['stream'])->first();
+            $stream = Stream::where("name",$row[3])->first();
 
-            $finalYear = FinalYears::where("year", "=", $row['year'])->first();
+            $finalYear = FinalYears::where("year", $row[4])->first();
 
 
             if($finalYear == null){
 
                 $finalYear =  FinalYears::create([
 
-                        'year' => $row['year'],
+                        'year' => $row[4],
                     ]);
             }
 
@@ -47,14 +47,14 @@ class ImportStudent implements ToCollection, WithHeadingRow
 
                     $stream =  Stream::create([
 
-                        'name' => $row['stream'],
+                        'name' => $row[3],
                     ]);
                 
             }
 
             $student = new Student();
-            $student->student_name = $row['name'];
-            $student->gender = $row['gender'];
+            $student->student_name = $row[1];
+            $student->gender = $row[2];
             $student->stream_id = $stream->id;
             $student->final_year_id = $finalYear->id;
             $student->school_id = 1;

@@ -57,7 +57,7 @@
                                 @csrf
                                 @method('PATCH')
                                  <div class="modal-body">
-                                    @include('dashboard.finalYear.edit')
+                                    @include('dashboard.finalyear.edit')
                                  </div>
                                <div class="modal-footer">
                                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>

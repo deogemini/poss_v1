@@ -114,14 +114,9 @@ class StudentController extends Controller
     {
 
         $array_students = [];
-     $streams = Stream::where('grade_id', $id)->get();
-     foreach($streams as $stream){
-         $stream_id = $stream->id;
-         $students = Student::where('stream_id', $stream_id)->get();
+        $students = Student::where('school_id', $id)->get();
          foreach($students as $student){
-            $array_students[] = $student; 
-
-         }
+            $array_students[] = $student;
      }
 
      return response(['message' => 'students in grade', 
@@ -145,6 +140,11 @@ class StudentController extends Controller
         return view('dashboard.student.index', compact(['students', 'streams','grades','schools']));
         
     }
+
+   public function getTotalinGrade(){
+      $form1 = Student::selectRaw('count(*)')
+                ->whereRaw('grade = "Form 1"');
+   }
 
     /**
      * Show the form for editing the specified resource.

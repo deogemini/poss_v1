@@ -22,23 +22,7 @@ class SchoolSeeder extends Seeder
             'ward_id' => '1',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-        [
-            'id'=>2,
-            'name'=>'Mivinjeni',
-            'educationLevel' => 'Secondary',
-            'ward_id' => '2',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-     [
-            'id'=>3,
-            'name'=>'Magole',
-            'educationLevel' => 'Secondary',
-            'ward_id' => '3',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
+    ]
       ]);
  }
 }

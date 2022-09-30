@@ -17,39 +17,12 @@ class DistrictSeeder extends Seeder
     {
          DB::table('districts')->insert([[
             'id'=>1,
-            'name'=>'Ilala',
+            'name'=>'Temeke',
             'region_id' => '1', 
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-             'id'=>2,
-            'name'=>'Temeke',
-            'region_id' => '1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-             'id'=>3,
-            'name'=>'Ubungo',
-            'region_id' => '1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>4,
-            'name'=>'Kigamboni',
-            'region_id' => '1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>5,
-            'name'=>'Kinondoni',
-            'region_id' => '1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
+    ]
+
 ]);
      }
 }

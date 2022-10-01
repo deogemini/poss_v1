@@ -22,6 +22,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+
         $email = $request->email;
         $user = User::where('email', $email)->first();
         $user_id = $user->id;
@@ -63,14 +64,12 @@ class AuthController extends Controller
         
         }
         if(auth()->attempt($loginData)){            
-            return response([
+            return response()->json([
                 'message'=>'You have passed the authentication',
                 'data'=> $user, 
                 'role' => $role , 
                 'id' => $id ?? 'Admin']
-            )
-            ->header('Content-Type', 'application/json')
-            ;
+            );
              
         }else{
 

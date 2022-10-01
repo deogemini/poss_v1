@@ -117,14 +117,10 @@ class StudentController extends Controller
         $students = Student::where('school_id', $id)->get();
          foreach($students as $student){
             $array_students[] = $student;
-     }
+             }
 
      return response(['message' => 'students in school', 
      'students'=> $array_students, 'total students' => count($array_students)]);
-
-
-
-        
     }
 
     public function view()

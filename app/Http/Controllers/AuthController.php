@@ -63,8 +63,14 @@ class AuthController extends Controller
         
         }
         if(auth()->attempt($loginData)){            
-            return response(['message'=>'You have passed the authentication',
-             'data'=> $user, 'role' => $role , 'id' => $id ?? 'Admin']);
+            return response([
+                'message'=>'You have passed the authentication',
+                'data'=> $user, 
+                'role' => $role , 
+                'id' => $id ?? 'Admin']
+            )
+            ->header('Content-Type', 'application/json')
+            ;
              
         }else{
 

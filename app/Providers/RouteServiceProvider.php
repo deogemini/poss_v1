@@ -18,7 +18,6 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/dashboard/dashboard';
-    protected $namespace = 'App\Http\Controllers'; // need to add in Laravel 8
 
 
     /**
@@ -34,11 +33,9 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::prefix('api')
             ->middleware('api')
-            ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
-                ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
            

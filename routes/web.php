@@ -37,7 +37,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/login', [AuthController::class, 'webLogin'])->name('webLogin');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('index');
 Route::resource('/region', RegionController::class);

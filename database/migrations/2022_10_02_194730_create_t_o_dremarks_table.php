@@ -16,9 +16,7 @@ class CreateTODremarksTable extends Migration
         Schema::create('t_o_dremarks', function (Blueprint $table) {
             $table->id();
             $table->string('remark');
-            $table->foreignId('attendance_student_dateofattendance')
-            ->constrained('attendance_student')
-            ->onUpdate('cascade');
+            $table->string('dateofattendances');
             $table->timestamps();
         });
     }
@@ -31,5 +29,6 @@ class CreateTODremarksTable extends Migration
     public function down()
     {
         Schema::dropIfExists('t_o_dremarks');
+        
     }
 }

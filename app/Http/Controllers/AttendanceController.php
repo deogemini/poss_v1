@@ -121,13 +121,13 @@ class AttendanceController extends Controller
     }
     public function TODremark(Request $request){
         $date = Carbon::now()->format('Y-m-d');
-        $attendances_fetched = AttendanceStudent::where('created_at', 'LIKE', $date.'%')->get();
+        $attendances_fetched = AttendanceStudent::where('dateofattendance', $date)->get();
         foreach($attendances_fetched as $attendance_fetched ){
             $attendance_student_dateofattendance = $attendance_fetched->dateofattendance;
         }
         $TODremark = TODremark::insert([
             'remark' => $request['remark'],
-            'attendance_student_dateofattendance ' => $attendance_student_dateofattendance 
+            'dateofattendances' => $attendance_student_dateofattendance 
         ]);
 
         return response(['message' => 'The remark of today has been sent', 

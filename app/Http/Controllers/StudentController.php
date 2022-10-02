@@ -137,10 +137,11 @@ class StudentController extends Controller
         
     }
 
-   public function getTotalinGrade(){
+     public function getTotalinGrade($grade){
       $form1 = Student::selectRaw('count(*)')
                 ->whereRaw('grade = "Form 1"');
-   }
+                return  response()->json(); 
+     }
 
     /**
      * Show the form for editing the specified resource.

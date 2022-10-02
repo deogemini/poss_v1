@@ -20,6 +20,7 @@ class StudentSeeder extends Seeder
             'student_name'=>'student1 Amina',
             'gender'=>'female',
             'stream_id'=>'1',
+            'school_id' => '1',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],
@@ -28,6 +29,7 @@ class StudentSeeder extends Seeder
             'student_name'=>'student2 Salumu',
             'gender'=>'male',
             'stream_id'=>'1',
+            'school_id' => '1',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],
@@ -51,7 +53,8 @@ class StudentSeeder extends Seeder
             'id'=>5,
             'student_name'=>'Charlie Charlie',
             'gender'=>'male',
-            'stream_id'=>'2',
+            'stream_id'=>'1',
+            'school_id' => '1',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],
@@ -67,7 +70,8 @@ class StudentSeeder extends Seeder
             'id'=>7,
             'student_name'=>'Parker Json',
             'gender'=>'male',
-            'stream_id'=>'3',
+            'stream_id'=>'1',
+            'school_id' => '1',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],
@@ -75,7 +79,8 @@ class StudentSeeder extends Seeder
             'id'=>8,
             'student_name'=>'Athur Athens',
             'gender'=>'male',
-            'stream_id'=>'4',
+            'stream_id'=>'1',
+            'school_id' => '1',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],
@@ -83,7 +88,8 @@ class StudentSeeder extends Seeder
             'id'=>9,
             'student_name'=>'Lisamu Hitler',
             'gender'=>'female',
-            'stream_id'=>'4',
+            'stream_id'=>'1',
+            'school_id' => '1',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],
@@ -91,15 +97,17 @@ class StudentSeeder extends Seeder
             'id'=>10,
             'student_name'=>'Stregomena Tax',
             'gender'=>'female',
-            'stream_id'=>'5',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+            'stream_id'=>'1',
+            'school_id' => '1',
+                        'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],
      [
             'id'=>11,
             'student_name'=>'Bashungwa Innocent',
             'gender'=>'male',
-            'stream_id'=>'5',
+            'stream_id'=>'1',
+            'school_id' => '1',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],
@@ -107,7 +115,8 @@ class StudentSeeder extends Seeder
             'id'=>12,
             'student_name'=>'Jafo Sulemani',
             'gender'=>'male',
-            'stream_id'=>'5',
+            'stream_id'=>'1',
+            'school_id' => '1',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
     ],

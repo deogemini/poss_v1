@@ -21,15 +21,14 @@ class DatabaseSeeder extends Seeder
             DistrictSeeder::class,
             WardSeeder::class,
             SchoolSeeder::class,                              
-            GradeSeeder::class,
             StreamSeeder::class,
-            StudentSeeder::class,
+            // StudentSeeder::class,
             UserSeeder::class, 
             RoleSeeder::class,
             UserRoleSeeder::class,
             AttendanceSeeder::class,
-            AttendanceStudentSeeder::class,
-            AttendanceTeacherSeeder::class
+            FinalYearSeeder::class
+            // AttendanceStudentSeeder::class,
         ]);
 
     }

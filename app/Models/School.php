@@ -17,18 +17,18 @@ class School extends Model
      /**
      * Get the grades for the school.
      */
-    public function grades()
-    {
-        return $this->hasMany(Grade::class);
-    }
+    // public function grades()
+    // {
+    //     return $this->hasMany(Grade::class);
+    // }
     public function students()
     {
         return $this->hasMany(Student::class);
     }
 
-    public function streams(){
-        return $this->hasManyThrough(Stream::class, Grade::class);
-    }
+    // public function streams(){
+    //     return $this->hasManyThrough(Stream::class, Grade::class);
+    // }
 
     public function ward(){
         return $this->belongsTo(Ward::class);

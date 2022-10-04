@@ -61,6 +61,10 @@ Route::get('/attendanceReports', [AttendanceController::class, 'view'])->name('v
 Route::resource('/districtOfficer', DistrictOfficersController::class);
 Route::resource('/wardOfficer', WardOfficersController::class);
 Route::resource('/headTeacher', HeadTeacherController::class);
+Route::get('/teachersinschool', [StudentsforHeadMastersController::class, 'teachersinschool'])->name('teachersinschool');
+Route::get('/studentsinyourschool', [StudentsforHeadMastersController::class, 'studentsinschool'])->name('studentsinschool');
+
+
 Route::resource('/teacher', TeacherController::class);
 Route::get('/logout', [AuthController::class, 'webLogout'])->name('webLogout');
 Route::get('/privacy_policy', function () {

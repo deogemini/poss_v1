@@ -15,12 +15,7 @@ $role = $role_name->name;
 
 <div class="row">
   <div class="col-md-8" style="margin-bottom: 10px ;">
-    <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-student">Add Student</a>
-    <a href="/teachersinschool" class="btn btn-primary btn-xs">View Teachers</a>
-
-    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-excelfile">Upload File</a>
-   <a href="/exportStudents" class="btn btn-info btn-xs">Download Excel File</a>
-   
+    {{-- <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-student">Add Student</a>    --}}
     </div>
 </div>
 <div class="row">
@@ -36,6 +31,7 @@ $role = $role_name->name;
               <th scope="col">Gender</th>
               <th scope="col">Stream</th>
               <th scope="col">Class</th>
+              <th scope="col">Attendance</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -48,6 +44,19 @@ $role = $role_name->name;
               <td>{{ $student->gender }}</td>
               <td>{{ $student->stream->name }}</td>
               <td>{{ $student->grade }}</td>
+              <td>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="attendance">Absent
+                    </label>
+                  </div>
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="optradio">Present
+                    </label>
+                  </div>
+                 
+            </td>
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-student-{{$student->id}}">Edit</a>
                 <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){
@@ -68,6 +77,7 @@ $role = $role_name->name;
               <th scope="col">Gender</th>
               <th scope="col">Stream</th>
               <th scope="col">Class</th>
+              <th scope="col">Attendance</th>
               <th scope="col">Actions</th>
             </tr>
           </tfoot>
@@ -78,7 +88,7 @@ $role = $role_name->name;
 </div>
 
 <!--add modal-->
-<div class="modal fade" id="modal-add-student">
+{{-- <div class="modal fade" id="modal-add-student">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -101,7 +111,7 @@ $role = $role_name->name;
         </div>
         <!-- /.modal-dialog -->
     </div>
-  </div>
+  </div> --}}
 
     <div class="modal fade" id="modal-add-excelfile">
         <div class="modal-dialog">

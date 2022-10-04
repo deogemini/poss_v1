@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\AttendanceStudent;
-use App\Models\AttendanceTeacher;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,7 +20,7 @@ class DatabaseSeeder extends Seeder
             WardSeeder::class,
             SchoolSeeder::class,                              
             StreamSeeder::class,
-            // StudentSeeder::class,
+            GradeSeeder::class,
             UserSeeder::class, 
             RoleSeeder::class,
             UserRoleSeeder::class,

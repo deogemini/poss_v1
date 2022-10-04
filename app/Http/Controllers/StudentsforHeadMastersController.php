@@ -9,6 +9,8 @@ use App\Models\Grade;
 use App\Models\Stream;
 use App\Models\FinalYears;
 use App\Models\School;
+use App\Models\User;
+
 use App\Models\School_Teachers;
 
 
@@ -34,10 +36,56 @@ class StudentsforHeadMastersController extends Controller
         $schools = School::all();
         $streams = Stream::all();
         $grades = Grade::all();
+
+        $teachers = User::whereHas(
+            'roles' , fn($query) =>
+            $query->where('name', 'isTeacher'))->
+            whereHas(
+                'schools' , fn($query) =>
+                $query->where('id', $school_id))->get();
         // $wards = Ward::all();
         // $districts =  District::all();
         // $regions =  Region::all();
-        return view('dashboard.student.headMaster', compact(['students', 'streams','grades','schools', 'finalYears']));
+        return view('dashboard.student.headMaster', compact(['students', 'streams','grades','schools', 'finalYears', 'teachers']));
+    }
+
+    public function teachersinschool()
+    {
+
+        $user = Auth::user(); 
+        $user_id = $user->id;
+        $school = School_Teachers::where('user_id', $user_id)->first();
+        $school_id = $school->school_id;
+        //$school =  App\Models\School::where('id', $school_id)->first();
+    
+        // $students = Student::where('school_id', $school_id)->get();
+        // $finalYears = FinalYears::all();
+        // $schools = School::all();
+        // $streams = Stream::all();
+        // $grades = Grade::all();
+
+        $teachers = User::whereHas(
+            'roles' , fn($query) =>
+            $query->where('name', 'isTeacher'))->
+            whereHas(
+                'schools' , fn($query) =>
+                $query->where('id', $school_id))->get();
+        // $wards = Ward::all();
+        // $districts =  District::all();
+        // $regions =  Region::all();
+        return view('dashboard.student.headMasterTeacher', compact(['teachers']));
+    }
+
+    public function studentsinschool(){
+        $user = Auth::user(); 
+        $user_id = $user->id;
+        $school = School_Teachers::where('user_id', $user_id)->first();
+        $school_id = $school->school_id;
+        //$school =  App\Models\School::where('id', $school_id)->first();
+    
+        $students = Student::where('school_id', $school_id)->get();
+
+        return view('dashboard.student.teacherpage', compact(['students']));
     }
 
     /**
@@ -68,7 +116,7 @@ class StudentsforHeadMastersController extends Controller
     public function store(Request $request)
     {
         $student = new Student;
-               $student->student_name = $request['student_name'];
+        $student->student_name = $request['student_name'];
         $student->gender = $request['gender'];
         $student->stream_id = $request['stream_id'];
         $student->school_id = $request['school_id'];

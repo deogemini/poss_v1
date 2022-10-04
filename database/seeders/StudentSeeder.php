@@ -29,9 +29,7 @@ class StudentSeeder extends Seeder
             'student_name'=>'student2 Salumu',
             'gender'=>'male',
             'stream_id'=>'1',
-            'school_id' => '1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'school_id' => '1'
     ],
     [
             'id'=>3,

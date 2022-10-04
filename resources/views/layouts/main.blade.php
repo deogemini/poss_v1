@@ -291,7 +291,15 @@ $role = $role_name->name;
             <li>
                 <a href="/studentsinschool">
                     <i class="fa fa-child" aria-hidden="true"></i>
-                    <span>Students at Your School</span>
+                    <span>Data for School</span>
+                </a>
+            </li>
+            @endif
+            @if($role == 'isTeacher')
+             <li>
+                <a href="/studentsinyourschool">
+                    <i class="fa fa-child" aria-hidden="true"></i>
+                    <span>Students for your School</span>
                 </a>
             </li>
             @endif

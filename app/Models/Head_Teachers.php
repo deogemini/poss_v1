@@ -9,7 +9,7 @@ class Head_Teachers extends Model
 {
     use HasFactory;
 
-    protected $table = "head_teachers";
+    protected $table = "teachers/headTeachers_schools";
 
     public function users(){
         return $this->belongto(User::class, 'user_id');

@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserRoleSeeder::class,
             AttendanceSeeder::class,
-            FinalYearSeeder::class
+            FinalYearSeeder::class,
+            StudentSeeder::class
             // AttendanceStudentSeeder::class,
         ]);
 

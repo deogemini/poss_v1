@@ -12,10 +12,9 @@ class School_Teachers extends Model
     protected $fillable = [
         'user_id',
         'school_id',
-        'grade_id'
     ];
 
-    protected $table = "school_teachers";
+    protected $table = "teachers/headTeachers_schools";
 
     public function users(){
         return $this->belongto(User::class, 'user_id');
@@ -23,9 +22,5 @@ class School_Teachers extends Model
 
     public function schools(){
         return $this->belongto(School::class, 'school_id');
-    }
-
-    public function grades(){
-        return $this->belongto(Grade::class, 'grade_id');
     }
 }

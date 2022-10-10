@@ -279,6 +279,9 @@ $role = $role_name->name;
                         <a href="/schools">School</a>
                     </li>
                     <li>
+                        <a href="/linkTeacherandGrade">Add Teachers in Classes</a>
+                    </li>
+                    <li>
                         <a href="/streams">Stream</a>
                     </li>
             

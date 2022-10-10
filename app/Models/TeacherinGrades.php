@@ -11,14 +11,14 @@ class TeacherinGrades extends Model
     use HasFactory;
 
     protected $fillable = [
-        'teacher_id',
+        'user_id',
         'grade_id',
     ];
 
     protected $table = "teacherin_grades";
 
-    public function teachers(){
-        return $this->belongto(School_Teachers::class, 'teacher_id');
+    public function users(){
+        return $this->belongto(User::class, 'user_id');
     }
 
     public function grades(){

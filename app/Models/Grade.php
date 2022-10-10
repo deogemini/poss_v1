@@ -14,4 +14,9 @@ class Grade extends Model
 
     protected $table = 'grades';
 
+    public function teachers()
+    {
+        return $this->belongsToMany(User::class, 'teacherin_grades', 'user_id', 'grade_id');
+    }
+
 }

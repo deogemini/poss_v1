@@ -72,8 +72,8 @@ class User extends Authenticatable
         return $this->belongsToMany(District::class, 'districtOfficers_districts', 'user_id', 'district_id');
     }
 
-    
-    
-
-
+    public function grades()
+    {
+        return $this->belongsToMany(Grade::class, 'teacherin_grades', 'user_id', 'grade_id');
+    }
 }

@@ -11,7 +11,10 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RoleUser;
+use App\Models\School;
 use App\Models\School_Teachers;
+use Illuminate\Support\Facades\DB;
+
 
 class AuthController extends Controller
 {
@@ -46,7 +49,9 @@ class AuthController extends Controller
 // to check if user  is teacher and get school_id
        if($teacher_user){
             $school_id = $teacher_user->school_id;
-            $id = $school_id;
+            $school = School::where('id', $school_id)->first();
+            $educationLevel =  $school->educationLevel;
+            $school_id = $school_id;
         }
         // to check if user  isdistrict officer and get district_id
         if($district_officer){
@@ -67,8 +72,9 @@ class AuthController extends Controller
             return response()->json([
                 'message'=>'You have passed the authentication',
                 'data'=> $user, 
-                'role' => $role , 
-                'id' => $id ?? 'Admin']
+                'role' => $role ,
+                'school_id' => $school_id ?? '',
+                'educationLevel' => $educationLevel ?? '']
             );
              
         }else{

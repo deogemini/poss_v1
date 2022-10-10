@@ -20,6 +20,7 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $grade;
     public function index()
     {
         $students = Student::all();
@@ -137,18 +138,21 @@ class StudentController extends Controller
         
     }
 
-     public function getTotalinGrade($grade){
-      $form1 = Student::selectRaw('count(*)')
-                ->whereRaw('grade = "Form 1"');
-                return  response()->json(); 
+    
+    //function to get student by using grade in string and the school id
+     public function getStudentsinGrade($grade, $school_id){
+       $students =  Student::where('school_id', $school_id)->get();
+
+       $this -> grade = $grade;
+       $gradeStudent= $students->filter(function($value,$key){
+            return $value->grade == $this->grade;
+       });
+
+      return  response(['message' => 'students in class',
+                'students' => $gradeStudent,
+                'total students' => count($gradeStudent)]); 
      }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //

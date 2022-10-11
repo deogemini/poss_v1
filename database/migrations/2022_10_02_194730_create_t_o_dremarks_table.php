@@ -17,6 +17,8 @@ class CreateTODremarksTable extends Migration
             $table->id();
             $table->string('remark');
             $table->string('dateofattendances');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('school_id')->constrained('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

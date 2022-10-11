@@ -56,6 +56,7 @@ class AttendanceController extends Controller
         $actual_student =  Student::where('id', $attendanceStudent)->get();
         foreach($actual_student as $student){
          $grade = $student->grade;
+         $school_id = $student->school_id;
         //  $actual_stream = Stream::where('id', $stream_id)->get();
         //  foreach($actual_stream as $stream){
         //      $grade_id = $stream->grade_id;
@@ -72,6 +73,7 @@ class AttendanceController extends Controller
                 'attendance_id' => $attendance,
                 'student_id' => $attendanceStudent,
                  'grade' => $grade,
+                 'school_id' => $school_id,
                  'dateofattendance' =>  $date,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
@@ -119,6 +121,9 @@ class AttendanceController extends Controller
        return view('dashboard.attendanceReports.index');
         
     }
+    
+
+
     public function TODremark(Request $request){
         $date = Carbon::now()->format('Y-m-d');
         $attendances_fetched = AttendanceStudent::where('dateofattendance', $date)->get();
@@ -127,6 +132,8 @@ class AttendanceController extends Controller
         }
         $TODremark = TODremark::insert([
             'remark' => $request['remark'],
+            'school_id' => $request['school_id'],
+            'user_id' => $request['user_id'],
             'dateofattendances' => $attendance_student_dateofattendance 
         ]);
 
@@ -135,19 +142,29 @@ class AttendanceController extends Controller
     }
 
 
-    public function getAttendanceReport($grade, $date){
+
+
+
+    public function getAttendanceReport($grade, $date, $school_id){
         $Array_student_boys_present= [];
         $Array_student_boys_absent= [];
         $Array_student_girls_present = [];
         $Array_student_girls_absent = [];
 
+        //total number of student in a school 
+        $attendanceschool_fetched = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        ->where('school_id', $school_id)->get();
+        $total_students_in_school = $attendanceschool_fetched->count();
         //total students are counted
         $attendance_fetched = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-                                    ->where('grade', $grade)->get();
+                                    ->where('grade', $grade)
+                                    ->where('school_id', $school_id)
+                                    ->get();
         $total_students = $attendance_fetched->count();
         //total present students fetched
         $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                     ->where('grade', $grade)
+                                    ->where('school_id', $school_id)
                                     ->where('attendance_id' , "1")->get();
         //total present students are counted
          $total_present_student = $attendance_fetched_present->count();
@@ -156,14 +173,16 @@ class AttendanceController extends Controller
          //male
          $male_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                     ->where('grade', $grade)
+                                    ->where('school_id', $school_id)
                                     ->where('attendance_id' , "1")
                                     ->whereHas('student' , function($query){
                                         return $query->where('gender', 'male');
                                     })
                                     ->count();
 
-        $female_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        $female_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')   
                                     ->where('grade', $grade)
+                                    ->where('school_id', $school_id)
                                     ->where('attendance_id' , "1")
                                     ->whereHas('student' , function($query){
                                         return $query->where('gender', 'female');
@@ -172,12 +191,14 @@ class AttendanceController extends Controller
 
         $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                         ->where('grade', $grade)
+                                        ->where('school_id', $school_id)
                                         ->where('attendance_id' , "2")->get();
         //total absent students are counted                               
         $total_absent_student = $attendance_fetched_absent->count();
 
         $male_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
         ->where('grade', $grade)
+        ->where('school_id', $school_id)
         ->where('attendance_id' , "2")
         ->whereHas('student' , function($query){
             return $query->where('gender', 'male');
@@ -186,6 +207,7 @@ class AttendanceController extends Controller
 
         $female_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                 ->where('grade', $grade)
+                ->where('school_id', $school_id)
                 ->where('attendance_id' , "2")
                 ->whereHas('student' , function($query){
                     return $query->where('gender', 'female');
@@ -203,6 +225,84 @@ class AttendanceController extends Controller
                                             'Date' => $date
                                          ]);
                                  } 
+
+
+
+
+    public function attendanceReportHeadMaster($school_id, $date){
+        $attendanceschool_fetched = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        ->where('school_id', $school_id)->get();
+        $total_students_in_school = $attendanceschool_fetched->count();
+
+
+           //total present students fetched
+           $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+           ->where('school_id', $school_id)
+           ->where('attendance_id' , "1")->get();
+                    //total present students are counted
+                    $total_present_student = $attendance_fetched_present->count();
+                    //starting to get total boys and girls and counting them here
+
+                    //male
+                    $male_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                            ->where('school_id', $school_id)
+                            ->where('attendance_id' , "1")
+                            ->whereHas('student' , function($query){
+                                return $query->where('gender', 'male');
+                            })
+                            ->count();
+
+                    $female_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')   
+                            ->where('school_id', $school_id)
+                            ->where('attendance_id' , "1")
+                            ->whereHas('student' , function($query){
+                                return $query->where('gender', 'female');
+                            })
+                            ->count();
+
+                    $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                ->where('school_id', $school_id)
+                                ->where('attendance_id' , "2")->get();
+                    //total absent students are counted                               
+                    $total_absent_student = $attendance_fetched_absent->count();
+
+                    $male_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                    ->where('school_id', $school_id)
+                    ->where('attendance_id' , "2")
+                    ->whereHas('student' , function($query){
+                    return $query->where('gender', 'male');
+                    })
+                    ->count();
+
+                    $female_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                    ->where('school_id', $school_id)
+                    ->where('attendance_id' , "2")
+                    ->whereHas('student' , function($query){
+                    return $query->where('gender', 'female');
+                    })
+                    ->count();
+
+
+        $todremark = TODremark::where('school_id', $school_id)
+                                ->where('date', $date)->first();
+        $remarkyenyewe = $todremark->remark;
+
+                                return response()->json(['
+                                message'=> 'Attendance Report in School',
+                                'Total Students' => $total_students_in_school,
+
+                                'Present' => $total_present_student,
+                                           'Total_boys_present' => $male_present,//count($Array_student_boys_present),
+                                            'Total_girls_present' => $female_present,//count($Array_student_girls_present),
+                                            'Absent' => $total_absent_student,
+                                            'Total_boys_absent' => $male_absent,
+                                            'Total_girls_absent' => $female_absent,
+                                            'Date' => $date,
+                                'remark' => $remarkyenyewe
+                ]);
+
+
+    }
                                                                                                                         
 
     /**

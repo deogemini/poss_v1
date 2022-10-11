@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Officers_Districts;
 use App\Models\Officers_Wards;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RoleUser;
+use App\Models\School;
 use App\Models\School_Teachers;
+use Illuminate\Support\Facades\DB;
+
 
 class AuthController extends Controller
 {
@@ -20,6 +24,7 @@ class AuthController extends Controller
             'email' => 'email|required',
             'password' => 'required'
         ]);
+
 
         $email = $request->email;
         $user = User::where('email', $email)->first();
@@ -44,7 +49,9 @@ class AuthController extends Controller
 // to check if user  is teacher and get school_id
        if($teacher_user){
             $school_id = $teacher_user->school_id;
-            $id = $school_id;
+            $school = School::where('id', $school_id)->first();
+            $educationLevel =  $school->educationLevel;
+            $school_id = $school_id;
         }
         // to check if user  isdistrict officer and get district_id
         if($district_officer){
@@ -62,8 +69,14 @@ class AuthController extends Controller
         
         }
         if(auth()->attempt($loginData)){            
-            return response(['message'=>'You have passed the authentication',
-             'data'=> $user, 'role' => $role , 'id' => $id ?? 'Admin']);
+            return response()->json([
+                'message'=>'You have passed the authentication',
+                'data'=> $user, 
+                'role' => $role ,
+                'school_id' => $school_id ?? '',
+                'educationLevel' => $educationLevel ?? '']
+            );
+             
         }else{
 
 
@@ -169,10 +182,14 @@ public function webLogin(Request $request){
     }
     if($role_user){
     $role = $role_user->Role->name; 
-    
     }
-    if(auth()->attempt($loginData)){            
-        return view('dashboard.dashboard');
+    if(auth()->attempt($loginData)){ 
+        $user = Auth::user(); 
+        $user_id = $user->id;
+        $role_user = RoleUser::where('user_id', $user_id)->first();
+        $role_name = Role::where('id', $role_user->role_id)->first();
+        $role = $role_name->name;
+        return view('dashboard.dashboard', compact(['user_id', 'role']));
     }else{
 
 

@@ -14,8 +14,7 @@ class Stream extends Model
 
 
     protected $fillable = [
-        'name',
-        'grade_id'
+        'name'
     ];
 
     protected $table = 'streams';

@@ -17,11 +17,6 @@
             <tr>
               <th scope="col">C/N</th>
               <th scope="col">Name of Stream</th>
-              <th scope="col">Name of Grade</th>
-              <th scope="col">Name of School</th>
-              <th scope="col">Name of Ward</th>
-              <th scope="col">Name of District</th>
-              <th scope="col">Name of Region</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -31,19 +26,6 @@
             <tr>
               <td> {{ $loop-> index + 1 }}</td>
               <td>{{ $stream->name }}</td>
-              <td>{{ App\Models\Grade::where('id', $stream->grade_id)->pluck('name')[0] ?? '-' }}</td>
-              <td>{{ App\Models\School::where('id', App\Models\Grade::where('id', $stream->grade_id)->pluck('school_id'))->pluck('name')[0] ?? '-'}}</td>
-              <td>{{ App\Models\Ward::where('id', App\Models\School::where('id', App\Models\Grade::where('id', $stream->grade_id)->pluck('school_id'))->pluck('ward_id'))->pluck('name')[0] ?? '-' }}</td>
-              <td>{{ App\Models\District::where('id', App\Models\Ward::where('id',
-                                                                                 App\Models\School::where('id' ,
-                                                                                 App\Models\Grade::where('id', $stream->grade_id)->pluck('school_id'))->pluck('ward_id'))->pluck('district_id'))->pluck('name')[0] ?? '-'}}</td>
-              <td>{{ App\Models\Region::where('id',                             App\Models\District::where('id', 
-                                                                                App\Models\Ward::where('id',
-                                                                                 App\Models\School::where('id' , 
-                                                                                 App\Models\Grade::where('id', $stream->grade_id)->pluck('school_id'))
-                                                                                 ->pluck('ward_id'))
-                                                                                 ->pluck('district_id'))
-                                                                                 ->pluck('region_id'))->pluck('name')[0] ?? '-'}}</td>
               <td> 
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-stream-{{$stream->id}}">Edit</a>
                 <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this Stream ?')){
@@ -93,11 +75,6 @@
             <tr>
             <th scope="col">C/N</th>
               <th scope="col">Name of Stream</th>
-              <th scope="col">Name of Grade</th>
-              <th scope="col">Name of School</th>
-              <th scope="col">Name of Ward</th>
-              <th scope="col">Name of District</th>
-              <th scope="col">Name of Region</th>
               <th scope="col">Actions</th>
             </tr>
           </tfoot>

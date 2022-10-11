@@ -13,10 +13,12 @@
 <div class="col-md-12">
     <div class="form-group {{ $errors->has('educationLevel') ? 'has-error':'' }}">
         <label class="required" for="name"> Education Level </label>
-        <input type="text" name="educationLevel" class="form-control" value="{{old('name') ?? $school->educationLevel}}" placeholder="">
-        @error('educationLevel')
-         <span class="help-block">{{ $errors->first('educationLevel') }}</span>
-        @enderror
+
+        <select class="form-control select2" name="educationLevel" style="width: 100%;">
+            <option value="">---Select Education Level---</option>
+                  <option value="Primary">Primary Level</option>
+                  <option value="Secondary">Secondary Level</option>
+        </select>
       </div>
 </div>
 

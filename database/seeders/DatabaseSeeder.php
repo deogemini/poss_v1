@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\AttendanceStudent;
-use App\Models\AttendanceTeacher;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,15 +19,15 @@ class DatabaseSeeder extends Seeder
             DistrictSeeder::class,
             WardSeeder::class,
             SchoolSeeder::class,                              
-            GradeSeeder::class,
             StreamSeeder::class,
-            StudentSeeder::class,
+            GradeSeeder::class,
             UserSeeder::class, 
             RoleSeeder::class,
             UserRoleSeeder::class,
             AttendanceSeeder::class,
-            AttendanceStudentSeeder::class,
-            AttendanceTeacherSeeder::class
+            FinalYearSeeder::class,
+            StudentSeeder::class
+            // AttendanceStudentSeeder::class,
         ]);
 
     }

@@ -20,12 +20,7 @@ class StreamController extends Controller
     public function index()
     {
         $streams = Stream::all();
-        $grades = Grade::all();
-        $wards = Ward::all();
-        $schools = School::all();
-        $districts = District::all();
-        $regions = Region::all();
-        return view('dashboard.streams.index', compact(['streams', 'grades' , 'wards',  'schools', 'districts', 'regions']));
+        return view('dashboard.streams.index', compact(['streams']));
     }
 
     /**
@@ -49,7 +44,6 @@ class StreamController extends Controller
         $request->validate(
             [
                 'name' =>  'required',
-                'grade_id' => 'required'
             ]
             );
 

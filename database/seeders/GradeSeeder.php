@@ -17,88 +17,57 @@ class GradeSeeder extends Seeder
     {
         DB::table('grades')->insert([[
             'id'=>1,
-            'name'=>'Form 1',
-            'school_id'=>'1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'name'=>'Form One'
     ],
     [
             'id'=>2,
-            'name'=>'Form 2',
-            'school_id'=>'1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'name'=>'Form Two'
+
     ],
     [
             'id'=>3,
-            'name'=>'Form 3',
-            'school_id'=>'1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'name'=>'Form Three'
     ],
     [
             'id'=>4,
-            'name'=>'Form 4',
-            'school_id'=>'1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'name'=>'Form Four'
+           
     ],
     [
             'id'=>5,
-            'name'=>'Form 1',
-            'school_id'=>'2',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'name'=>'Standard One'
+           
     ],
     [
             'id'=>6,
-            'name'=>'Form 2',
-            'school_id'=>'2',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'name'=>'Standard Two'
+           
     ],
     [
             'id'=>7,
-            'name'=>'Form 3',
-            'school_id'=>'2',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'name'=>'Standard Three'
+           
     ],
     [
             'id'=>8,
-            'name'=>'Form 4',
-            'school_id'=>'2',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'name'=>'Standard Four'
+           
     ],
     [
             'id'=>9,
-            'name'=>'Form 1',
-            'school_id'=>'3',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'name'=>'Standard Five'
+          
     ],
      [
             'id'=>10,
-            'name'=>'Form 2',
-            'school_id'=>'3',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'name'=>'Standard Six'
+          
     ],
      [
             'id'=>11,
-            'name'=>'Form 3',
-            'school_id'=>'3',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-     [
-            'id'=>12,
-            'name'=>'Form 4',
-            'school_id'=>'3',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
+            'name'=>'Standard Seven'
+          
+    ]
 ]);
     }
 }

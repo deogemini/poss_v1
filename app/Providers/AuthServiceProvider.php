@@ -31,42 +31,42 @@ class AuthServiceProvider extends ServiceProvider
             foreach($user->roles as $role)
             {                
             }
-            return $role->id == 1;
+            return $role->id == 2;
         });
 
         Gate::define('isTeacherOnDuty', function($user){
             foreach($user->roles as $role)
             {                
             }
-            return $role->id == 2;
+            return $role->id == 3;
         });
 
         Gate::define('isHeadTeacher', function($user){
             foreach($user->roles as $role)
             {                
             }
-            return $role->id == 3;
+            return $role->id == 4;
         });
 
         Gate::define('isWardOfficer', function($user){
             foreach($user->roles as $role)
             {                
             }
-            return $role->id == 4;
+            return $role->id == 5;
         });
 
         Gate::define('isDistrictOfficer', function($user){
             foreach($user->roles as $role)
             {                
             }
-            return $role->id == 5;
+            return $role->id == 6;
         });
         
         Gate::define('isAdmin', function($user){
             foreach($user->roles as $role)
             {                
             }
-            return $role->id == 6;
+            return $role->id == 1;
         });
 
 

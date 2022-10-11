@@ -206,34 +206,33 @@ a.article:hover {
     </style>
 </head>
 <body>
-<!-- <nav class="navbar navbar-light bg-light justify-content-between">
-  <a class="navbar-brand">PROTECTING OUR STUDENTS IN SCHOOL (POSS)</a>  
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
-  <a href="{{ url('/privacy_policy')}}">Privacy Policy</a>
-</nav> -->
-
+<?php
+$user = Auth::user(); 
+$user_id = $user->id;
+$role_user = App\Models\RoleUser::where('user_id', $user_id)->first();
+$role_name = App\Models\Role::where('id', $role_user->role_id)->first();
+$role = $role_name->name;
+?>
 <div class="wrapper">
     <!-- Sidebar -->
     <nav id="sidebar">
         <div class="sidebar-header">
-            <h3>Admin Dashboard</h3>
+            <h3>POSS Dashboard</h3>
         </div>
 
         <ul class="list-unstyled components">
+        @if($role == 'isAdmin')  
         <li>
                 <a href="{{ url ('/dashboard') }}"> 
                 <i class="fa fa-home" aria-hidden="true"></i>
                 <span>Home</span>
                 </a>
             </li>
-         
+
             <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fa fa-users" aria-hidden="true"></i>
-<span>Users</span></a>
+                <span>Users</span></a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li>
                         <a href="/districtOfficer">District Officers</a>
@@ -280,14 +279,32 @@ a.article:hover {
                         <a href="/schools">School</a>
                     </li>
                     <li>
-                        <a href="/grades">Grade</a>
-                    </li>
-                    <li>
                         <a href="/streams">Stream</a>
                     </li>
             
                 </ul>
             </li>
+
+            @endif
+
+            @if($role == 'isHeadTeacher')
+            <li>
+                <a href="/studentsinschool">
+                    <i class="fa fa-child" aria-hidden="true"></i>
+                    <span>Data for School</span>
+                </a>
+            </li>
+            @endif
+            @if($role == 'isTeacher')
+             <li>
+                <a href="/studentsinyourschool">
+                    <i class="fa fa-child" aria-hidden="true"></i>
+                    <span>Students for your School</span>
+                </a>
+            </li>
+            @endif
+
+            @if($role == 'isAdmin')
             <li>
                 <a href="/students">
                     <i class="fa fa-child" aria-hidden="true"></i>
@@ -301,6 +318,8 @@ a.article:hover {
                     </span>
                     </a>
             </li>
+            @endif
+
             <li>
             <a href="{{ url('/privacy_policy')}}">
             <i class="fa fa-user-secret" aria-hidden="true"></i>
@@ -319,10 +338,18 @@ a.article:hover {
                     <li>
                         <a href="/auditReports">Audit Reports</a>
                     </li>
+                    @if($role == 'isHeadTeacher' || 'isAdmin')
+
+                    <li>
+                        <a href="/userProfile">User Profile</a>
+                    </li>
+                    <li>
+                        <a href="/finishingYears">Finishing Year</a>
+                    </li>
+                    @endif
 
                 </ul>
             </li>
-
 
             <li>
                 <a href="{{ url('/logout') }}">
@@ -332,7 +359,7 @@ a.article:hover {
             </li>
         </ul>
 
-    </nav>
+    </nav>  
     <!-- Page Content -->
     <div id="content">
 

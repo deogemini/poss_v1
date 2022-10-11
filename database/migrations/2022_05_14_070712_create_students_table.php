@@ -18,8 +18,14 @@ class CreateStudentsTable extends Migration
             $table->string('student_name');
             $table->string('gender');
             $table->foreignId('stream_id')
-            ->constrained('streams')
-            ->onDelete('cascade');
+                  ->constrained('streams')
+                  ->onDelete('cascade');
+            $table->foreignId('school_id')
+                  ->constrained('schools')
+                  ->onDelete('cascade');
+            $table->foreignId('final_year_id')
+                   ->constrained('final_years')
+                   ->onDelete('cascade');
             $table->timestamps();
         });
     }

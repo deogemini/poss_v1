@@ -9,6 +9,11 @@ class School_Teachers extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'school_id',
+    ];
+
     protected $table = "teachers/headTeachers_schools";
 
     public function users(){

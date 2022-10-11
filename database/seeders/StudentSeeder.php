@@ -17,100 +17,20 @@ class StudentSeeder extends Seeder
     {
         DB::table('students')->insert([[
             'id'=>1,
-            'student_name'=>'student1 Amina',
+            'student_name'=>'sample student',
             'gender'=>'female',
             'stream_id'=>'1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            'final_year_id'=>'1',
+            'school_id' => '1'
     ],
     [
             'id'=>2,
-            'student_name'=>'student2 Salumu',
-            'gender'=>'male',
-            'stream_id'=>'1',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>3,
-            'student_name'=>'Abu Abu',
+            'student_name'=>'sample student2',
             'gender'=>'male',
             'stream_id'=>'2',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>4,
-            'student_name'=>'Klaty Asana',
-            'gender'=>'female',
-            'stream_id'=>'2',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>5,
-            'student_name'=>'Charlie Charlie',
-            'gender'=>'male',
-            'stream_id'=>'2',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>6,
-            'student_name'=>'Lou Charlie',
-            'gender'=>'female',
-            'stream_id'=>'2',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>7,
-            'student_name'=>'Parker Json',
-            'gender'=>'male',
-            'stream_id'=>'3',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>8,
-            'student_name'=>'Athur Athens',
-            'gender'=>'male',
-            'stream_id'=>'4',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>9,
-            'student_name'=>'Lisamu Hitler',
-            'gender'=>'female',
-            'stream_id'=>'4',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-     [
-            'id'=>10,
-            'student_name'=>'Stregomena Tax',
-            'gender'=>'female',
-            'stream_id'=>'5',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-     [
-            'id'=>11,
-            'student_name'=>'Bashungwa Innocent',
-            'gender'=>'male',
-            'stream_id'=>'5',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-     [
-            'id'=>12,
-            'student_name'=>'Jafo Sulemani',
-            'gender'=>'male',
-            'stream_id'=>'5',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
+            'final_year_id'=>'1',
+            'school_id' => '1'
+    ]
 ]);
     }
 }

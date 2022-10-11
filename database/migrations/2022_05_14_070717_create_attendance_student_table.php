@@ -16,7 +16,9 @@ class CreateAttendanceStudentTable extends Migration
         Schema::create('attendance_student', function (Blueprint $table) {
             $table->foreignId('attendance_id')->constrained('attendances')->onDelete('cascade');
             $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
-            $table->bigInteger('grade_id');
+            $table->foreignId('school_id')->constrained('schools')->onDelete('cascade');
+            $table->string('dateofattendance');
+            $table->string('grade');
             $table->timestamps();
         });
     }

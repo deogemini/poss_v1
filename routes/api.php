@@ -95,6 +95,10 @@ Route::get('/students', [StudentController::class, 'index']);
 Route::post('/addStudents', [StudentController::class, 'create']);
 // Route::get('/students/{id}', [StudentController::class, 'show']);
 Route::get('/getStudents/{school_id}', [StudentController::class, 'show']); 
+Route::get('/getStudentsinGrade/{gradename}/{school_id}', [StudentController::class, 'getStudentsinGrade']);
+
+Route::post('/TODremark', [AttendanceController::class, 'TODremark']);
+
 
 Route::put('/students/{id}', [StudentController::class, 'update']);
 Route::delete('/students/{id}', [StudentController::class, 'destroy']);
@@ -182,6 +186,14 @@ Route::post('/addTeacher', [TeacherController::class, 'create']);
 Route::get('/getGrades/{school_id}', [TeacherController::class, 'getGrades']); 
 
 Route::get('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show']); 
+
+
+
+
+
+///reports apis will be wriiten here
+// 1. headmaster want to see details of attendance after the TOD
+Route::get('/getHeadMasterReportofAttandanceinSchool/{school_id}/{date}', [AttendanceController::class, 'attendanceReportHeadMaster']);
 
 
 

@@ -16,9 +16,6 @@ class CreateStreamsTable extends Migration
         Schema::create('streams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('grade_id')
-            ->constrained('grades')
-            ->onDelete('cascade');
             $table->timestamps();
     });
 }

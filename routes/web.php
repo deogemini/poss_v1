@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\DistrictOfficersController;
+use App\Http\Controllers\FinishingYearController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\WardOfficersController;
 use App\Http\Controllers\HeadTeacherController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\SchoolingController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StreamController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentsforHeadMastersController;
 use App\Http\Controllers\WardController;
 
 /*
@@ -35,7 +37,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/login', [AuthController::class, 'webLogin'])->name('webLogin');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('index');
 Route::resource('/region', RegionController::class);
@@ -43,6 +45,9 @@ Route::resource('/roles', RoleController::class);
 //Route::post('/addRegion', [RegionController::class, 'store'])->name('store');
 Route::post('/addBulkRegions', [RegionController::class, 'addExcel'])->name('addExcel');
 Route::resource('/districts', DistrictController::class);
+Route::resource('/finishingYears', FinishingYearController::class);
+Route::post('/addBulkStudent', [StudentController::class, 'import'])->name('import');
+Route::get('/exportStudents', [StudentController::class, 'exportStudents'])->name('exportStudents');
 Route::resource('/wards', WardController::class);
 Route::resource('/grades', GradeController::class);
 Route::get('/grade', [StudentController::class, 'gradesinschool'])->name('grade.gradesinschool');
@@ -51,13 +56,17 @@ Route::resource('/schools', SchoolingController::class);
 Route::resource('/schoolsgrade', SchoolController::class);
 Route::resource('/streams', StreamController::class);
 Route::resource('/students', StudentController::class);
+Route::resource('/studentsinschool', StudentsforHeadMastersController::class);
 Route::get('/attendanceReports', [AttendanceController::class, 'view'])->name('view');
 Route::resource('/districtOfficer', DistrictOfficersController::class);
 Route::resource('/wardOfficer', WardOfficersController::class);
 Route::resource('/headTeacher', HeadTeacherController::class);
+Route::get('/teachersinschool', [StudentsforHeadMastersController::class, 'teachersinschool'])->name('teachersinschool');
+Route::get('/studentsinyourschool', [StudentsforHeadMastersController::class, 'studentsinschool'])->name('studentsinschool');
+
+
 Route::resource('/teacher', TeacherController::class);
 Route::get('/logout', [AuthController::class, 'webLogout'])->name('webLogout');
 Route::get('/privacy_policy', function () {
     return view('/privacy_policy');
 });
-

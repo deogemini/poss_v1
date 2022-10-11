@@ -190,6 +190,14 @@ Route::get('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show'
 
 
 
+
+///reports apis will be wriiten here
+// 1. headmaster want to see details of attendance after the TOD
+Route::get('/getHeadMasterReportofAttandanceinSchool/{school_id}/{date}', [AttendanceController::class, 'attendanceReportHeadMaster']);
+
+
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

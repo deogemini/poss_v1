@@ -61,7 +61,7 @@ class AttendanceController extends Controller
         //  foreach($actual_stream as $stream){
         //      $grade_id = $stream->grade_id;
         //  }         
-        }
+        } 
       
 
         $date = Carbon::now()->format('Y-m-d');
@@ -228,6 +228,7 @@ class AttendanceController extends Controller
 
 
 
+                                
 
     public function attendanceReportHeadMaster($school_id, $date){
         $attendanceschool_fetched = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
@@ -284,20 +285,19 @@ class AttendanceController extends Controller
 
 
         $todremark = TODremark::where('school_id', $school_id)
-                                ->where('date', $date)->first();
+                                ->where('dateofattendances', $date)->first();
         $remarkyenyewe = $todremark->remark;
 
-                                return response()->json(['
-                                message'=> 'Attendance Report in School',
+                                return response()->json([
+                                'message'=> 'Attendance Report in School',
                                 'Total Students' => $total_students_in_school,
-
-                                'Present' => $total_present_student,
-                                           'Total_boys_present' => $male_present,//count($Array_student_boys_present),
-                                            'Total_girls_present' => $female_present,//count($Array_student_girls_present),
-                                            'Absent' => $total_absent_student,
-                                            'Total_boys_absent' => $male_absent,
-                                            'Total_girls_absent' => $female_absent,
-                                            'Date' => $date,
+                                'Total Present Students' => $total_present_student,
+                                'Total_boys_present' => $male_present,//count($Array_student_boys_present),
+                                'Total_girls_present' => $female_present,//count($Array_student_girls_present),
+                                'Total Absent Student' => $total_absent_student,
+                                'Total_boys_absent' => $male_absent,
+                                'Total_girls_absent' => $female_absent,
+                                'Date' => $date,
                                 'remark' => $remarkyenyewe
                 ]);
 

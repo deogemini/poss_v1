@@ -16,6 +16,9 @@ $role = $role_name->name;
 <div class="row">
   <div class="col-md-8" style="margin-bottom: 10px ;">
     <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-student">Add Teacher</a>
+    <a href="/studentsinschool" class="btn btn-primary btn-xs">View Students</a>
+    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-student">Add Teachers by file</a>
+    <a href="javascript::void()" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-add-student">Download list of Teachers</a>
    
     </div>
 </div>
@@ -47,7 +50,9 @@ $role = $role_name->name;
             
 
               <td>{{ $teacher->email }}</td>
-              <td><input type="checkbox" checked data-toggle="toggle" data-on="Ready" data-off="Not Ready" data-onstyle="success" data-offstyle="danger">     </td>
+              <td>
+              <input data-id="{{$teacher->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="TOD" data-off="NOT TOD">
+              </td>
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-student-{{$teacher->id}}">Edit</a>
                 <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){
@@ -121,4 +126,22 @@ $role = $role_name->name;
       info: false,
     });
   });
+</script>
+
+<script>
+  $(function() {
+    $('.toggle-class').change(function() {
+        var id = $(this).data('id'); 
+         
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '/setTeacheronDuty',
+            data: {'id': id},
+            success: function(data){
+              console.log(data.success)
+            }
+        });
+    })
+  })
 </script>

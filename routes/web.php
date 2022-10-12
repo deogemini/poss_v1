@@ -64,6 +64,9 @@ Route::resource('/headTeacher', HeadTeacherController::class);
 Route::get('/teachersinschool', [StudentsforHeadMastersController::class, 'teachersinschool'])->name('teachersinschool');
 Route::get('/studentsinyourschool', [StudentsforHeadMastersController::class, 'studentsinschool'])->name('studentsinschool');
 
+Route::post('/setTeacheronDuty', [HeadTeacherController::class, 'isTeacherOnDutyonWeb']);
+
+
 
 Route::resource('/teacher', TeacherController::class);
 Route::get('/logout', [AuthController::class, 'webLogout'])->name('webLogout');

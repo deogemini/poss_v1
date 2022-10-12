@@ -18,8 +18,8 @@ $role = $role_name->name;
     <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-student">Add Student</a>
     <a href="/teachersinschool" class="btn btn-primary btn-xs">View Teachers</a>
 
-    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-excelfile">Upload File</a>
-   <a href="/exportStudents" class="btn btn-info btn-xs">Download Excel File</a>
+    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-excelfile">Upload Students File</a>
+   <a href="/exportStudents" class="btn btn-info btn-xs">Download List of Students</a>
    
     </div>
 </div>

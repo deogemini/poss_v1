@@ -166,6 +166,7 @@ class HeadTeacherController extends Controller
         $user->save();
         return response(['message' => 'A new Teacher on duty successfully registered!',
          'data'=> $user]);
+
     }
  
     public function isNotTeacherOnDuty($id)
@@ -183,13 +184,12 @@ class HeadTeacherController extends Controller
 
     public function isTeacherOnDutyonWeb(Request $request)
     {
-        return $request;
         $id = $request->id;
-        $number = $request->role;
         $user = User::find($id);
-        $user->roles()->sync($number); 
+        $user->roles()->sync(3); 
         $user->save();
         return back()->with('msg', 'A new Teacher on duty successfully registered!');
+
     }
 
     public function show($id)

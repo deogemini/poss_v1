@@ -51,7 +51,7 @@ $role = $role_name->name;
 
               <td>{{ $teacher->email }}</td>
               <td>
-              <input data-id="{{$teacher->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="TOD" data-off="NOT TOD">
+              <input  id="{{$teacher->id}}" data-id="{{$teacher->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="TOD" data-off="NOT TOD">
               </td>
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-student-{{$teacher->id}}">Edit</a>
@@ -111,22 +111,6 @@ $role = $role_name->name;
     </div>
 
 @endsection
-
-   
-
-
-
-
-
-<script>
-  $(document).ready(function() {
-    $('#example').DataTable({
-      paging: false,
-      ordering: false,
-      info: false,
-    });
-  });
-</script>
 
 <script>
   $(function() {

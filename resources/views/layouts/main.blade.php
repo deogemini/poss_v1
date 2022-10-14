@@ -335,9 +335,9 @@ $role = $role_name->name;
                     <li>
                         <a href="/roles">User Roles</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="/auditReports">Audit Reports</a>
-                    </li>
+                    </li> -->
                     @if($role == 'isHeadTeacher' || 'isAdmin')
 
                     <li>

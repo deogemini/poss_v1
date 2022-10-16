@@ -32,7 +32,6 @@ $role = $role_name->name;
               <th scope="col">Last Name of Teacher</th>
               <th scope="col">Phone Number</th>
               <th scope="col">Email</th>
-              <th scope="col">Teacher on Duty</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -47,7 +46,6 @@ $role = $role_name->name;
             
 
               <td>{{ $teacher->email }}</td>
-              <td><input type="checkbox" checked data-toggle="toggle" data-on="Ready" data-off="Not Ready" data-onstyle="success" data-offstyle="danger"></td>
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-student-{{$teacher->id}}">Edit</a>
                 <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){
@@ -68,7 +66,6 @@ $role = $role_name->name;
                 <th scope="col">Last Name of Teacher</th>
                 <th scope="col">Phone Number</th>
                 <th scope="col">Email</th>
-                <th scope="col">Teacher on Duty</th>
                 <th scope="col">Actions</th>
             </tr>
           </tfoot>

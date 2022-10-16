@@ -160,9 +160,7 @@ class AttendanceController extends Controller
                                     ->get();
                                
         $total_students_in_grade = $attendance_fetched->count();
-        if($total_students_in_grade <= 0){
-
-        }
+      
 
         //total present students fetched in a grade
         $attendance_fetched_present = AttendanceStudent::where('dateofattendance', $date)
@@ -217,20 +215,30 @@ class AttendanceController extends Controller
                     return $query->where('gender', 'female');
                 })
                 ->count();
-    
-        return response()->json([
-                                            'message'=>'Attendance Report in Grade',
-                                            'grade'=> $grade,
-                                            'Total Students in grade' => $total_students_in_grade,
-                                            'Present' => $total_present_student_in_grade,
-                                           'Total_boys_present' => $male_present,//count($Array_student_boys_present),
-                                            'Total_girls_present' => $female_present,//count($Array_student_girls_present),
-                                            'Absent' => $total_absent_student,
-                                            'Total_boys_absent' => $male_absent,
-                                            'Total_girls_absent' => $female_absent,
-                                            'Date' => $date
-                                         ]);
-                                 } 
+                
+                if($total_students_in_grade == 0){
+                    return response()->json([
+                        'message'=>'No Attendance called in this date',
+                        'status' => 400
+                    ]);
+
+                }else{
+                    return response()->json([
+                        'message'=>'Attendance Report in Grade',
+                        'grade'=> $grade,
+                        'Total Students in grade' => $total_students_in_grade,
+                        'Present' => $total_present_student_in_grade,
+                       'Total_boys_present' => $male_present,//count($Array_student_boys_present),
+                        'Total_girls_present' => $female_present,//count($Array_student_girls_present),
+                        'Absent' => $total_absent_student,
+                        'Total_boys_absent' => $male_absent,
+                        'Total_girls_absent' => $female_absent,
+                        'Date' => $date,
+                        'status' => 200
+                     ]);
+                    }
+       
+} 
 
 
 

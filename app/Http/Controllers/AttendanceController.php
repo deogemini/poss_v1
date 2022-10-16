@@ -153,12 +153,16 @@ class AttendanceController extends Controller
         // });
 
         //total students are in a class
+        
         $attendance_fetched = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('grade', $grade)
                                     ->where('school_id', $school_id)
                                     ->get();
                                
         $total_students_in_grade = $attendance_fetched->count();
+        if($total_students_in_grade <= 0){
+
+        }
 
         //total present students fetched in a grade
         $attendance_fetched_present = AttendanceStudent::where('dateofattendance', $date)
@@ -288,8 +292,13 @@ class AttendanceController extends Controller
 
         $todremark = TODremark::where('school_id', $school_id)
                                 ->where('dateofattendances', $date)->first();
-        $remarkyenyewe = $todremark->remark;
-
+                                
+                if(empty($todremark)){
+                      $remarkyenyewe = "No Remark for this attendance";
+                }else{
+                    $remarkyenyewe = $todremark->remark;
+                }
+        
                                 return response()->json([
                                 'message'=> 'Attendance Report in School',
                                 'Total Students' => $total_students_in_school,

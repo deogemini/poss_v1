@@ -218,7 +218,7 @@ class AttendanceController extends Controller
                 
                 if($total_students_in_grade == 0){
                     return response()->json([
-                        'message'=>'No Attendance called in this date',
+                        'message'=>'No Attendance called for the entered data',
                         'status' => 400
                     ]);
 

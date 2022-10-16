@@ -22,6 +22,7 @@ class AttendanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $grade;
     public function index()
     {
         $attendances =  Attendance::all();
@@ -145,30 +146,32 @@ class AttendanceController extends Controller
 
 
 
-    public function getAttendanceReport($grade, $date, $school_id){
+    public function getGradeAttendanceReport($grade, $date, $school_id){
         $Array_student_boys_present= [];
         $Array_student_boys_absent= [];
         $Array_student_girls_present = [];
         $Array_student_girls_absent = [];
 
-        //total number of student in a school 
-        $attendanceschool_fetched = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-        ->where('school_id', $school_id)->get();
-        $total_students_in_school = $attendanceschool_fetched->count();
-        //total students are counted
+        // $this -> grade = $grade;
+        // $gradeStudent= $students->filter(function($value,$key){
+        //      return $value->grade == $this->grade;
+        // });
+
+        //total students are in a class
         $attendance_fetched = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                     ->where('grade', $grade)
                                     ->where('school_id', $school_id)
                                     ->get();
-        $total_students = $attendance_fetched->count();
-        //total present students fetched
+        $total_students_in_grade = $attendance_fetched->count();
+
+        //total present students fetched in a grade
         $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                     ->where('grade', $grade)
                                     ->where('school_id', $school_id)
-                                    ->where('attendance_id' , "1")->get();
-        //total present students are counted
-         $total_present_student = $attendance_fetched_present->count();
-         //starting to get total boys and girls and counting them here
+                                    ->where('attendance_id' , "1")->get(); 
+         $total_present_student_in_grade = $attendance_fetched_present->count();
+
+         //starting to get total boys and girls in a grade and counting them here
 
          //male
          $male_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
@@ -189,12 +192,13 @@ class AttendanceController extends Controller
                                     })
                                     ->count();
 
+        //total absent students are counted    in  Grade
         $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                         ->where('grade', $grade)
                                         ->where('school_id', $school_id)
                                         ->where('attendance_id' , "2")->get();
-        //total absent students are counted                               
         $total_absent_student = $attendance_fetched_absent->count();
+
 
         $male_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
         ->where('grade', $grade)
@@ -214,9 +218,11 @@ class AttendanceController extends Controller
                 })
                 ->count();
     
-        return response()->json(['message'=>'Attendance Report in Grade',
-                                            'Total Students' => $total_students,
-                                            'Present' => $total_present_student,
+        return response()->json([
+                                            'message'=>'Attendance Report in Grade',
+                                            'grade'=> $grade,
+                                            'Total Students in grade' => $total_students_in_grade,
+                                            'Present' => $total_present_student_in_grade,
                                            'Total_boys_present' => $male_present,//count($Array_student_boys_present),
                                             'Total_girls_present' => $female_present,//count($Array_student_girls_present),
                                             'Absent' => $total_absent_student,

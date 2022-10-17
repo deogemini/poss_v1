@@ -68,6 +68,7 @@ Route::get('/studentsinyourschool', [StudentsforHeadMastersController::class, 's
 
 
 Route::resource('/teacher', TeacherController::class);
+Route::post('/teacheronduty', [TeacherController::class, 'onduty'])->name('onduty');
 Route::get('/logout', [AuthController::class, 'webLogout'])->name('webLogout');
 Route::get('/privacy_policy', function () {
     return view('/privacy_policy');

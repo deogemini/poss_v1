@@ -219,8 +219,8 @@ class AttendanceController extends Controller
                 if($total_students_in_grade == 0){
                     return response()->json([
                         'message'=>'No Attendance called for the entered data',
-                        'status' => 400
-                    ]);
+                    ])->setStatusCode(400)
+                    ;
 
                 }else{
                     return response()->json([
@@ -234,8 +234,8 @@ class AttendanceController extends Controller
                         'Total_boys_absent' => $male_absent,
                         'Total_girls_absent' => $female_absent,
                         'Date' => $date,
-                        'status' => 200
-                     ]);
+                     ])->setStatusCode(201)
+                     ;
                     }
        
 } 

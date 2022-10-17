@@ -234,7 +234,7 @@ class AttendanceController extends Controller
                         'Total_boys_absent' => $male_absent,
                         'Total_girls_absent' => $female_absent,
                         'Date' => $date,
-                     ])->setStatusCode(201)
+                     ])->setStatusCode(200)
                      ;
                     }
        

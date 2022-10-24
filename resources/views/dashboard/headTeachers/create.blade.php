@@ -72,7 +72,7 @@
            <select class="form-control select2" name="school_id" style="width: 100%;">
             <option value="">--Select School--</option>
               @foreach ($schools as $school)
-                  <option value="{{$school->id}}">{{$school->name}}</option>
+                  <option value="{{$school->id}}">{{$school->name}} {{$school->educationLevel}}</option>
               @endforeach
         </select>
       </div>

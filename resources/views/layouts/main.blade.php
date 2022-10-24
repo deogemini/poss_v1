@@ -291,9 +291,21 @@ $role = $role_name->name;
             <li>
                 <a href="/studentsinschool">
                     <i class="fa fa-child" aria-hidden="true"></i>
-                    <span>Data for School</span>
+                    <span>Students</span>
                 </a>
             </li>
+            <li>
+                <a href="/teachersinschool">
+                    <i class="fa fa-chalkboard-teacher" aria-hidden="true"></i>
+                    <span>Teachers</span>
+                </a>
+            </li>
+            <li>
+         
+                        <a href="/userProfile">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                           <span>User Profile</span> </a>
+                    </li>
             @endif
             @if($role == 'isTeacher')
              <li>
@@ -320,12 +332,7 @@ $role = $role_name->name;
             </li>
             @endif
 
-            <li>
-            <a href="{{ url('/privacy_policy')}}">
-            <i class="fa fa-user-secret" aria-hidden="true"></i>
-            <span>Privacy Policy</span>
-                </a>
-            </li>
+            @if($role == 'isAdmin')
 
             <li>
                 <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -338,7 +345,7 @@ $role = $role_name->name;
                     <!-- <li>
                         <a href="/auditReports">Audit Reports</a>
                     </li> -->
-                    @if($role == 'isHeadTeacher' || 'isAdmin')
+                   
 
                     <li>
                         <a href="/userProfile">User Profile</a>
@@ -346,10 +353,18 @@ $role = $role_name->name;
                     <li>
                         <a href="/finishingYears">Finishing Year</a>
                     </li>
-                    @endif
+              
 
                 </ul>
             </li>
+            
+            <li>
+            <a href="{{ url('/privacy_policy')}}">
+            <i class="fa fa-user-secret" aria-hidden="true"></i>
+            <span>Privacy Policy</span>
+                </a>
+            </li>
+            @endif
 
             <li>
                 <a href="{{ url('/logout') }}">

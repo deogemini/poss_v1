@@ -148,8 +148,15 @@ class StudentController extends Controller
             return $value->grade == $this->grade;
        });
 
-       return $gradeStudent;}
+       if(count($gradeStudent) > 0){
+        return  response()->json($gradeStudent);
+       }
+       else{
+        return  response('No Registered Student');
+       }
+     
 
+    }
     //   return  response()->json([
     //     'data' => [
     //         'students in grade' => $gradeStudent]]); 

@@ -148,10 +148,12 @@ class StudentController extends Controller
             return $value->grade == $this->grade;
        });
 
-      return  response()->json([
-        'data' => [
-            'students in grade' => $gradeStudent]]); 
-     }
+       return $gradeStudent;}
+
+    //   return  response()->json([
+    //     'data' => [
+    //         'students in grade' => $gradeStudent]]); 
+    //  }
 
     public function edit($id)
     {

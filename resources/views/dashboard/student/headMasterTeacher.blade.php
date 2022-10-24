@@ -43,7 +43,7 @@ $role = $role_name->name;
             @foreach($teachers as $teacher)
             <tr>
               <td> {{ $loop-> index + 1 }}</td>
-              <td>{{ $teacher->firstname }}</td>
+              <td>{{ $teacher->firstname }}  {{ $teacher->lastname }}</td>
               <td>{{ $teacher->lastname }}</td>
               <td>{{ $teacher->phonenumber }}</td>
             

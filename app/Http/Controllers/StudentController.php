@@ -148,9 +148,9 @@ class StudentController extends Controller
             return $value->grade == $this->grade;
        });
 
-      return  response()->json(['message' => 'students in class',
-                'students' => $gradeStudent,
-                'total students' => count($gradeStudent)]); 
+      return  response()->json([
+        'data' => [
+            'students in grade' => $gradeStudent]]); 
      }
 
     public function edit($id)

@@ -149,6 +149,7 @@ class StudentController extends Controller
        });
 
        if(count($gradeStudent) > 0){
+        $gradeStudent = collect(array_values($gradeStudent->toArray()));
         return  response()->json($gradeStudent);
        }
        else{

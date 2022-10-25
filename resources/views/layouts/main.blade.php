@@ -301,6 +301,12 @@ $role = $role_name->name;
                 </a>
             </li>
             <li>
+                <a href="/teachersondutyinschool">
+                    <i class="fa fa-chalkboard-teacher" aria-hidden="true"></i>
+                    <span>Teachers On Duty</span>
+                </a>
+            </li>
+            <li>
          
                         <a href="/userProfile">
                         <i class="fa fa-user" aria-hidden="true"></i>

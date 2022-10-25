@@ -150,7 +150,8 @@ class StudentController extends Controller
 
        if(count($gradeStudent) > 0){
         $gradeStudent = collect(array_values($gradeStudent->toArray()));
-        return  response()->json($gradeStudent);
+        return  response()->json(['message' => 'students in grade',
+                                  'students' => $gradeStudent]);
        }
        else{
         return  response('No Registered Student');

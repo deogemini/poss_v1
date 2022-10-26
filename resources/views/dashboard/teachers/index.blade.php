@@ -5,7 +5,7 @@
 <div class="row">
   <div class="col-md-8" style="margin-bottom: 10px ;">
     <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-teacher">Add Teacher</a>
-    <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-teacher-onduty">Register Teacher on Duty</a>
+    <!-- <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-teacher-onduty">Register Teacher on Duty</a> -->
     <!-- <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-role">Upload File</a> -->
   </div>
 </div>
@@ -52,6 +52,39 @@
 
               </td>
             </tr>
+
+                       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+             <!-- edit modal -->
+ <div class="modal fade" id="modal-edit-teacher-{{ $Teacher->id }}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Edit Teacher</h4>
+                              </div>
+                              <form action="/teacher/{{ $Teacher->id }}" method="post" role="form">
+                                @csrf
+                                @method('PATCH')
+                                 <div class="modal-body">
+                                    @include('dashboard.teachers.edit')
+                                 </div>
+                               <div class="modal-footer">
+                                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                 <button type="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                             </form>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
             @endforeach
           </tbody>
           <tfoot>

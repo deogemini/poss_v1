@@ -8,11 +8,13 @@ use App\Models\Ward;
 use App\Models\Role;
 use App\Models\District;
 use App\Models\Region;
+use App\Models\RoleUser;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\School_Teachers;
 use App\Models\Stream;
 use App\Models\Student;
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -198,7 +200,32 @@ class TeacherController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+       
+        $user = User::find($id);
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->phonenumber = $request->phonenumber;
+
+        $user->save();
+                    
+        $user_id = $user->id;
+        //$school_id = $request['school_id'];
+        // $user_check = User::where('id', $user_id)->first();
+        // $teacher = $user_check->id;
+    
+        // $teachers = School_Teachers::where('school_id', $school_id)->update([
+        //     'user_id' => $user_id
+        //     ]);
+
+
+        DB::table('role_user')->where(['user_id' => $user_id])->update([
+            'role_id' => $request->role_id
+        ]);
+           
+            return back()->with('msg','Teacher was Updated successfully');
+
+
     }   
     public function destroy($id)
     {

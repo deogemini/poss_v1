@@ -78,8 +78,6 @@ $role = $role_name->name;
 </div>
 
 <!--add modal-->
-
-
     <div class="modal fade" id="modal-add-excelfile">
         <div class="modal-dialog">
             <div class="modal-content">

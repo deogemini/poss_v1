@@ -64,6 +64,7 @@ Route::resource('/wardOfficer', WardOfficersController::class);
 Route::resource('/headTeacher', HeadTeacherController::class);
 Route::resource('/userProfile', UserProfileController::class);
 Route::get('/teachersinschool', [StudentsforHeadMastersController::class, 'teachersinschool'])->name('teachersinschool');
+Route::get('/teachersondutyinschool', [StudentsforHeadMastersController::class, 'teachersondutyinschool'])->name('teachersondutyinschool');
 Route::get('/studentsinyourschool', [StudentsforHeadMastersController::class, 'studentsinschool'])->name('studentsinschool');
 
 

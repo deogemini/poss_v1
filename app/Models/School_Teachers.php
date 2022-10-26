@@ -15,6 +15,7 @@ class School_Teachers extends Model
     ];
 
     protected $table = "teachers/headTeachers_schools";
+    // public $timestamps = false;
 
     public function users(){
         return $this->belongto(User::class, 'user_id');

@@ -15,8 +15,8 @@ $role = $role_name->name;
 
 <div class="row">
   <div class="col-md-8" style="margin-bottom: 10px ;">
-    <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-student">Add Teacher</a>
-    <a href="/studentsinschool" class="btn btn-primary btn-xs">View Students</a>
+    <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-teacher">Add Teacher</a>
+    <!-- <a href="/studentsinschool" class="btn btn-primary btn-xs">View Students</a> -->
     <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-excelfile">Upload File</a>
    <a href="/exportStudents" class="btn btn-info btn-xs">Download Excel File</a>
    
@@ -31,8 +31,8 @@ $role = $role_name->name;
           <thead>
             <tr>
               <th scope="col">C/N</th>
-              <th scope="col">First Name of Teacher</th>
-              <th scope="col">Last Name of Teacher</th>
+              <th scope="col">Name of School teacher</th>
+              <th scope="col">Email of School teacher</th>
               <th scope="col">Phone Number</th>
               <th scope="col">Email</th>
               <th scope="col">Actions</th>
@@ -80,21 +80,20 @@ $role = $role_name->name;
 
 <!--add modal-->
 
-
-    <div class="modal fade" id="modal-add-excelfile">
+<div class="modal fade" id="modal-add-teacher">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Add Excel File</h4>
+                    <h4 class="modal-title">Add Teacher</h4>
                 </div>
-                <form action="/addBulkStudent" method="post" role="form" enctype="multipart/form-data">
+                <form action="/teachersinschool" method="post" role="form">
                     @csrf
                     <div class="modal-body">
-                        @include('dashboard.student.addStudentinExcell')
+                        @include('dashboard.student.addTeacher')
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer">        
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>

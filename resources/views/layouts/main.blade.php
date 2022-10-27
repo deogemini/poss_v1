@@ -289,6 +289,12 @@ $role = $role_name->name;
 
             @if($role == 'isHeadTeacher')
             <li>
+                <a href="#">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
                 <a href="/studentsinschool">
                     <i class="fa fa-child" aria-hidden="true"></i>
                     <span>Students</span>

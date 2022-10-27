@@ -49,11 +49,43 @@ class StudentsforHeadMastersController extends Controller
         return view('dashboard.student.headMaster', compact(['students', 'streams','grades','schools', 'finalYears', 'teachers']));
     }
 
+    public function AddteacherinSchool(Request $request){
+        {
+            $user = new User;
+            $user->firstname = $request['firstname'];
+            $user->lastname = $request['lastname'];
+            $user->phonenumber = $request['phonenumber'];
+            $user->email = $request['email'];
+            $user->password = bcrypt($user->lastname);
+            $user->save();
+    
+    
+            $user_id = $user->id;
+            $school_id = $request['school_id'];
+            $user_check = User::where('id', $user_id)->first();
+            $teacher = $user_check->id;
+    
+            $teacherinschool = School_Teachers::insert([
+                'user_id' => $teacher,
+                'school_id' => $school_id
+            ]);
+    
+            if($user->save()){   
+                $user_id = $user->id;
+                $role = User::find($user_id);
+            // role 2 is for isTeacher, thus we attach this role to this user object 
+            // ...this will create a record in user_role table
+                $role->roles()->attach(2); 
+                return back()->with('message','A new teacher registered in this school');
+            }
+        }
+    }
     public function teachersinschool()
     {
 
         $user = Auth::user(); 
         $user_id = $user->id;
+        $schools = School::all();
         $school = School_Teachers::where('user_id', $user_id)->first();
         $school_id = $school->school_id;
        $teachers = User::whereHas(
@@ -62,13 +94,14 @@ class StudentsforHeadMastersController extends Controller
             whereHas(
                 'schools' , fn($query) =>
                 $query->where('id', $school_id))->get();
-        return view('dashboard.student.headMasterTeacher', compact(['teachers']));
+        return view('dashboard.student.headMasterTeacher', compact(['teachers', 'schools']));
     }
 
     public function teachersondutyinschool()
     {
 
         $user = Auth::user(); 
+        $schools = School::all();
         $user_id = $user->id;
         $school = School_Teachers::where('user_id', $user_id)->first();
         $school_id = $school->school_id;
@@ -78,7 +111,7 @@ class StudentsforHeadMastersController extends Controller
             whereHas(
                 'schools' , fn($query) =>
                 $query->where('id', $school_id))->get();
-        return view('dashboard.student.teacherOnDuty', compact(['teachers']));
+        return view('dashboard.student.teacherOnDuty', compact(['teachers', 'schools']));
     }
 
     public function studentsinschool(){

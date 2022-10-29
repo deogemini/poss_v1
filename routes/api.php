@@ -95,7 +95,7 @@ Route::get('/students', [StudentController::class, 'index']);
 Route::post('/addStudents', [StudentController::class, 'create']);
 // Route::get('/students/{id}', [StudentController::class, 'show']);
 Route::get('/getStudents/{school_id}', [StudentController::class, 'show']); 
-Route::get('/getStudentsinGrade/{gradename}/{school_id}', [StudentController::class, 'getStudentsinGrade']);
+Route::get('/getStudentsinGrade/{gradename}/{stream}/{school_id}', [StudentController::class, 'getStudentsinGrade']);
 
 Route::post('/TODremark', [AttendanceController::class, 'TODremark']);
 

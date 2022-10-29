@@ -140,8 +140,12 @@ class StudentController extends Controller
 
     
     //function to get student by using grade in string and the school id
-     public function getStudentsinGrade($grade, $school_id){
-       $students =  Student::where('school_id', $school_id)->get();
+     public function getStudentsinGrade($grade, $stream,  $school_id){
+        $stream= Stream::where('name', $stream)->first();
+        $stream_id = $stream->id;
+       $students =  Student::where('school_id', $school_id)
+                            ->where('stream_id', $stream_id)
+                            ->get();
 
        $this -> grade = $grade;
        $gradeStudent= $students->filter(function($value,$key){

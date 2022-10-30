@@ -14,7 +14,7 @@ class AddStringIdToAttendanceStudentTable extends Migration
     public function up()
     {
         Schema::table('attendance_student', function (Blueprint $table) {
-            $table->foreignId('stream_id')->constrained('streams')->onDelete('cascade')->after('grade');
+            $table->string('stream_id');
         });
     }
 

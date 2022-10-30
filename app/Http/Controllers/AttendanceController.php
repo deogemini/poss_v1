@@ -51,6 +51,7 @@ class AttendanceController extends Controller
 
         $attendanceStudent= $data['student_id'];
 
+
         $att_checker = Attendance::where('status', $status)->first();
         $attendance = $att_checker->id;
         
@@ -66,7 +67,7 @@ class AttendanceController extends Controller
         } 
       
 
-        $date = Carbon::now()->format('Y-m-d');
+        $date = $request['date'];
         $record_check_attendance_student = AttendanceStudent::where('updated_at', 'LIKE', '%'.$date.'%')->where('attendance_id', $attendance)->where('grade', $grade)->where('student_id', $attendanceStudent)->get();
         if(count($record_check_attendance_student) > 1){
             return response()->json(['message'=>"Attendance record of this class has been already saved"]);

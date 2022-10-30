@@ -57,6 +57,7 @@ class AttendanceController extends Controller
         $actual_student =  Student::where('id', $attendanceStudent)->get();
         foreach($actual_student as $student){
          $grade = $student->grade;
+         $stream_id =   $student->stream_id;
          $school_id = $student->school_id;
         //  $actual_stream = Stream::where('id', $stream_id)->get();
         //  foreach($actual_stream as $stream){
@@ -74,6 +75,7 @@ class AttendanceController extends Controller
                 'attendance_id' => $attendance,
                 'student_id' => $attendanceStudent,
                  'grade' => $grade,
+                 'stream_id' => $stream_id,
                  'school_id' => $school_id,
                  'dateofattendance' =>  $date,
                 'created_at'=> Carbon::now(),
@@ -146,13 +148,16 @@ class AttendanceController extends Controller
 
 
 
-    public function getGradeAttendanceReport($grade, $school_id, $date){
+    public function getGradeAttendanceReport($grade, $stream,  $school_id, $date){
             // $this -> grade = $grade;
         // $gradeStudent= $students->filter(function($value,$key){
         //      return $value->grade == $this->grade;
         // });
 
         //total students are in a class
+
+        $stream= Stream::where('name', $stream)->first();
+        $stream_id = $stream->id;
         
         $attendance_fetched = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('grade', $grade)

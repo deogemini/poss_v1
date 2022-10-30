@@ -161,6 +161,7 @@ class AttendanceController extends Controller
         
         $attendance_fetched = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('grade', $grade)
+                                    ->where('stream_id', $stream_id)
                                     ->where('school_id', $school_id)
                                     ->get();
                                
@@ -170,6 +171,7 @@ class AttendanceController extends Controller
         //total present students fetched in a grade
         $attendance_fetched_present = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('grade', $grade)
+                                    ->where('stream_id', $stream_id)
                                     ->where('school_id', $school_id)
                                     ->where('attendance_id' , "1")->get(); 
          $total_present_student_in_grade = $attendance_fetched_present->count();
@@ -179,6 +181,7 @@ class AttendanceController extends Controller
          //male
          $male_present = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('grade', $grade)
+                                    ->where('stream_id', $stream_id)
                                     ->where('school_id', $school_id)
                                     ->where('attendance_id' , "1")
                                     ->whereHas('student' , function($query){
@@ -188,6 +191,7 @@ class AttendanceController extends Controller
 
         $female_present = AttendanceStudent::where('dateofattendance', $date)   
                                     ->where('grade', $grade)
+                                    ->where('stream_id', $stream_id)
                                     ->where('school_id', $school_id)
                                     ->where('attendance_id' , "1")
                                     ->whereHas('student' , function($query){
@@ -198,6 +202,7 @@ class AttendanceController extends Controller
         //total absent students are counted    in  Grade
         $attendance_fetched_absent = AttendanceStudent::where('dateofattendance', $date)
                                         ->where('grade', $grade)
+                                        ->where('stream_id', $stream_id)
                                         ->where('school_id', $school_id)
                                         ->where('attendance_id' , "2")->get();
         $total_absent_student = $attendance_fetched_absent->count();
@@ -205,6 +210,7 @@ class AttendanceController extends Controller
 
         $male_absent = AttendanceStudent::where('dateofattendance', $date)
         ->where('grade', $grade)
+        ->where('stream_id', $stream_id)
         ->where('school_id', $school_id)
         ->where('attendance_id' , "2")
         ->whereHas('student' , function($query){
@@ -214,6 +220,7 @@ class AttendanceController extends Controller
 
         $female_absent = AttendanceStudent::where('dateofattendance', $date)
                 ->where('grade', $grade)
+                ->where('stream_id', $stream_id)
                 ->where('school_id', $school_id)
                 ->where('attendance_id' , "2")
                 ->whereHas('student' , function($query){
@@ -229,9 +236,10 @@ class AttendanceController extends Controller
 
                 }else{
                     return response()->json([
-                        'message'=>'Attendance Report in Grade',
+                        'message'=>'Attendance Report in stream',
                         'grade'=> $grade,
-                        'Total Students in grade' => $total_students_in_grade,
+                        'stream'=> $stream->name,
+                        'Total Students in stream' => $total_students_in_grade,
                         'Present' => $total_present_student_in_grade,
                        'Total_boys_present' => $male_present,//count($Array_student_boys_present),
                         'Total_girls_present' => $female_present,//count($Array_student_girls_present),

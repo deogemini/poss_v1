@@ -182,7 +182,17 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $student = Student::find($id);
+        $student->student_name = $request['student_name'];
+        $student->gender = $request['gender'];
+        $student->stream_id = $request['stream_id'];
+        $student->school_id = $request['school_id'];
+        $student->final_year_id = $request['final_year_id'];
+        $student->save(); 
+        
+        return back()->with('msg','Student was Updated successfully');
+
+        
     }
 
     /**

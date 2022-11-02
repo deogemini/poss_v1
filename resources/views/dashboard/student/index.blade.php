@@ -56,6 +56,39 @@ $role = $role_name->name;
 
               </td>
             </tr>
+
+                                    
+      </div>
+    </div>
+  </div>
+</div>
+
+
+            <div class="modal fade" id="modal-edit-student-{{ $student->id }}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Edit Teacher</h4>
+                              </div>
+                              <form action="/students/{{ $student->id }}" method="post" role="form">
+                                @csrf
+                                @method('PATCH')
+                                 <div class="modal-body">
+                                    @include('dashboard.student.editStudent')
+                                 </div>
+                               <div class="modal-footer">
+                                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                 <button type="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                             </form>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
+            
             @endforeach
           </tbody>
           <tfoot>

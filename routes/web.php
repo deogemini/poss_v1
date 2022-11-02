@@ -18,6 +18,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StreamController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentsforHeadMastersController;
+use App\Http\Controllers\TeacherOnDutyController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\WardController;
 
@@ -67,6 +68,7 @@ Route::get('/teachersinschool', [StudentsforHeadMastersController::class, 'teach
 Route::post('/teachersinschool',[StudentsforHeadMastersController::class, 'AddteacherinSchool'])->name('AddteacherinSchool');
 Route::get('/teachersondutyinschool', [StudentsforHeadMastersController::class, 'teachersondutyinschool'])->name('teachersondutyinschool');
 Route::get('/studentsinyourschool', [StudentsforHeadMastersController::class, 'studentsinschool'])->name('studentsinschool');
+Route::resource('/teacherOnDuty', TeacherOnDutyController::class);
 
 
 Route::resource('/teacher', TeacherController::class);

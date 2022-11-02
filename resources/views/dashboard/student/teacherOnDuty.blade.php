@@ -30,8 +30,7 @@ $role = $role_name->name;
           <thead>
             <tr>
               <th scope="col">C/N</th>
-              <th scope="col">First Name of Teacher</th>
-              <th scope="col">Last Name of Teacher</th>
+              <th scope="col">Name of Teacher</th>
               <th scope="col">Phone Number</th>
               <th scope="col">Email</th>
               <th scope="col">Actions</th>
@@ -43,13 +42,10 @@ $role = $role_name->name;
             <tr>
               <td> {{ $loop-> index + 1 }}</td>
               <td>{{ $teacher->firstname }}  {{ $teacher->lastname }}</td>
-              <td>{{ $teacher->lastname }}</td>
               <td>{{ $teacher->phonenumber }}</td>
-            
-
               <td>{{ $teacher->email }}</td>
               <td>
-                <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-student-{{$teacher->id}}">Edit</a>
+                <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-teacher-{{$teacher->id}}">Edit</a>
                 <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){
                               	getElementById('delete-role-{{$teacher->id}}').submit()}">Delete</a>
                 <form action="/roles/{{$teacher->id}}" method="post" style="display: inline-block;" id="delete-role-{{$teacher->id}}">
@@ -59,16 +55,48 @@ $role = $role_name->name;
 
               </td>
             </tr>
+
+            
+                       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+            <div class="modal fade" id="modal-edit-teacher-{{ $teacher->id }}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Edit Teacher</h4>
+                              </div>
+                              <form action="/teacher/{{ $teacher->id }}" method="post" role="form">
+                                @csrf
+                                @method('PATCH')
+                                 <div class="modal-body">
+                                    @include('dashboard.student.editTOD')
+                                 </div>
+                               <div class="modal-footer">
+                                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                 <button type="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                             </form>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
             @endforeach
           </tbody>
           <tfoot>
             <tr>
-                <th scope="col">C/N</th>
-                <th scope="col">First Name of Teacher</th>
-                <th scope="col">Last Name of Teacher</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Email</th>
-                <th scope="col">Actions</th>
+            <th scope="col">C/N</th>
+              <th scope="col">Name of Teacher</th>
+              <th scope="col">Phone Number</th>
+              <th scope="col">Email</th>
+              <th scope="col">Actions</th>
             </tr>
           </tfoot>
         </table>

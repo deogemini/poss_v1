@@ -10,6 +10,10 @@ use App\Models\Stream;
 use App\Models\FinalYears;
 use App\Models\School;
 use App\Models\User;
+use App\Models\Role;
+
+use Illuminate\Support\Facades\DB;
+
 
 use App\Models\School_Teachers;
 
@@ -86,6 +90,7 @@ class StudentsforHeadMastersController extends Controller
         $user = Auth::user(); 
         $user_id = $user->id;
         $schools = School::all();
+        $roles = Role::all();
         $school = School_Teachers::where('user_id', $user_id)->first();
         $school_id = $school->school_id;
        $teachers = User::whereHas(
@@ -94,7 +99,7 @@ class StudentsforHeadMastersController extends Controller
             whereHas(
                 'schools' , fn($query) =>
                 $query->where('id', $school_id))->get();
-        return view('dashboard.student.headMasterTeacher', compact(['teachers', 'schools']));
+        return view('dashboard.student.headMasterTeacher', compact(['teachers', 'schools', 'roles']));
     }
 
     public function teachersondutyinschool()
@@ -102,6 +107,7 @@ class StudentsforHeadMastersController extends Controller
 
         $user = Auth::user(); 
         $schools = School::all();
+        $roles = Role::all();
         $user_id = $user->id;
         $school = School_Teachers::where('user_id', $user_id)->first();
         $school_id = $school->school_id;
@@ -111,7 +117,7 @@ class StudentsforHeadMastersController extends Controller
             whereHas(
                 'schools' , fn($query) =>
                 $query->where('id', $school_id))->get();
-        return view('dashboard.student.teacherOnDuty', compact(['teachers', 'schools']));
+        return view('dashboard.student.teacherOnDuty', compact(['teachers', 'schools', 'roles']));
     }
 
     public function studentsinschool(){
@@ -195,7 +201,55 @@ class StudentsforHeadMastersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->phonenumber = $request->phonenumber;
+
+        $user->save();
+                    
+        $user_id = $user->id;
+        //$school_id = $request['school_id'];
+        // $user_check = User::where('id', $user_id)->first();
+        // $teacher = $user_check->id;
+    
+        // $teachers = School_Teachers::where('school_id', $school_id)->update([
+        //     'user_id' => $user_id
+        //     ]);
+
+
+        DB::table('role_user')->where(['user_id' => $user_id])->update([
+            'role_id' => $request->role_id
+        ]);
+           
+            return back()->with('msg','Teacher was Updated successfully');
+    }
+    public function editTod(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->phonenumber = $request->phonenumber;
+
+        $user->save();
+                    
+        $user_id = $user->id;
+        //$school_id = $request['school_id'];
+        // $user_check = User::where('id', $user_id)->first();
+        // $teacher = $user_check->id;
+    
+        // $teachers = School_Teachers::where('school_id', $school_id)->update([
+        //     'user_id' => $user_id
+        //     ]);
+
+
+        DB::table('role_user')->where(['user_id' => $user_id])->update([
+            'role_id' => $request->role_id
+        ]);
+           
+            return back()->with('msg','Teacher was Updated successfully');
     }
 
     /**

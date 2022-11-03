@@ -161,11 +161,7 @@
 
 <script>
   $(document).ready(function() {
-    $('#example').DataTable({
-      paging: false,
-      ordering: false,
-      info: false,
-    });
+    $('#example').DataTable();
   });
 </script>
 <script>

@@ -158,6 +158,12 @@ $role = $role_name->name;
         <!-- /.modal-dialog -->
     </div>
 
+
+    <script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+  });
+</script>
 @endsection
 
    
@@ -166,12 +172,3 @@ $role = $role_name->name;
 
 
 
-<script>
-  $(document).ready(function() {
-    $('#example').DataTable({
-      paging: false,
-      ordering: false,
-      info: false,
-    });
-  });
-</script>

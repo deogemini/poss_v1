@@ -261,32 +261,29 @@ class AttendanceController extends Controller
 public function  TODreport($school_id, $date){
     $school = School::where('id', $school_id)->first();
     $school_education_level = $school->educationLevel;
+    $levels =[];
     if($school_education_level == 'Secondary'){
-        $Level1 = 'Form One';
-        $Level2 = 'Form Two';
-        $Level3 = 'Form Three';
-        $Level4 = 'Form Four';
+        array_push($levels, 'Form One', 'Form Two', 'Form Three', 'Form Four');
+        // foreach($levels as $level){
+        //     $boys= AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        //                             ->where('school_id', $school_id)
+        //                             ->where('attendance_id' , "1")
+        //                             ->where('grade', $level)
+        //                             ->whereHas('student' , function($query){
+        //                                 return $query->where('gender', 'male');
+        //                             })
+        //                             ->count();
+
+        // }
+     
 
     }else{
-        $Level1 = 'Standard One';
-        $Level2 = 'Standard Two';
-        $Level3 = 'Standard Three';
-        $Level4 = 'Standard Four';
-        $Level5 = 'Standard Five';
-        $Level6 = 'Standard Six';
-        $Level7 = 'Standard Seven';
-
-
+       array_push($levels,'Standard One','Standard Two', 'Standard Three','Standard Four','Standard Five', 'Standard Six', 'Standard Seven');
     }
 
-//     $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-//     ->where('school_id', $school_id)
-//     ->where('attendance_id' , "1")->get();
-// $total_present_students = $attendance_fetched_present->count();
+     
 
-
-
-    //-------total number of students called in attendance in that date-------//
+   //-------total number of students called in attendance in that date-------//
     $attendanceschool_fetched  = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                                     ->where('school_id', $school_id)
                                                     ->get();

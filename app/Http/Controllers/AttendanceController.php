@@ -262,23 +262,92 @@ public function  TODreport($school_id, $date){
     $school = School::where('id', $school_id)->first();
     $school_education_level = $school->educationLevel;
     $levels =[];
+  
     if($school_education_level == 'Secondary'){
         array_push($levels, 'Form One', 'Form Two', 'Form Three', 'Form Four');
-        // foreach($levels as $level){
-        //     $boys= AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-        //                             ->where('school_id', $school_id)
-        //                             ->where('attendance_id' , "1")
-        //                             ->where('grade', $level)
-        //                             ->whereHas('student' , function($query){
-        //                                 return $query->where('gender', 'male');
-        //                             })
-        //                             ->count();
+           
+        foreach($levels as $level){
+            $total_boys_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+            ->where('school_id', $school_id)
+            ->where('attendance_id' , "1")
+            ->where('grade', $level )
+            ->whereHas('student' , function($query){
+                return $query->where('gender', 'male');
+            })
+            ->count();
 
-        // }
-     
+            $total_girls_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+            ->where('school_id', $school_id)
+            ->where('attendance_id' , "1")
+            ->where('grade', $level )
+            ->whereHas('student' , function($query){
+                return $query->where('gender', 'female');
+            })
+            ->count();
+
+            $total_boys_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+            ->where('school_id', $school_id)
+            ->where('attendance_id' , "2")
+            ->where('grade', $level )
+            ->whereHas('student' , function($query){
+                return $query->where('gender', 'male');
+            })
+            ->count();
+            
+            $total_girls_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+            ->where('school_id', $school_id)
+            ->where('attendance_id' , "2")
+            ->where('grade', $level )
+            ->whereHas('student' , function($query){
+                return $query->where('gender', 'female');
+            })
+            ->count();
+
+        }
+    
+      
 
     }else{
        array_push($levels,'Standard One','Standard Two', 'Standard Three','Standard Four','Standard Five', 'Standard Six', 'Standard Seven');
+      
+       foreach($levels as $level){
+        $total_boys_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        ->where('school_id', $school_id)
+        ->where('attendance_id' , "1")
+        ->where('grade', $level )
+        ->whereHas('student' , function($query){
+            return $query->where('gender', 'male');
+        })
+        ->count();
+
+        $total_girls_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        ->where('school_id', $school_id)
+        ->where('attendance_id' , "1")
+        ->where('grade', $level )
+        ->whereHas('student' , function($query){
+            return $query->where('gender', 'female');
+        })
+        ->count();
+
+        $total_boys_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        ->where('school_id', $school_id)
+        ->where('attendance_id' , "2")
+        ->where('grade', $level )
+        ->whereHas('student' , function($query){
+            return $query->where('gender', 'male');
+        })
+        ->count();
+        
+        $total_girls_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        ->where('school_id', $school_id)
+        ->where('attendance_id' , "2")
+        ->where('grade', $level )
+        ->whereHas('student' , function($query){
+            return $query->where('gender', 'female');
+        })
+        ->count();
+    }
+
     }
 
      

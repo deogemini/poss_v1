@@ -256,6 +256,84 @@ class AttendanceController extends Controller
 
 
 
+//-----------------TOD REPORT----------------//
+public function  TODreport($school_id, $date){
+
+    //-------total number of students called in attendance in that date-------//
+    $attendanceschool_fetched  = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                                    ->where('school_id', $school_id)
+                                                    ->get();
+    $total_students_in_school = $attendanceschool_fetched->count();
+    //-------total number of students called in attendance in that date-------//
+
+    //--------total present students fetched in that date-------------------------------//
+    $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                                    ->where('school_id', $school_id)
+                                                    ->where('attendance_id' , "1")->get();
+    $total_present_students = $attendance_fetched_present->count();
+    //--------total present students fetched in that date-------------------------------//
+
+
+    //---------total present boys-----------------------------------------------------//
+    $total_boys_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                            ->where('school_id', $school_id)
+                                            ->where('attendance_id' , "1")
+                                            ->whereHas('student' , function($query){
+                                                return $query->where('gender', 'male');
+                                            })
+                                            ->count();
+
+    //---------total present girls-----------------------------------------------------//
+    $total_girls_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')   
+                                                ->where('school_id', $school_id)
+                                                ->where('attendance_id' , "1")
+                                                ->whereHas('student' , function($query){
+                                                    return $query->where('gender', 'female');
+                                                })
+                                                ->count();
+
+    //---------------total absent students in a school-------------------------------//
+    $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                                    ->where('school_id', $school_id)
+                                                    ->where('attendance_id' , "2")
+                                                    ->get();
+    $total_absent_students = $attendance_fetched_absent->count();
+
+    //------------total absent boys in a school---------------------------------//
+    $total_boys_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                            ->where('school_id', $school_id)
+                                            ->where('attendance_id' , "2")
+                                            ->whereHas('student' , function($query){
+                                            return $query->where('gender', 'male');
+                                            })
+                                            ->count();
+
+    //-----------------total absent girls in a school ---------------------------//
+    $total_girls_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                                                ->where('school_id', $school_id)
+                                                ->where('attendance_id' , "2")
+                                                ->whereHas('student' , function($query){
+                                                return $query->where('gender', 'female');
+                                                })
+                                                ->count();
+
+    
+
+
+
+    
+    return response()->json([
+        'message'=> 'Attendance Report in School',
+        'TotalStudents'=> $total_students_in_school,
+        'TotalPresentStudents'=> $total_present_students,
+        'TotalAbsentStudents'=> $total_absent_students,
+        'TotalPresentBoys'=> $total_boys_present,
+        'TotalPresentGirls'=> $total_girls_present,
+        'TotalAbsentBoys'=> $total_boys_absent,
+        'TotalAbsentGirls'=> $total_girls_absent
+    ]);
+}
+
                                 
 
     public function attendanceReportHeadMaster($school_id, $date){

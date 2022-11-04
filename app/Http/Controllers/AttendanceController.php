@@ -262,11 +262,14 @@ public function  TODreport($school_id, $date){
     $school = School::where('id', $school_id)->first();
     $school_education_level = $school->educationLevel;
     $levels =[];
+    $grade = '';
   
     if($school_education_level == 'Secondary'){
         array_push($levels, 'Form One', 'Form Two', 'Form Three', 'Form Four');
            
         foreach($levels as $level){
+
+            $grade = $level;
             $total_boys_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
             ->where('school_id', $school_id)
             ->where('attendance_id' , "1")
@@ -417,6 +420,9 @@ public function  TODreport($school_id, $date){
     
     return response()->json([
         'message'=> 'Attendance Report in School',
+        $grade => [
+            "total students" => $total_boys_present_in_class
+        ],
         'TotalStudents'=> $total_students_in_school,
         'TotalPresentStudents'=> $total_present_students,
         'TotalAbsentStudents'=> $total_absent_students,

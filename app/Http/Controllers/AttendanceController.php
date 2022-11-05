@@ -262,14 +262,18 @@ public function  TODreport($school_id, $date){
     $school = School::where('id', $school_id)->first();
     $school_education_level = $school->educationLevel;
     $levels =[];
-    $grade = '';
+    $grade = null;
   
     if($school_education_level == 'Secondary'){
         array_push($levels, 'Form One', 'Form Two', 'Form Three', 'Form Four');
            
         foreach($levels as $level){
 
-            $grade = $level;
+            $total_students = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+            ->where('school_id', $school_id)
+            ->where('grade', $level )
+            ->count();
+
             $total_boys_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
             ->where('school_id', $school_id)
             ->where('attendance_id' , "1")
@@ -307,6 +311,8 @@ public function  TODreport($school_id, $date){
             ->count();
 
         }
+        $grade = $level;
+
     
       
 
@@ -314,6 +320,12 @@ public function  TODreport($school_id, $date){
        array_push($levels,'Standard One','Standard Two', 'Standard Three','Standard Four','Standard Five', 'Standard Six', 'Standard Seven');
       
        foreach($levels as $level){
+        $grade = $level;
+
+        $total_students = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        ->where('school_id', $school_id)
+        ->where('grade', $level )
+        ->count();
         $total_boys_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
         ->where('school_id', $school_id)
         ->where('attendance_id' , "1")
@@ -421,8 +433,13 @@ public function  TODreport($school_id, $date){
     return response()->json([
         'message'=> 'Attendance Report in School',
         $grade => [
-            "total students" => $total_boys_present_in_class
-        ],
+            'TotalStudents' => $total_students,
+            'TotalPresentBoys'=> $total_boys_present_in_class,
+            'TotalPresentGirls'=> $total_girls_present_in_class,
+            'TotalAbsentBoys'=> $total_boys_absent_in_class,
+            'TotalAbsentGirls'=> $total_girls_absent_in_class
+        ]
+        ,
         'TotalStudents'=> $total_students_in_school,
         'TotalPresentStudents'=> $total_present_students,
         'TotalAbsentStudents'=> $total_absent_students,

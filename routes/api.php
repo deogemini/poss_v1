@@ -1,5 +1,5 @@
 <?php
- 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AttendanceController;
@@ -13,9 +13,9 @@ use App\Http\Controllers\WardOfficersController;
 use App\Http\Controllers\HeadTeacherController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\RegionController;  
-use App\Http\Controllers\DistrictController; 
-use App\Http\Controllers\WardController; 
+use App\Http\Controllers\RegionController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\WardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ Route::get('/roles/search/{name}', [RoleController::class, 'search']);
 Route::get('/students', [StudentController::class, 'index']);
 Route::post('/addStudents', [StudentController::class, 'create']);
 // Route::get('/students/{id}', [StudentController::class, 'show']);
-Route::get('/getStudents/{school_id}', [StudentController::class, 'show']); 
+Route::get('/getStudents/{school_id}', [StudentController::class, 'show']);
 Route::get('/getStudentsinGrade/{gradename}/{stream}/{school_id}', [StudentController::class, 'getStudentsinGrade']);
 
 Route::post('/TODremark', [AttendanceController::class, 'TODremark']);
@@ -151,41 +151,41 @@ Route::get('/getTeachers/{school_id}', [HeadTeacherController::class, 'getTeache
 Route::get('/getTeachersOnDuty/{school_id}', [HeadTeacherController::class, 'getTeachersOnDutyinSchool']);
 Route::get('/setTeacheronDuty/{teacher_id}', [HeadTeacherController::class, 'isTeacherOnDuty']);
 Route::get('/unsetTeacheronDuty/{teacher_id}', [HeadTeacherController::class, 'isNotTeacherOnDuty']);
-Route::post('/addHeadTeacher', [HeadTeacherController::class, 'create']); 
+Route::post('/addHeadTeacher', [HeadTeacherController::class, 'create']);
 
 
 
 
 //-------------------management of regions used by  the system----------------------------------------
-Route::get('/regions', [RegionController::class, 'index']); 
-Route::post('/addRegion', [RegionController::class, 'store']); 
-//Route::get('/regions', [RegionController::class, 'index']); 
+Route::get('/regions', [RegionController::class, 'index']);
+Route::post('/addRegion', [RegionController::class, 'store']);
+//Route::get('/regions', [RegionController::class, 'index']);
 
 
 
 
 //-------------------management of districts used by  the system----------------------------------------
-Route::get('/getdistricts', [DistrictController::class, 'index']); 
-Route::post('/addDistrict', [DistrictController::class, 'store']); 
-Route::get('/getdistrict/{{id}}', [DistrictController::class, 'index']); 
+Route::get('/getdistricts', [DistrictController::class, 'index']);
+Route::post('/addDistrict', [DistrictController::class, 'store']);
+Route::get('/getdistrict/{{id}}', [DistrictController::class, 'index']);
 
 
 
 
 //-------------------management of wards used by  the system----------------------------------------
-Route::get('/getwards', [WardController::class, 'index']); 
-Route::post('/addWard', [WardController::class, 'store']); 
-Route::get('/getward/{{id}}', [WardController::class, 'index']); 
+Route::get('/getwards', [WardController::class, 'index']);
+Route::post('/addWard', [WardController::class, 'store']);
+Route::get('/getward/{{id}}', [WardController::class, 'index']);
 
 
 
 
 //-------starting of apis for management of teachers------------------
 Route::get('/teachers', [TeacherController::class, 'index']);
-Route::post('/addTeacher', [TeacherController::class, 'create']); 
-Route::get('/getGrades/{school_id}', [TeacherController::class, 'getGrades']); 
+Route::post('/addTeacher', [TeacherController::class, 'create']);
+Route::get('/getGrades/{school_id}', [TeacherController::class, 'getGrades']);
 
-Route::get('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show']); 
+Route::get('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show']);
 
 
 
@@ -194,6 +194,8 @@ Route::get('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show'
 ///reports apis will be wriiten here
 // 1. headmaster want to see details of attendance after the TOD
 Route::get('/getHeadMasterReportofAttandanceinSchool/{school_id}/{date}', [AttendanceController::class, 'attendanceReportHeadMaster']);
+Route::get('/pendingReports/{school_id}/{date}', [AttendanceController::class, 'pendingReport']);
+Route::get('/pendingReportsList/{school_id}', [AttendanceController::class, 'pendingReportList']);
 Route::get('/getTODreport/{school_id}/{date}', [AttendanceController::class, 'TODreport']);
 Route::get('/gradeReportofAttandance/{grade}/{school_id}/{date}', [AttendanceController::class, 'getGradeAttendanceReport']);
 Route::get('/streamAttandance/{grade}/{stream_id}/{school_id}/{date}', [AttendanceController::class, 'getGradeAttendanceReport']);

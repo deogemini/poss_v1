@@ -45,7 +45,7 @@ class AttendanceController extends Controller
         foreach( $request["data"] as $data){
 
 // return $data;
-            
+
         $status = strtolower($data['status']);
 
         $attendanceUser = $data['teacher_id'];
@@ -55,7 +55,7 @@ class AttendanceController extends Controller
 
         $att_checker = Attendance::where('status', $status)->first();
         $attendance = $att_checker->id;
-        
+
         $actual_student =  Student::where('id', $attendanceStudent)->get();
         foreach($actual_student as $student){
          $grade = $student->grade;
@@ -64,9 +64,9 @@ class AttendanceController extends Controller
         //  $actual_stream = Stream::where('id', $stream_id)->get();
         //  foreach($actual_stream as $stream){
         //      $grade_id = $stream->grade_id;
-        //  }         
-        } 
-      
+        //  }
+        }
+
 
         $date = $request['date'];
         $record_check_attendance_student = AttendanceStudent::where('updated_at', 'LIKE', '%'.$date.'%')->where('attendance_id', $attendance)->where('grade', $grade)->where('student_id', $attendanceStudent)->get();
@@ -83,15 +83,15 @@ class AttendanceController extends Controller
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
             ]);
-    
+
         }
-       
+
         $attendanceUser = AttendanceTeacher::insert([
             'user_id' => $attendanceUser,
             'attendance_id' => $attendance,
             'created_at'=> Carbon::now(),
             'updated_at'=> Carbon::now(),
-            
+
         ]);
         }
         // $remark = new Remark;
@@ -99,7 +99,7 @@ class AttendanceController extends Controller
         // $remark->remark = "dhcsdjcs";
         // $remark->save();
        }
-        return response(['message' => 'The attendance of this has been successfully saved', 
+        return response(['message' => 'The attendance of this has been successfully saved',
                'data'=> $attendance]);
     }
 
@@ -122,27 +122,28 @@ class AttendanceController extends Controller
 
     public function view()
     {
-       
+
        return view('dashboard.attendanceReports.index');
-        
+
     }
-    
+
 
 
     public function TODremark(Request $request){
-        $date = Carbon::now()->format('Y-m-d');
-        $attendances_fetched = AttendanceStudent::where('dateofattendance', $date)->get();
-        foreach($attendances_fetched as $attendance_fetched ){
-            $attendance_student_dateofattendance = $attendance_fetched->dateofattendance;
-        }
+
+        // $attendances_fetched = AttendanceStudent::where('dateofattendance', $date)->get();
+        // foreach($attendances_fetched as $attendance_fetched ){
+        //     $attendance_student_dateofattendance = $attendance_fetched->dateofattendance;
+        // }
         $TODremark = TODremark::insert([
             'remark' => $request['remark'],
             'school_id' => $request['school_id'],
             'user_id' => $request['user_id'],
-            'dateofattendances' => $attendance_student_dateofattendance 
+            'pendingbyHeadMaster' => 1,
+            'dateofattendances' => $request['date']
         ]);
 
-        return response(['message' => 'The remark of today has been sent', 
+        return response(['message' => 'The remark of today has been sent',
                'data'=> $TODremark]);
     }
 
@@ -160,22 +161,22 @@ class AttendanceController extends Controller
 
         $stream= Stream::where('name', $stream)->first();
         $stream_id = $stream->id;
-        
+
         $attendance_fetched = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('grade', $grade)
                                     ->where('stream_id', $stream_id)
                                     ->where('school_id', $school_id)
                                     ->get();
-                               
+
         $total_students_in_grade = $attendance_fetched->count();
-      
+
 
         //total present students fetched in a grade
         $attendance_fetched_present = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('grade', $grade)
                                     ->where('stream_id', $stream_id)
                                     ->where('school_id', $school_id)
-                                    ->where('attendance_id' , "1")->get(); 
+                                    ->where('attendance_id' , "1")->get();
          $total_present_student_in_grade = $attendance_fetched_present->count();
 
          //starting to get total boys and girls in a grade and counting them here
@@ -191,7 +192,7 @@ class AttendanceController extends Controller
                                     })
                                     ->count();
 
-        $female_present = AttendanceStudent::where('dateofattendance', $date)   
+        $female_present = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('grade', $grade)
                                     ->where('stream_id', $stream_id)
                                     ->where('school_id', $school_id)
@@ -229,7 +230,7 @@ class AttendanceController extends Controller
                     return $query->where('gender', 'female');
                 })
                 ->count();
-                
+
                 if($total_students_in_grade == 0){
                     return response()->json([
                         'message'=>'No Attendance called for the entered data',
@@ -252,8 +253,8 @@ class AttendanceController extends Controller
                      ])->setStatusCode(200)
                      ;
                     }
-       
-} 
+
+}
 
 
 
@@ -263,10 +264,10 @@ public function  TODsreport($school_id, $date){
     $school_education_level = $school->educationLevel;
     $levels =[];
     $grade = null;
-  
+
     if($school_education_level == 'Secondary'){
         array_push($levels, 'Form One', 'Form Two', 'Form Three', 'Form Four');
-           
+
         foreach($levels as $level){
 
             $total_students = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
@@ -300,7 +301,7 @@ public function  TODsreport($school_id, $date){
                 return $query->where('gender', 'male');
             })
             ->count();
-            
+
             $total_girls_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
             ->where('school_id', $school_id)
             ->where('attendance_id' , "2")
@@ -313,12 +314,12 @@ public function  TODsreport($school_id, $date){
         }
         $grade = $level;
 
-    
-      
+
+
 
     }else{
        array_push($levels,'Standard One','Standard Two', 'Standard Three','Standard Four','Standard Five', 'Standard Six', 'Standard Seven');
-      
+
        foreach($levels as $level){
         $grade = $level;
 
@@ -352,7 +353,7 @@ public function  TODsreport($school_id, $date){
             return $query->where('gender', 'male');
         })
         ->count();
-        
+
         $total_girls_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
         ->where('school_id', $school_id)
         ->where('attendance_id' , "2")
@@ -365,7 +366,7 @@ public function  TODsreport($school_id, $date){
 
     }
 
-     
+
 
    //-------total number of students called in attendance in that date-------//
     $attendanceschool_fetched  = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
@@ -392,7 +393,7 @@ public function  TODsreport($school_id, $date){
                                             ->count();
 
     //---------total present girls-----------------------------------------------------//
-    $total_girls_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')   
+    $total_girls_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
                                                 ->where('school_id', $school_id)
                                                 ->where('attendance_id' , "1")
                                                 ->whereHas('student' , function($query){
@@ -425,11 +426,11 @@ public function  TODsreport($school_id, $date){
                                                 })
                                                 ->count();
 
-    
 
 
 
-    
+
+
     return response()->json([
         'message'=> 'Attendance Report in School',
         $grade => [
@@ -467,12 +468,12 @@ public function TODreport($school_id, $date)
     foreach($levels as $level) {
         $result[$level] = [];
 
-        $result[$level]['total_students'] = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        $result[$level]['total_students'] = AttendanceStudent::where('dateofattendance', $date)
             ->where('school_id', $school_id)
             ->where('grade', $level )
             ->count();
 
-        $result[$level]['total_boys_present_in_class'] = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        $result[$level]['total_boys_present_in_class'] = AttendanceStudent::where('dateofattendance', $date)
             ->where('school_id', $school_id)
             ->where('attendance_id' , "1")
             ->where('grade', $level )
@@ -481,7 +482,7 @@ public function TODreport($school_id, $date)
             })
             ->count();
 
-        $result[$level]['total_girls_present_in_class'] = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        $result[$level]['total_girls_present_in_class'] = AttendanceStudent::where('dateofattendance', $date)
             ->where('school_id', $school_id)
             ->where('attendance_id' , "1")
             ->where('grade', $level )
@@ -490,7 +491,7 @@ public function TODreport($school_id, $date)
             })
             ->count();
 
-        $result[$level]['total_boys_absent_in_class'] = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        $result[$level]['total_boys_absent_in_class'] = AttendanceStudent::where('dateofattendance', $date)
             ->where('school_id', $school_id)
             ->where('attendance_id' , "2")
             ->where('grade', $level )
@@ -499,7 +500,7 @@ public function TODreport($school_id, $date)
             })
             ->count();
 
-        $result[$level]['total_girls_absent_in_class'] = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        $result[$level]['total_girls_absent_in_class'] = AttendanceStudent::where('dateofattendance', $date)
             ->where('school_id', $school_id)
             ->where('attendance_id' , "2")
             ->where('grade', $level )
@@ -510,48 +511,48 @@ public function TODreport($school_id, $date)
     }
 
     //-------total number of students called in attendance in that date-------//
-      $attendanceschool_fetched  = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+      $attendanceschool_fetched  = AttendanceStudent::where('dateofattendance', $date)
         ->where('school_id', $school_id)
         ->get();
     $result['total_students_in_school'] = $attendanceschool_fetched->count();
     //-------total number of students called in attendance in that date-------//
-    
+
     //--------total present students fetched in that date-------------------------------//
-    $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+    $attendance_fetched_present = AttendanceStudent::where('dateofattendance', $date)
         ->where('school_id', $school_id)
         ->where('attendance_id' , "1")
         ->get();
     $result['total_present_students'] = $attendance_fetched_present->count();
     //--------total present students fetched in that date-------------------------------//
-    
-    
+
+
     //---------total present boys-----------------------------------------------------//
-    $result['total_boys_present'] = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+    $result['total_boys_present'] = AttendanceStudent::where('dateofattendance', $date)
         ->where('school_id', $school_id)
         ->where('attendance_id' , "1")
         ->whereHas('student' , function($query) {
             return $query->where('gender', 'male');
         })
         ->count();
-    
+
     //---------total present girls-----------------------------------------------------//
-    $result['total_girls_present'] = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+    $result['total_girls_present'] = AttendanceStudent::where('dateofattendance', $date)
         ->where('school_id', $school_id)
         ->where('attendance_id' , "1")
         ->whereHas('student' , function($query) {
             return $query->where('gender', 'female');
         })
         ->count();
-    
+
     //---------------total absent students in a school-------------------------------//
-    $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+    $attendance_fetched_absent = AttendanceStudent::where('dateofattendance', $date)
         ->where('school_id', $school_id)
         ->where('attendance_id' , "2")
         ->get();
     $result['total_absent_students'] = $attendance_fetched_absent->count();
-    
+
     //------------total absent boys in a school---------------------------------//
-    $result['total_boys_absent'] = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+    $result['total_boys_absent'] = AttendanceStudent::where('dateofattendance', $date)
         ->where('school_id', $school_id)
         ->where('attendance_id' , "2")
         ->whereHas('student' , function($query) {
@@ -560,7 +561,7 @@ public function TODreport($school_id, $date)
         ->count();
 
     //-----------------total absent girls in a school ---------------------------//
-    $result['total_girls_absent'] = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+    $result['total_girls_absent'] = AttendanceStudent::where('dateofattendance', $date)
         ->where('school_id', $school_id)
         ->where('attendance_id' , "2")
         ->whereHas('student' , function($query) {
@@ -571,16 +572,163 @@ public function TODreport($school_id, $date)
     return response()->json($result);
 }
 
-                                
+        public function pendingReportList($school_id){
+            $datelist = [];
+            $dates = TODremark::where('school_id', $school_id)
+                                ->where('pendingbyHeadMaster', 1)
+                                ->get();
+            foreach($dates as $date){
+                $datelist[] = $date->dateofattendances;
+
+            }
+            return response()->json($datelist);
+
+        }
+
+public function pendingReport($school_id, $date)
+{
+    $school = School::where('id', $school_id)->first();
+    $school_education_level = $school->educationLevel;
+    $result =['message' => 'Attendance Report in School'];
+    $levels = [
+        'Standard One','Standard Two', 'Standard Three','Standard Four',
+        'Standard Five', 'Standard Six', 'Standard Seven',
+    ];
+
+    if($school_education_level == 'Secondary') {
+        $levels = ['Form One', 'Form Two', 'Form Three', 'Form Four'];
+    }
+
+    foreach($levels as $level) {
+        $result[$level] = [];
+
+        $result[$level]['total_students'] = AttendanceStudent::where('dateofattendance', $date)
+            ->where('school_id', $school_id)
+            ->where('grade', $level )
+            ->count();
+
+        $result[$level]['total_boys_present_in_class'] = AttendanceStudent::where('dateofattendance', $date)
+            ->where('school_id', $school_id)
+            ->where('attendance_id' , "1")
+            ->where('grade', $level )
+            ->whereHas('student' , function($query){
+                return $query->where('gender', 'male');
+            })
+            ->count();
+
+        $result[$level]['total_girls_present_in_class'] = AttendanceStudent::where('dateofattendance', $date)
+            ->where('school_id', $school_id)
+            ->where('attendance_id' , "1")
+            ->where('grade', $level )
+            ->whereHas('student' , function($query){
+                return $query->where('gender', 'female');
+            })
+            ->count();
+
+        $result[$level]['total_boys_absent_in_class'] = AttendanceStudent::where('dateofattendance', $date)
+            ->where('school_id', $school_id)
+            ->where('attendance_id' , "2")
+            ->where('grade', $level )
+            ->whereHas('student' , function($query){
+                return $query->where('gender', 'male');
+            })
+            ->count();
+
+        $result[$level]['total_girls_absent_in_class'] = AttendanceStudent::where('dateofattendance', $date)
+            ->where('school_id', $school_id)
+            ->where('attendance_id' , "2")
+            ->where('grade', $level )
+            ->whereHas('student' , function($query){
+                return $query->where('gender', 'female');
+            })
+            ->count();
+    }
+
+    //-------total number of students called in attendance in that date-------//
+      $attendanceschool_fetched  = AttendanceStudent::where('dateofattendance', $date)
+        ->where('school_id', $school_id)
+        ->get();
+    $result['total_students_in_school'] = $attendanceschool_fetched->count();
+    //-------total number of students called in attendance in that date-------//
+
+    //--------total present students fetched in that date-------------------------------//
+    $attendance_fetched_present = AttendanceStudent::where('dateofattendance', $date)
+        ->where('school_id', $school_id)
+        ->where('attendance_id' , "1")
+        ->get();
+    $result['total_present_students'] = $attendance_fetched_present->count();
+    //--------total present students fetched in that date-------------------------------//
+
+
+    //---------total present boys-----------------------------------------------------//
+    $result['total_boys_present'] = AttendanceStudent::where('dateofattendance', $date)
+        ->where('school_id', $school_id)
+        ->where('attendance_id' , "1")
+        ->whereHas('student' , function($query) {
+            return $query->where('gender', 'male');
+        })
+        ->count();
+
+    //---------total present girls-----------------------------------------------------//
+    $result['total_girls_present'] = AttendanceStudent::where('dateofattendance', $date)
+        ->where('school_id', $school_id)
+        ->where('attendance_id' , "1")
+        ->whereHas('student' , function($query) {
+            return $query->where('gender', 'female');
+        })
+        ->count();
+
+    //---------------total absent students in a school-------------------------------//
+    $attendance_fetched_absent = AttendanceStudent::where('dateofattendance', $date)
+        ->where('school_id', $school_id)
+        ->where('attendance_id' , "2")
+        ->get();
+    $result['total_absent_students'] = $attendance_fetched_absent->count();
+
+    //------------total absent boys in a school---------------------------------//
+    $result['total_boys_absent'] = AttendanceStudent::where('dateofattendance', $date)
+        ->where('school_id', $school_id)
+        ->where('attendance_id' , "2")
+        ->whereHas('student' , function($query) {
+            return $query->where('gender', 'male');
+        })
+        ->count();
+
+    //-----------------total absent girls in a school ---------------------------//
+    $result['total_girls_absent'] = AttendanceStudent::where('dateofattendance', $date)
+        ->where('school_id', $school_id)
+        ->where('attendance_id' , "2")
+        ->whereHas('student' , function($query) {
+            return $query->where('gender', 'female');
+        })
+        ->count();
+
+        $todremark = TODremark::where('school_id', $school_id)
+                                ->where('dateofattendances', $date)
+                                ->where('pendingbyHeadMaster', 1)
+                                ->first();
+
+                if(empty($todremark)){
+                      $result['remarkyenyewe'] = "No Remark for this attendance";
+                }else{
+                    $result['remarkyenyewe']  = $todremark->remark;
+                }
+
+
+
+    return response()->json($result);
+}
+
+
 
     public function attendanceReportHeadMaster($school_id, $date){
-        $attendanceschool_fetched = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+        $attendanceschool_fetched = AttendanceStudent::where('dateofattendance', $date)
         ->where('school_id', $school_id)->get();
         $total_students_in_school = $attendanceschool_fetched->count();
 
 
            //total present students fetched
-           $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+           $attendance_fetched_present = AttendanceStudent::where('dateofattendance', $date)
            ->where('school_id', $school_id)
            ->where('attendance_id' , "1")->get();
                     //total present students are counted
@@ -588,7 +736,7 @@ public function TODreport($school_id, $date)
                     //starting to get total boys and girls and counting them here
 
                     //male
-                    $male_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                    $male_present = AttendanceStudent::where('dateofattendance', $date)
                             ->where('school_id', $school_id)
                             ->where('attendance_id' , "1")
                             ->whereHas('student' , function($query){
@@ -596,7 +744,7 @@ public function TODreport($school_id, $date)
                             })
                             ->count();
 
-                    $female_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')   
+                    $female_present = AttendanceStudent::where('dateofattendance', $date)
                             ->where('school_id', $school_id)
                             ->where('attendance_id' , "1")
                             ->whereHas('student' , function($query){
@@ -604,13 +752,13 @@ public function TODreport($school_id, $date)
                             })
                             ->count();
 
-                    $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                    $attendance_fetched_absent = AttendanceStudent::where('dateofattendance', $date)
                                 ->where('school_id', $school_id)
                                 ->where('attendance_id' , "2")->get();
-                    //total absent students are counted                               
+                    //total absent students are counted
                     $total_absent_student = $attendance_fetched_absent->count();
 
-                    $male_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                    $male_absent = AttendanceStudent::where('dateofattendance', $date)
                     ->where('school_id', $school_id)
                     ->where('attendance_id' , "2")
                     ->whereHas('student' , function($query){
@@ -618,7 +766,7 @@ public function TODreport($school_id, $date)
                     })
                     ->count();
 
-                    $female_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+                    $female_absent = AttendanceStudent::where('dateofattendance', $date)
                     ->where('school_id', $school_id)
                     ->where('attendance_id' , "2")
                     ->whereHas('student' , function($query){
@@ -629,13 +777,13 @@ public function TODreport($school_id, $date)
 
         $todremark = TODremark::where('school_id', $school_id)
                                 ->where('dateofattendances', $date)->first();
-                                
+
                 if(empty($todremark)){
                       $remarkyenyewe = "No Remark for this attendance";
                 }else{
                     $remarkyenyewe = $todremark->remark;
                 }
-        
+
                                 return response()->json([
                                 'message'=> 'Attendance Report in School',
                                 'Total Students' => $total_students_in_school,
@@ -651,7 +799,7 @@ public function TODreport($school_id, $date)
 
 
     }
-                                                                                                                        
+
 
     /**
      * Display the specified resource.

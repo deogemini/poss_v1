@@ -195,6 +195,10 @@ Route::get('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show'
 // 1. headmaster want to see details of attendance after the TOD
 Route::get('/getHeadMasterReportofAttandanceinSchool/{school_id}/{date}', [AttendanceController::class, 'attendanceReportHeadMaster']);
 Route::get('/pendingReports/{school_id}/{date}', [AttendanceController::class, 'pendingReport']);
+Route::get('/rejectReport/{school_id}/{date}', [AttendanceController::class, 'rejectReport']);
+Route::get('/approveReport/{school_id}/{date}', [AttendanceController::class, 'approveReport']);
+Route::get('/rejectReportList/{school_id}', [AttendanceController::class, 'rejectedReportList']);
+Route::get('/approvedReportList/{school_id}', [AttendanceController::class, 'approvedReportList']);
 Route::get('/pendingReportsList/{school_id}', [AttendanceController::class, 'pendingReportList']);
 Route::get('/getTODreport/{school_id}/{date}', [AttendanceController::class, 'TODreport']);
 Route::get('/gradeReportofAttandance/{grade}/{school_id}/{date}', [AttendanceController::class, 'getGradeAttendanceReport']);

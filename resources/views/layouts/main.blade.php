@@ -207,7 +207,7 @@ a.article:hover {
 </head>
 <body>
 <?php
-$user = Auth::user(); 
+$user = Auth::user();
 $user_id = $user->id;
 $role_user = App\Models\RoleUser::where('user_id', $user_id)->first();
 $role_name = App\Models\Role::where('id', $role_user->role_id)->first();
@@ -221,9 +221,9 @@ $role = $role_name->name;
         </div>
 
         <ul class="list-unstyled components">
-        @if($role == 'isAdmin')  
+        @if($role == 'isAdmin')
         <li>
-                <a href="{{ url ('/dashboard') }}"> 
+                <a href="{{ url ('/dashboard') }}">
                 <i class="fa fa-home" aria-hidden="true"></i>
                 <span>Home</span>
                 </a>
@@ -264,7 +264,7 @@ $role = $role_name->name;
                     <li>
                         <a href="/wards">Wards</a>
                     </li>
-            
+
                 </ul>
             </li>
 
@@ -281,7 +281,7 @@ $role = $role_name->name;
                     <li>
                         <a href="/streams">Stream</a>
                     </li>
-            
+
                 </ul>
             </li>
 
@@ -313,7 +313,7 @@ $role = $role_name->name;
                 </a>
             </li>
             <li>
-         
+
                         <a href="/userProfile">
                         <i class="fa fa-user" aria-hidden="true"></i>
                            <span>User Profile</span> </a>
@@ -357,7 +357,7 @@ $role = $role_name->name;
                     <!-- <li>
                         <a href="/auditReports">Audit Reports</a>
                     </li> -->
-                   
+
 
                     <li>
                         <a href="/userProfile">User Profile</a>
@@ -365,11 +365,11 @@ $role = $role_name->name;
                     <li>
                         <a href="/finishingYears">Finishing Year</a>
                     </li>
-              
+
 
                 </ul>
             </li>
-            
+
             <li>
             <a href="{{ url('/privacy_policy')}}">
             <i class="fa fa-user-secret" aria-hidden="true"></i>
@@ -386,7 +386,7 @@ $role = $role_name->name;
             </li>
         </ul>
 
-    </nav>  
+    </nav>
     <!-- Page Content -->
     <div id="content">
 
@@ -397,7 +397,7 @@ $role = $role_name->name;
                     <i class="fas fa-align-left"></i>
                 </button>
             </div>
-            <a class="navbar-brand">PROTECTING OUR STUDENTS IN SCHOOL (POSS)</a>  
+            <a class="navbar-brand">PROTECTING OUR STUDENTS IN SCHOOL (POSS)</a>
         </nav>
         <section class="content">
                 @if (\Session::has('msg'))
@@ -414,7 +414,7 @@ $role = $role_name->name;
         </main>
     </div>
 
-  
+
 </div>
 
 
@@ -448,7 +448,7 @@ $role = $role_name->name;
         $("#sidebarCollapse").on('click', function(){
           $("#sidebar").toggleClass('active');
         });
-      });       
+      });
     </script>
 </body>
 </html>

@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','api_token', 
+        'name', 'email', 'password','api_token',
     ];
 
     /**
@@ -38,7 +38,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-   
+
 
 
      /**
@@ -61,7 +61,7 @@ class User extends Authenticatable
         return $this->belongsToMany(School::class, 'teachers/headTeachers_schools', 'user_id', 'school_id');
     }
 
-    
+
     public function wards()
     {
         return $this->belongsToMany(Ward::class, 'wardOfficers_wards', 'user_id', 'ward_id');
@@ -72,8 +72,8 @@ class User extends Authenticatable
         return $this->belongsToMany(District::class, 'districtOfficers_districts', 'user_id', 'district_id');
     }
 
-    
-    
+
+
 
 
 }

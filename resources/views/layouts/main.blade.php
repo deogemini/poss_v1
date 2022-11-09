@@ -207,11 +207,14 @@ a.article:hover {
 </head>
 <body>
 <?php
+if(Auth::check()){
 $user = Auth::user();
 $user_id = $user->id;
 $role_user = App\Models\RoleUser::where('user_id', $user_id)->first();
 $role_name = App\Models\Role::where('id', $role_user->role_id)->first();
 $role = $role_name->name;
+}
+
 ?>
 <div class="wrapper">
     <!-- Sidebar -->

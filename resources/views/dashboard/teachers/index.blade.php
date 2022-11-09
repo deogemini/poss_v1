@@ -40,7 +40,7 @@
               <td>{{ App\Models\District::where('id' , App\Models\Ward::where('id' , $school->ward_id)->pluck('district_id') )->pluck('name')[0] }} </td>
               <td>{{  App\Models\Region::where('id',  App\Models\District::where('id' , App\Models\Ward::where('id' , $school->ward_id)->pluck('district_id'))->pluck('region_id') )->pluck('name')[0] }} </td>
               @endforeach
-           
+
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-teacher-{{$Teacher->id}}">Edit</a>
                 <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this Teacher ?')){
@@ -53,7 +53,7 @@
               </td>
             </tr>
 
-                       
+
       </div>
     </div>
   </div>
@@ -118,7 +118,7 @@
                     <div class="modal-body">
                         @include('dashboard.teachers.create')
                     </div>
-                    <div class="modal-footer">        
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
@@ -144,7 +144,7 @@
                     <div class="modal-body">
                         @include('dashboard.teachers.ondutyTeacher')
                     </div>
-                    <div class="modal-footer">        
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>

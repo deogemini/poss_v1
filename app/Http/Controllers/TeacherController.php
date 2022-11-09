@@ -34,7 +34,7 @@ class TeacherController extends Controller
         $regions =  Region::all();
 
         return view('dashboard.teachers.index', compact(['Teachers','roles', 'schools',  'wards','districts', 'regions']));
-            
+
     }
 
 //get Grades in a given school
@@ -44,21 +44,21 @@ class TeacherController extends Controller
         ->addSelect([
             'total_students' => Student::selectRaw('count(*)')
                 ->whereIn(
-                    'stream_id', 
+                    'stream_id',
                     Stream::select('id')->whereColumn('grade_id', 'grades.id')
                 ),
             'total_boys' => Student::selectRaw('count(*)')
                 ->whereRaw('gender = "male"')
                 ->whereIn(
-                    'stream_id', 
+                    'stream_id',
                     Stream::select('id')->whereColumn('grade_id', 'grades.id')
                 ),
             'total_girls' => Student::selectRaw('count(*)')
                 ->whereRaw('gender = "female"')
                 ->whereIn(
-                    'stream_id', 
+                    'stream_id',
                     Stream::select('id')->whereColumn('grade_id', 'grades.id')
-                )      
+                )
         ])->get();
 
         return response()->json([
@@ -87,7 +87,7 @@ class TeacherController extends Controller
 
         return view('dashboard.teachers.index', compact(['Teachers','schools',  'wards','districts', 'regions']));
     }
-   
+
 
     //add new teacher in the system
     public function create(Request $request)
@@ -111,13 +111,13 @@ class TeacherController extends Controller
             'school_id' => $school_id
         ]);
 
-        if($user->save()){   
+        if($user->save()){
             $user_id = $user->id;
             $role = User::find($user_id);
-        // role 2 is for isTeacher, thus we attach this role to this user object 
+        // role 2 is for isTeacher, thus we attach this role to this user object
         // ...this will create a record in user_role table
-            $role->roles()->attach(2); 
-            return response(['message' => 'A new teacher registered!', 
+            $role->roles()->attach(2);
+            return response(['message' => 'A new teacher registered!',
             'data'=> $user]);
         }
     }
@@ -144,12 +144,12 @@ class TeacherController extends Controller
             'school_id' => $school_id
         ]);
 
-        if($user->save()){   
+        if($user->save()){
             $user_id = $user->id;
             $role = User::find($user_id);
-        // role 2 is for isTeacher, thus we attach this role to this user object 
+        // role 2 is for isTeacher, thus we attach this role to this user object
         // ...this will create a record in user_role table
-            $role->roles()->attach(2); 
+            $role->roles()->attach(2);
             return back()->with('message','A new teacher registered!');
         }
     }
@@ -176,12 +176,12 @@ class TeacherController extends Controller
             'school_id' => $school_id
         ]);
 
-        if($user->save()){   
+        if($user->save()){
             $user_id = $user->id;
             $role = User::find($user_id);
-        // role 2 is for isTeacher, thus we attach this role to this user object 
+        // role 2 is for isTeacher, thus we attach this role to this user object
         // ...this will create a record in user_role table
-            $role->roles()->attach(3); 
+            $role->roles()->attach(3);
             return back()->with('message','A new teacher  On Duty registered!');
         }
     }
@@ -200,7 +200,7 @@ class TeacherController extends Controller
 
     public function update(Request $request, $id)
     {
-       
+
         $user = User::find($id);
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
@@ -208,12 +208,12 @@ class TeacherController extends Controller
         $user->phonenumber = $request->phonenumber;
 
         $user->save();
-                    
+
         $user_id = $user->id;
         //$school_id = $request['school_id'];
         // $user_check = User::where('id', $user_id)->first();
         // $teacher = $user_check->id;
-    
+
         // $teachers = School_Teachers::where('school_id', $school_id)->update([
         //     'user_id' => $user_id
         //     ]);
@@ -222,11 +222,11 @@ class TeacherController extends Controller
         DB::table('role_user')->where(['user_id' => $user_id])->update([
             'role_id' => $request->role_id
         ]);
-           
+
             return back()->with('msg','Teacher was Updated successfully');
 
 
-    }   
+    }
     public function destroy($id)
     {
         //

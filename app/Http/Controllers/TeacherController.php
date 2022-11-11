@@ -227,8 +227,12 @@ class TeacherController extends Controller
 
 
     }
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        $role_user = DB::table('role_user')->where('user_id', $user->id)->delete();
+        $school_teacher =  DB::table('teachers/headteachers_schools')->where('user_id', $user->id)->delete();
+        return back()->with('msg', 'Teacher was deleted successsfully');
     }
 }

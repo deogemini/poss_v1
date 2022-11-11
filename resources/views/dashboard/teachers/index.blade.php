@@ -44,8 +44,8 @@
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-teacher-{{$Teacher->id}}">Edit</a>
                 <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this Teacher ?')){
-                              	getElementById('delete-role-{{$Teacher->id}}').submit()}">Delete</a>
-                <form action="/teacher/{{$Teacher->id}}" method="post" style="display: inline-block;" id="delete-role-{{$Teacher->id}}">
+                              	getElementById('delete-teacher-{{$Teacher->id}}').submit()}">Delete</a>
+                <form action="/teacher/{{$Teacher->id}}" method="post" style="display: inline-block;" id="delete-teacher-{{$Teacher->id}}">
                   @csrf
                   @method('DELETE')
                 </form>

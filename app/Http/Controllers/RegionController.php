@@ -25,16 +25,16 @@ class RegionController extends Controller
     {
         $regions = Region::all();
         return view('dashboard.region.index', compact('regions'));;
-        
+
     }
     // public function view()
     // {
     //     $regions = Region::all();
     //    return view('dashboard.region.index', compact('regions'));
-        
+
     // }
 
-    /** 
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -54,13 +54,12 @@ class RegionController extends Controller
     {
         $request->validate(
             [
-                'name' =>  'required',              
+                'name' =>  'required',
             ]
             );
 
          Region::create([
             'name' => $request -> name]);
-     
             return back()->with('msg', 'Region Added Successfully');
     }
 
@@ -69,7 +68,6 @@ class RegionController extends Controller
 
         Excel::import(new ImportRegion, $request->file('file')->store('files'));
         return redirect()->back()->with('msg', "Regions Added Successfully");
-  
     }
 
     /**
@@ -118,7 +116,7 @@ class RegionController extends Controller
     public function destroy(Region $region)
     {
         $region->delete();
-        return back()->with('msg', 'One Region deleted successsfully');
+        return back()->with('msg', 'Region deleted successsfully');
     }
 
     /**

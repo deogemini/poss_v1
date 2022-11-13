@@ -470,10 +470,10 @@ public function TODreport($school_id, $date)
     }
     $grade = [];
     foreach($levels as $level) {
-     
+
         $resultii[$level] = [];
 
-       $resultii['grade'] = $level;
+       $resultii[$level]['grade'] = $level;
        $resultii[$level]['total_students'] = AttendanceStudent::where('dateofattendance', $date)
             ->where('school_id', $school_id)
             ->where('grade', $level )

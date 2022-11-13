@@ -194,7 +194,7 @@ Route::get('/getSpecificTeacher/{teacher_id}', [TeacherController::class, 'show'
 ///reports apis will be wriiten here
 // 1. headmaster want to see details of attendance after the TOD
 Route::get('/getHeadMasterReportofAttandanceinSchool/{school_id}/{date}', [AttendanceController::class, 'attendanceReportHeadMaster']);
-Route::get('/pendingReports/{school_id}/{date}', [AttendanceController::class, 'pendingReport']);
+Route::get('/pendingReport/{school_id}/{date}', [AttendanceController::class, 'pendingReport']);
 Route::get('/rejectReport/{school_id}/{date}', [AttendanceController::class, 'rejectReport']);
 Route::get('/approveReport/{school_id}/{date}', [AttendanceController::class, 'approveReport']);
 Route::get('/rejectReportList/{school_id}', [AttendanceController::class, 'rejectedReportList']);

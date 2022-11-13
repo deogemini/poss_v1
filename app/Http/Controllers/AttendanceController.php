@@ -259,197 +259,197 @@ class AttendanceController extends Controller
 
 
 //-----------------TOD REPORT----------------//
-public function  TODsreport($school_id, $date){
-    $school = School::where('id', $school_id)->first();
-    $school_education_level = $school->educationLevel;
-    $levels =[];
-    $grade = null;
+// public function  TODsreport($school_id, $date){
+//     $school = School::where('id', $school_id)->first();
+//     $school_education_level = $school->educationLevel;
+//     $levels =[];
+//     $grade = null;
 
-    if($school_education_level == 'Secondary'){
-        array_push($levels, 'Form One', 'Form Two', 'Form Three', 'Form Four');
+//     if($school_education_level == 'Secondary'){
+//         array_push($levels, 'Form One', 'Form Two', 'Form Three', 'Form Four');
 
-        foreach($levels as $level){
+//         foreach($levels as $level){
 
-            $total_students = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-            ->where('school_id', $school_id)
-            ->where('grade', $level )
-            ->count();
+//             $total_students = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//             ->where('school_id', $school_id)
+//             ->where('grade', $level )
+//             ->count();
 
-            $total_boys_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-            ->where('school_id', $school_id)
-            ->where('attendance_id' , "1")
-            ->where('grade', $level )
-            ->whereHas('student' , function($query){
-                return $query->where('gender', 'male');
-            })
-            ->count();
+//             $total_boys_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//             ->where('school_id', $school_id)
+//             ->where('attendance_id' , "1")
+//             ->where('grade', $level )
+//             ->whereHas('student' , function($query){
+//                 return $query->where('gender', 'male');
+//             })
+//             ->count();
 
-            $total_girls_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-            ->where('school_id', $school_id)
-            ->where('attendance_id' , "1")
-            ->where('grade', $level )
-            ->whereHas('student' , function($query){
-                return $query->where('gender', 'female');
-            })
-            ->count();
+//             $total_girls_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//             ->where('school_id', $school_id)
+//             ->where('attendance_id' , "1")
+//             ->where('grade', $level )
+//             ->whereHas('student' , function($query){
+//                 return $query->where('gender', 'female');
+//             })
+//             ->count();
 
-            $total_boys_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-            ->where('school_id', $school_id)
-            ->where('attendance_id' , "2")
-            ->where('grade', $level )
-            ->whereHas('student' , function($query){
-                return $query->where('gender', 'male');
-            })
-            ->count();
+//             $total_boys_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//             ->where('school_id', $school_id)
+//             ->where('attendance_id' , "2")
+//             ->where('grade', $level )
+//             ->whereHas('student' , function($query){
+//                 return $query->where('gender', 'male');
+//             })
+//             ->count();
 
-            $total_girls_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-            ->where('school_id', $school_id)
-            ->where('attendance_id' , "2")
-            ->where('grade', $level )
-            ->whereHas('student' , function($query){
-                return $query->where('gender', 'female');
-            })
-            ->count();
+//             $total_girls_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//             ->where('school_id', $school_id)
+//             ->where('attendance_id' , "2")
+//             ->where('grade', $level )
+//             ->whereHas('student' , function($query){
+//                 return $query->where('gender', 'female');
+//             })
+//             ->count();
 
-        }
-        $grade = $level;
-
-
-
-
-    }else{
-       array_push($levels,'Standard One','Standard Two', 'Standard Three','Standard Four','Standard Five', 'Standard Six', 'Standard Seven');
-
-       foreach($levels as $level){
-        $grade = $level;
-
-        $total_students = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-        ->where('school_id', $school_id)
-        ->where('grade', $level )
-        ->count();
-        $total_boys_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-        ->where('school_id', $school_id)
-        ->where('attendance_id' , "1")
-        ->where('grade', $level )
-        ->whereHas('student' , function($query){
-            return $query->where('gender', 'male');
-        })
-        ->count();
-
-        $total_girls_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-        ->where('school_id', $school_id)
-        ->where('attendance_id' , "1")
-        ->where('grade', $level )
-        ->whereHas('student' , function($query){
-            return $query->where('gender', 'female');
-        })
-        ->count();
-
-        $total_boys_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-        ->where('school_id', $school_id)
-        ->where('attendance_id' , "2")
-        ->where('grade', $level )
-        ->whereHas('student' , function($query){
-            return $query->where('gender', 'male');
-        })
-        ->count();
-
-        $total_girls_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-        ->where('school_id', $school_id)
-        ->where('attendance_id' , "2")
-        ->where('grade', $level )
-        ->whereHas('student' , function($query){
-            return $query->where('gender', 'female');
-        })
-        ->count();
-    }
-
-    }
-
-
-
-   //-------total number of students called in attendance in that date-------//
-    $attendanceschool_fetched  = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-                                                    ->where('school_id', $school_id)
-                                                    ->get();
-    $total_students_in_school = $attendanceschool_fetched->count();
-    //-------total number of students called in attendance in that date-------//
-
-    //--------total present students fetched in that date-------------------------------//
-    $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-                                                    ->where('school_id', $school_id)
-                                                    ->where('attendance_id' , "1")->get();
-    $total_present_students = $attendance_fetched_present->count();
-    //--------total present students fetched in that date-------------------------------//
-
-
-    //---------total present boys-----------------------------------------------------//
-    $total_boys_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-                                            ->where('school_id', $school_id)
-                                            ->where('attendance_id' , "1")
-                                            ->whereHas('student' , function($query){
-                                                return $query->where('gender', 'male');
-                                            })
-                                            ->count();
-
-    //---------total present girls-----------------------------------------------------//
-    $total_girls_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-                                                ->where('school_id', $school_id)
-                                                ->where('attendance_id' , "1")
-                                                ->whereHas('student' , function($query){
-                                                    return $query->where('gender', 'female');
-                                                })
-                                                ->count();
-
-    //---------------total absent students in a school-------------------------------//
-    $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-                                                    ->where('school_id', $school_id)
-                                                    ->where('attendance_id' , "2")
-                                                    ->get();
-    $total_absent_students = $attendance_fetched_absent->count();
-
-    //------------total absent boys in a school---------------------------------//
-    $total_boys_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-                                            ->where('school_id', $school_id)
-                                            ->where('attendance_id' , "2")
-                                            ->whereHas('student' , function($query){
-                                            return $query->where('gender', 'male');
-                                            })
-                                            ->count();
-
-    //-----------------total absent girls in a school ---------------------------//
-    $total_girls_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
-                                                ->where('school_id', $school_id)
-                                                ->where('attendance_id' , "2")
-                                                ->whereHas('student' , function($query){
-                                                return $query->where('gender', 'female');
-                                                })
-                                                ->count();
+//         }
+//         $grade = $level;
 
 
 
 
+//     }else{
+//        array_push($levels,'Standard One','Standard Two', 'Standard Three','Standard Four','Standard Five', 'Standard Six', 'Standard Seven');
+
+//        foreach($levels as $level){
+//         $grade = $level;
+
+//         $total_students = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//         ->where('school_id', $school_id)
+//         ->where('grade', $level )
+//         ->count();
+//         $total_boys_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//         ->where('school_id', $school_id)
+//         ->where('attendance_id' , "1")
+//         ->where('grade', $level )
+//         ->whereHas('student' , function($query){
+//             return $query->where('gender', 'male');
+//         })
+//         ->count();
+
+//         $total_girls_present_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//         ->where('school_id', $school_id)
+//         ->where('attendance_id' , "1")
+//         ->where('grade', $level )
+//         ->whereHas('student' , function($query){
+//             return $query->where('gender', 'female');
+//         })
+//         ->count();
+
+//         $total_boys_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//         ->where('school_id', $school_id)
+//         ->where('attendance_id' , "2")
+//         ->where('grade', $level )
+//         ->whereHas('student' , function($query){
+//             return $query->where('gender', 'male');
+//         })
+//         ->count();
+
+//         $total_girls_absent_in_class = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//         ->where('school_id', $school_id)
+//         ->where('attendance_id' , "2")
+//         ->where('grade', $level )
+//         ->whereHas('student' , function($query){
+//             return $query->where('gender', 'female');
+//         })
+//         ->count();
+//     }
+
+//     }
 
 
-    return response()->json([
-        'message'=> 'Attendance Report in School',
-        $grade => [
-            'TotalStudents' => $total_students,
-            'TotalPresentBoys'=> $total_boys_present_in_class,
-            'TotalPresentGirls'=> $total_girls_present_in_class,
-            'TotalAbsentBoys'=> $total_boys_absent_in_class,
-            'TotalAbsentGirls'=> $total_girls_absent_in_class
-        ]
-        ,
-        'TotalStudents'=> $total_students_in_school,
-        'TotalPresentStudents'=> $total_present_students,
-        'TotalAbsentStudents'=> $total_absent_students,
-        'TotalPresentBoys'=> $total_boys_present,
-        'TotalPresentGirls'=> $total_girls_present,
-        'TotalAbsentBoys'=> $total_boys_absent,
-        'TotalAbsentGirls'=> $total_girls_absent
-    ]);
-}
+
+//    //-------total number of students called in attendance in that date-------//
+//     $attendanceschool_fetched  = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//                                                     ->where('school_id', $school_id)
+//                                                     ->get();
+//     $total_students_in_school = $attendanceschool_fetched->count();
+//     //-------total number of students called in attendance in that date-------//
+
+//     //--------total present students fetched in that date-------------------------------//
+//     $attendance_fetched_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//                                                     ->where('school_id', $school_id)
+//                                                     ->where('attendance_id' , "1")->get();
+//     $total_present_students = $attendance_fetched_present->count();
+//     //--------total present students fetched in that date-------------------------------//
+
+
+//     //---------total present boys-----------------------------------------------------//
+//     $total_boys_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//                                             ->where('school_id', $school_id)
+//                                             ->where('attendance_id' , "1")
+//                                             ->whereHas('student' , function($query){
+//                                                 return $query->where('gender', 'male');
+//                                             })
+//                                             ->count();
+
+//     //---------total present girls-----------------------------------------------------//
+//     $total_girls_present = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//                                                 ->where('school_id', $school_id)
+//                                                 ->where('attendance_id' , "1")
+//                                                 ->whereHas('student' , function($query){
+//                                                     return $query->where('gender', 'female');
+//                                                 })
+//                                                 ->count();
+
+//     //---------------total absent students in a school-------------------------------//
+//     $attendance_fetched_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//                                                     ->where('school_id', $school_id)
+//                                                     ->where('attendance_id' , "2")
+//                                                     ->get();
+//     $total_absent_students = $attendance_fetched_absent->count();
+
+//     //------------total absent boys in a school---------------------------------//
+//     $total_boys_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//                                             ->where('school_id', $school_id)
+//                                             ->where('attendance_id' , "2")
+//                                             ->whereHas('student' , function($query){
+//                                             return $query->where('gender', 'male');
+//                                             })
+//                                             ->count();
+
+//     //-----------------total absent girls in a school ---------------------------//
+//     $total_girls_absent = AttendanceStudent::where('created_at', 'LIKE', $date.'%')
+//                                                 ->where('school_id', $school_id)
+//                                                 ->where('attendance_id' , "2")
+//                                                 ->whereHas('student' , function($query){
+//                                                 return $query->where('gender', 'female');
+//                                                 })
+//                                                 ->count();
+
+
+
+
+
+
+//     return response()->json([
+//         'message'=> 'Attendance Report in School',
+//         $grade => [
+//             'TotalStudents' => $total_students,
+//             'TotalPresentBoys'=> $total_boys_present_in_class,
+//             'TotalPresentGirls'=> $total_girls_present_in_class,
+//             'TotalAbsentBoys'=> $total_boys_absent_in_class,
+//             'TotalAbsentGirls'=> $total_girls_absent_in_class
+//         ]
+//         ,
+//         'TotalStudents'=> $total_students_in_school,
+//         'TotalPresentStudents'=> $total_present_students,
+//         'TotalAbsentStudents'=> $total_absent_students,
+//         'TotalPresentBoys'=> $total_boys_present,
+//         'TotalPresentGirls'=> $total_girls_present,
+//         'TotalAbsentBoys'=> $total_boys_absent,
+//         'TotalAbsentGirls'=> $total_girls_absent
+//     ]);
+// }
 
 public function TODreport($school_id, $date)
 {
@@ -750,9 +750,6 @@ public function pendingReport($school_id, $date)
                 }else{
                     $result['remarkyenyewe']  = $todremark->remark;
                 }
-
-
-
     return response()->json($result);
 }
 

@@ -90,37 +90,37 @@ class TeacherController extends Controller
 
 
     //add new teacher in the system
-    // public function create(Request $request)
-    // {
-    //     $user = new User;
-    //     $user->firstname = $request['firstname'];
-    //     $user->lastname = $request['lastname'];
-    //     $user->phonenumber = $request['phonenumber'];
-    //     $user->email = $request['email'];
-    //     $user->password = bcrypt($user->lastname);
-    //     $user->save();
+    public function create(Request $request)
+    {
+        $user = new User;
+        $user->firstname = $request['firstname'];
+        $user->lastname = $request['lastname'];
+        $user->phonenumber = $request['phonenumber'];
+        $user->email = $request['email'];
+        $user->password = bcrypt($user->lastname);
+        $user->save();
 
 
-    //     $user_id = $user->id;
-    //     $school_id = $request['school_id'];
-    //     $user_check = User::where('id', $user_id)->first();
-    //     $teacher = $user_check->id;
+        $user_id = $user->id;
+        $school_id = $request['school_id'];
+        $user_check = User::where('id', $user_id)->first();
+        $teacher = $user_check->id;
 
-    //     $teacherinschool = School_Teachers::insert([
-    //         'user_id' => $teacher,
-    //         'school_id' => $school_id
-    //     ]);
+        $teacherinschool = School_Teachers::insert([
+            'user_id' => $teacher,
+            'school_id' => $school_id
+        ]);
 
-    //     if($user->save()){
-    //         $user_id = $user->id;
-    //         $role = User::find($user_id);
-    //     // role 2 is for isTeacher, thus we attach this role to this user object
-    //     // ...this will create a record in user_role table
-    //         $role->roles()->attach(2);
-    //         return response(['message' => 'A new teacher registered!',
-    //         'data'=> $user]);
-    //     }
-    // }
+        if($user->save()){
+            $user_id = $user->id;
+            $role = User::find($user_id);
+        // role 2 is for isTeacher, thus we attach this role to this user object
+        // ...this will create a record in user_role table
+            $role->roles()->attach(2);
+            return response(['message' => 'A new teacher registered!',
+            'data'=> $user]);
+        }
+    }
 
 
     public function store(Request $request)

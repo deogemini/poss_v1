@@ -33,19 +33,16 @@ class StudentController extends Controller
         // $regions =  Region::all();
 
         return view('dashboard.student.index', compact(['students', 'streams','grades','schools', 'finalYears']));
-        
     }
 
     public function importView(Request $request){
         return view('importFile');
     }
-  
     public function import(Request $request){
-        Excel::import(new ImportStudent, 
+        Excel::import(new ImportStudent,
                       $request->file('file'));
         return redirect()->back();
     }
-  
     public function exportStudents(Request $request){
         return Excel::download(new ExportStudent, 'students.xlsx');
     }
@@ -79,13 +76,13 @@ class StudentController extends Controller
         $student->stream_id = $request['stream_id'];
         $student->school_id = $request['school_id'];
         $student->final_year_id = $request['final_year_id'];
-        $student->save();  
+        $student->save();
 
-        return response(['message' => 'A student successfully registered!', 
+        return response(['message' => 'A student successfully registered!',
                'data'=> $student]);
         }
-    
- 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -100,7 +97,7 @@ class StudentController extends Controller
         $student->stream_id = $request['stream_id'];
         $student->school_id = $request['school_id'];
         $student->final_year_id = $request['final_year_id'];
-        $student->save();  
+        $student->save();
 
         return back()->with('msg' ,'A student successfully registered!');
     }
@@ -120,7 +117,7 @@ class StudentController extends Controller
             $array_students[] = $student;
              }
 
-     return response(['message' => 'students in school', 
+     return response(['message' => 'students in school',
      'students'=> $array_students, 'total students' => count($array_students)]);
     }
 
@@ -135,10 +132,10 @@ class StudentController extends Controller
         // $regions =  Region::all();
 
         return view('dashboard.student.index', compact(['students', 'streams','grades','schools']));
-        
+
     }
 
-    
+
     //function to get student by using grade in string and the school id
      public function getStudentsinGrade($grade, $stream,  $school_id){
         $stream= Stream::where('name', $stream)->first();
@@ -160,12 +157,12 @@ class StudentController extends Controller
        else{
         return  response('No Registered Student');
        }
-     
+
 
     }
     //   return  response()->json([
     //     'data' => [
-    //         'students in grade' => $gradeStudent]]); 
+    //         'students in grade' => $gradeStudent]]);
     //  }
 
     public function edit($id)
@@ -188,11 +185,11 @@ class StudentController extends Controller
         $student->stream_id = $request['stream_id'];
         $student->school_id = $request['school_id'];
         $student->final_year_id = $request['final_year_id'];
-        $student->save(); 
-        
+        $student->save();
+
         return back()->with('msg','Student was Updated successfully');
 
-        
+
     }
 
     /**

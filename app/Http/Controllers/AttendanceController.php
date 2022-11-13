@@ -849,6 +849,8 @@ public function pendingReport($school_id, $date)
                             $school = School::where('id', $school_id)->first();
                             $school_education_level = $school->educationLevel;
                             $result =['message' => 'Attendance Report in School'];
+                            $result['grades'] = [];
+
                             $levels = [
                                 'Standard One','Standard Two', 'Standard Three','Standard Four',
                                 'Standard Five', 'Standard Six', 'Standard Seven',
@@ -857,16 +859,16 @@ public function pendingReport($school_id, $date)
                             if($school_education_level == 'Secondary') {
                                 $levels = ['Form One', 'Form Two', 'Form Three', 'Form Four'];
                             }
-
                             foreach($levels as $level) {
-                                $result[$level] = [];
 
-                                $result[$level]['total_students'] = AttendanceStudent::where('dateofattendance', $date)
+                                $resultii[$level] = [];
+
+                               $resultii[$level]['grade'] = $level;
+                               $resultii[$level]['total_students'] = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('school_id', $school_id)
                                     ->where('grade', $level )
                                     ->count();
-
-                                $result[$level]['total_boys_present_in_class'] = AttendanceStudent::where('dateofattendance', $date)
+                                $resultii[$level]['total_boys_present_in_class'] = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('school_id', $school_id)
                                     ->where('attendance_id' , "1")
                                     ->where('grade', $level )
@@ -875,7 +877,7 @@ public function pendingReport($school_id, $date)
                                     })
                                     ->count();
 
-                                $result[$level]['total_girls_present_in_class'] = AttendanceStudent::where('dateofattendance', $date)
+                                $resultii[$level]['total_girls_present_in_class'] = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('school_id', $school_id)
                                     ->where('attendance_id' , "1")
                                     ->where('grade', $level )
@@ -884,7 +886,7 @@ public function pendingReport($school_id, $date)
                                     })
                                     ->count();
 
-                                $result[$level]['total_boys_absent_in_class'] = AttendanceStudent::where('dateofattendance', $date)
+                                $resultii[$level]['total_boys_absent_in_class'] = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('school_id', $school_id)
                                     ->where('attendance_id' , "2")
                                     ->where('grade', $level )
@@ -893,7 +895,7 @@ public function pendingReport($school_id, $date)
                                     })
                                     ->count();
 
-                                $result[$level]['total_girls_absent_in_class'] = AttendanceStudent::where('dateofattendance', $date)
+                                $resultii[$level]['total_girls_absent_in_class'] = AttendanceStudent::where('dateofattendance', $date)
                                     ->where('school_id', $school_id)
                                     ->where('attendance_id' , "2")
                                     ->where('grade', $level )
@@ -901,6 +903,7 @@ public function pendingReport($school_id, $date)
                                         return $query->where('gender', 'female');
                                     })
                                     ->count();
+                                   $result['grades'][]= $resultii[$level];
                             }
 
                             //-------total number of students called in attendance in that date-------//

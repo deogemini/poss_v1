@@ -36,14 +36,14 @@ class HeadTeacherController extends Controller
         $regions =  Region::all();
 
         return view('dashboard.headTeachers.index', compact(['headTeachers','roles', 'schools',  'wards','districts', 'regions']));
-       
+
     }
 
     public function view()
     {
-       
-        
-    } 
+
+
+    }
 
 
     // Display a listing of the teachers with the same school_id of the headTeacher.
@@ -58,20 +58,20 @@ class HeadTeacherController extends Controller
         return response()->json(['teachers' =>$teachers]);
     }
 
-    
+
     // Display a listing of the teachers with the same school_id of the headTeacher.
     public function getStreams($id){
         // $school = School::where('id',$id)->first();
         // $school = $school->id;
-        // $grade = Grade::where('school_id', $id)->get(); 
-         
+        // $grade = Grade::where('school_id', $id)->get();
+
         // foreach($users as $user){
         //     $teachers = User::whereHas(
         //         'roles' , function($user){
         //         $user->where('name', 'isTeacher');
         //     })->get();
         // }
-         
+
       //  return response()->json($teachers);
 
     }
@@ -100,7 +100,7 @@ class HeadTeacherController extends Controller
         $user->password = bcrypt($user->lastname);
         $user->save();
 
-        
+
         $user_id = $user->id;
         $school_id = $request['school_id'];
         $user_check = User::where('id', $user_id)->first();
@@ -111,15 +111,15 @@ class HeadTeacherController extends Controller
             'school_id' => $school_id
         ]);
 
-        if($user->save()){   
+        if($user->save()){
             $user_id = $user->id;
             $role = User::find($user_id);
-        // role 4 is for isHeadTeacher, thus we attach this role to this user object 
+        // role 4 is for isHeadTeacher, thus we attach this role to this user object
         // ...this will create a record in user_role table
-            $role->roles()->attach(4); 
+            $role->roles()->attach(4);
             return response(['message' => 'A new Head Teacher successfully registered!',
              'data'=> $user]);
-        
+
         }
 
     }
@@ -133,26 +133,26 @@ class HeadTeacherController extends Controller
          $user->email = $request['email'];
          $user->password = bcrypt($user->lastname);
          $user->save();
- 
-         
+
+
          $user_id = $user->id;
          $school_id = $request['school_id'];
          $user_check = User::where('id', $user_id)->first();
          $headTeacher = $user_check->id;
- 
+
          $teacherinschool = School_Teachers::insert([
              'user_id' => $headTeacher,
              'school_id' => $school_id
          ]);
- 
-         if($user->save()){   
+
+         if($user->save()){
              $user_id = $user->id;
              $role = User::find($user_id);
-         // role 4 is for isHeadTeacher, thus we attach this role to this user object 
+         // role 4 is for isHeadTeacher, thus we attach this role to this user object
          // ...this will create a record in user_role table
-             $role->roles()->attach(4); 
+             $role->roles()->attach(4);
              return back()->with('msg','A new Head Teacher successfully registered!');
-         
+
          }
 
     }
@@ -162,17 +162,17 @@ class HeadTeacherController extends Controller
     public function isTeacherOnDuty($id)
     {
         $user = User::find($id);
-        $user->roles()->sync(3); 
+        $user->roles()->sync(8);
         $user->save();
         return response(['message' => 'A new Teacher on duty successfully registered!',
          'data'=> $user]);
 
     }
- 
+
     public function isNotTeacherOnDuty($id)
     {
         $user = User::find($id);
-        $user->roles()->sync(2); 
+        $user->roles()->sync(2);
         $user->save();
         return response(['message' => 'A Teacher On Duty has been successfully removed!',
          'data'=> $user]);
@@ -185,7 +185,7 @@ class HeadTeacherController extends Controller
         return response()->json($headTeacher);
     }
 
-  
+
     public function edit($id)
     {
         //
@@ -197,7 +197,7 @@ class HeadTeacherController extends Controller
         //
     }
 
-   
+
     public function destroy($id)
     {
         //

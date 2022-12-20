@@ -47,12 +47,12 @@ class WardOfficersController extends Controller
         $user->password = bcrypt($user->lastname);
         $user->save();
 
-        if($user->save()){ 
+        if($user->save()){
             $user_id = $user->id;
             $ward_id = $request['ward_id'];
             $user_check = User::where('id', $user_id)->first();
             $wardOfficer = $user_check->id;
-    
+
             $ward_officers = Officers_Wards::insert([
                 'user_id' => $wardOfficer,
                 'ward_id' => $ward_id
@@ -60,12 +60,12 @@ class WardOfficersController extends Controller
 
             $user_id = $user->id;
             $role = User::find($user_id);
-        // role 6 is for isDistrictOfficer, thus we attach this role to this user object 
+        // role 6 is for isDistrictOfficer, thus we attach this role to this user object
         // ...this will create a record in user_role table
-            $role->roles()->attach(5); 
-            return response(['message' => 'A new ward Officer registered!', 
+            $role->roles()->attach(5);
+            return response(['message' => 'A new ward Officer registered!',
                 'data'=> $user]);
-        
+
         }
     }
 
@@ -75,31 +75,13 @@ class WardOfficersController extends Controller
         ->where('ward_id',$id)
         ->addSelect([
             'total_students' => Student::selectRaw('count(*)')
-                ->whereIn(
-                    'stream_id', 
-                    Stream::select('id')->whereIn(
-                        'grade_id',
-                        Grade::select('id')->whereColumn('school_id', 'schools.id')
-                    )
-                ),
+                ->whereColumn('school_id', 'schools.id'),
             'total_boys' => Student::selectRaw('count(*)')
                 ->whereRaw('gender = "male"')
-                ->whereIn(
-                    'stream_id', 
-                    Stream::select('id')->whereIn(
-                        'grade_id',
-                        Grade::select('id')->whereColumn('school_id', 'schools.id')
-                    )
-                ),
+                 ->whereColumn('school_id', 'schools.id'),
             'total_girls' => Student::selectRaw('count(*)')
                 ->whereRaw('gender = "female"')
-                ->whereIn(
-                    'stream_id', 
-                    Stream::select('id')->whereIn(
-                        'grade_id',
-                        Grade::select('id')->whereColumn('school_id', 'schools.id')
-                    )
-                )      
+               ->whereColumn('school_id', 'schools.id')
         ])->get();
 
     return response()->json([
@@ -111,12 +93,12 @@ class WardOfficersController extends Controller
         'total_schools' => $schools->count()
     ]);
 
-    
-       
+
+
     }
 
 
-//get headTeachers in ward 
+//get headTeachers in ward
     public function getHeadTeachersinWard($id){
     //     $headTeachers = User::whereHas(
     //         'roles' , fn($query) =>
@@ -127,13 +109,13 @@ class WardOfficersController extends Controller
 
     //  return response()->json(['headTeachers' => $headTeachers]);
     //this will be the id of the school available in that ward
-        $schools = School::where('ward_id',$id)->get(); 
+        $schools = School::where('ward_id',$id)->get();
         // $headTeachers =[];
         foreach($schools as $school){
             $school = $school->id;
         $users = School_Teachers::where('school_id', $school)->get();
-       
-    
+
+
         foreach($users as $user){
             $headTeachers = User::where('id',$user->user_id)
             ->whereHas(
@@ -141,7 +123,7 @@ class WardOfficersController extends Controller
                 fn($query) => $query->where('name', 'isHeadTeacher')
             )
             ->get();
-    
+
         return response()->json(['headTeachers' => $headTeachers]);
         }
     }
@@ -157,8 +139,8 @@ class WardOfficersController extends Controller
         $user->password = bcrypt($user->lastname);
         $user->save();
 
-        if($user->save()){   
-                     
+        if($user->save()){
+
         $user_id = $user->id;
         $ward_id = $request['ward_id'];
         $user_check = User::where('id', $user_id)->first();
@@ -168,12 +150,12 @@ class WardOfficersController extends Controller
             'user_id' => $wardOfficer,
             'ward_id' => $ward_id
         ]);
-        
+
             $user_id = $user->id;
             $role = User::find($user_id);
-        // role 5 is for isWardOfficer, thus we attach this role to this user object 
+        // role 5 is for isWardOfficer, thus we attach this role to this user object
         // ...this will create a record in user_role table
-            $role->roles()->attach(5); 
+            $role->roles()->attach(5);
             return back()->with('msg','Ward Officer was created successsfully');
 
         }

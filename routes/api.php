@@ -136,7 +136,8 @@ Route::get('/getSpecificDistrictOfficer/{districtOfficer_id}',  [DistrictOfficer
 //----------------starting of apis for management of wardOfficers--------------------------
 Route::get('/getHeadTeachers/{id}', [WardOfficersController::class, 'getHeadTeachersinWard']);
 Route::get('/getWardOfficers', [WardOfficersController::class, 'index']);
-Route::get('/getSchools/{id}', [WardOfficersController::class, 'getSchoolsinWard']);
+Route::get('/getPrimarySchools/{id}', [WardOfficersController::class, 'getPrimarySchools']);
+Route::get('/getSecondarySchools/{id}', [WardOfficersController::class, 'getSecondarySchoolsinWard']);
 Route::post('/addWardOfficer', [WardOfficersController::class, 'create']);
 Route::get('/getSpecificWardOfficer/{ward_id}', [WardOfficersController::class, 'show']);
 

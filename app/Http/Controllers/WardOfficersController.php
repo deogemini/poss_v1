@@ -94,6 +94,23 @@ class WardOfficersController extends Controller
         'total_schools' => $schools->count()
     ]);
 }
+    // get all schools in a given ward
+    public function getSchoolsReport($id){
+         $primary = School::query()
+        ->where('ward_id',$id)
+        ->where('educationLevel','Primary')
+        ->get();
+         $secondary = School::query()
+        ->where('ward_id',$id)
+        ->where('educationLevel','Secondary')
+        ->get();
+
+    return response()->json([
+        'message' => 'summary of schools in ward',
+        'total_primary_schools' => $primary->count(),
+        'total_secondary_schools' => $secondary->count()
+    ]);
+}
     public function getSecondarySchoolsinWard($id){
          $schools = School::query()
         ->where('ward_id',$id)

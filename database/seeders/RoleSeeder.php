@@ -20,44 +20,45 @@ class RoleSeeder extends Seeder
             'name'=>'isAdmin',
             'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>2,
-            'name'=>'isTeacher',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>3,
-            'name'=>'isTeacherOnDuty',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>4,
-            'name'=>'isHeadTeacher',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>5,
-            'name'=>'isWardOfficer',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>6,
-            'name'=>'isDistrictOfficer',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    [
-            'id'=>7,
-            'name'=>'isReseacher',
-            'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
-    ],
-    
+    ]
+    // ,
+    // [
+    //         'id'=>2,
+    //         'name'=>'isTeacher',
+    //         'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+    //         'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+    // ],
+    // [
+    //         'id'=>3,
+    //         'name'=>'isTeacherOnDuty',
+    //         'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+    //         'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+    // ],
+    // [
+    //         'id'=>4,
+    //         'name'=>'isHeadTeacher',
+    //         'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+    //         'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+    // ],
+    // [
+    //         'id'=>5,
+    //         'name'=>'isWardOfficer',
+    //         'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+    //         'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+    // ],
+    // [
+    //         'id'=>6,
+    //         'name'=>'isDistrictOfficer',
+    //         'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+    //         'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+    // ],
+    // [
+    //         'id'=>7,
+    //         'name'=>'isReseacher',
+    //         'created_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+    //         'updated_at'=> Carbon::now()->format('Y-m-d H:i:s')
+    // ],
+
     ]);
 
     }

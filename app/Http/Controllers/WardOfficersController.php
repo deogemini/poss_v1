@@ -159,19 +159,28 @@ class WardOfficersController extends Controller
 
       //select all users with role of headmaster
 
-      foreach($schools as $school){
-        $schoolId = $school->id;
-        $headTeachers = User::query()
-                        ->whereHas(
-                          'roles' , fn($query) =>
-                        $query->where('name', 'isHeadTeacher'))
-                        ->whereHas(
-                            'schools' , fn($query) =>
-                            $query->where('id', $schoolId))->get();
-                            return response()->json(['headTeachers' => $headTeachers]);
+    //   $schools = School::where('ward_id',$id)->get();
+    //   foreach($schools as $school){
+    //     $schoolId = $school->id;
+    //     $headTeachers = User::query()
+    //                     ->whereHas(
+    //                       'roles' , fn($query) =>
+    //                     $query->where('name', 'isHeadTeacher'))
+    //                     ->whereHas(
+    //                         'schools' , fn($query) =>
+    //                         $query->where('id', $schoolId))->get();
+    //                         return response()->json(['headTeachers' => $headTeachers]);
 
-        }
+    //     }
 
+    $headTeachers = User::whereHas('roles', function ($query) {
+        $query->where('name', 'isHeadTeacher');
+    })->whereHas('schools', function ($query) use ($id) {
+        $query->where('ward_id', $id);
+    })
+    ->with('schools')->get();
+
+    return response()->json(['headTeachers' => $headTeachers]);
 
 
     }

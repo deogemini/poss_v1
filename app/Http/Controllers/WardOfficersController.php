@@ -13,7 +13,8 @@ use App\Models\Grade;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\Stream;
-use App\Models\School_Teachers;
+use App\Models\TODremark;
+use App\Models\AttendanceStudent;
 use PDO;
 use TeachersSchool;
 
@@ -69,6 +70,61 @@ class WardOfficersController extends Controller
 
         }
     }
+
+    //count and create summary for boys present,absent  & girls present,absent in schools of given ward id and a given date
+    public function getAttendanceReportinWard($ward_id, $date)
+    {
+        $schools = School::query()->where('ward_id',$ward_id)->get();
+        $result = ['message ' => 'Attendance Report in Ward'];
+        $result['schools'] = [];
+        foreach ($schools as $school) {
+            $school_id = $school->id;
+            $school_name = $school->name;
+            $school_level = $school->educationLevel;
+
+            $resultii = [];
+            $resultii['school_id'] = $school_id;
+            $resultii['school_name'] = $school_name;
+            $resultii['school_level'] = $school_level;
+            $resultii['total_students'] = AttendanceStudent::where('dateofattendance', $date)
+                ->where('school_id', $school_id)
+                ->count();
+            $resultii["present_boys"] = AttendanceStudent::where('dateofattendance', $date)
+                ->where('attendance_id', "1")
+                ->where('school_id', $school_id)
+                ->whereHas('student', function ($query) {
+                    return $query->where('gender', 'male');
+                })
+                ->count();
+            $resultii["absent_boys"] = AttendanceStudent::where('dateofattendance', $date)
+                ->where('attendance_id', "2")
+                ->where('school_id', $school_id)
+                ->whereHas('student', function ($query) {
+                    return $query->where('gender', 'male');
+                })
+                ->count();
+            $resultii["present_girls"] = AttendanceStudent::where('dateofattendance', $date)
+                ->where('attendance_id', "1")
+                ->where('school_id', $school_id)
+                ->whereHas('student', function ($query) {
+                    return $query->where('gender', 'female');
+                })
+                ->count();
+            $resultii["absent_girls"] = AttendanceStudent::where('dateofattendance', $date)
+                ->where('attendance_id', "2")
+                ->where('school_id', $school_id)
+                ->whereHas('student', function ($query) {
+                    return $query->where('gender', 'female');
+                })
+                ->count();
+            $result['schools'][] = $resultii;
+        }
+        return response()->json($result);
+    }
+
+
+
+
 
     // get all schools in a given ward
     public function getPrimarySchools($id){

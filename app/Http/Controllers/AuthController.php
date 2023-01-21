@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
-   
+
     public function login(Request $request){
         $loginData = $request->validate([
             'email' => 'email|required',
@@ -42,10 +42,10 @@ class AuthController extends Controller
               $token = Str::random(60);
               $user->api_token= $token;
               $user->save();
-              
+
         }
 //ending to check and create token while login
-        
+
 // to check if user  is teacher and get school_id
        if($teacher_user){
             $school_id = $teacher_user->school_id;
@@ -65,18 +65,19 @@ class AuthController extends Controller
 
         }
         if($role_user){
-        $role = $role_user->Role->name; 
-        
+        $role = $role_user->Role->name;
+
         }
-        if(auth()->attempt($loginData)){            
+        if(auth()->attempt($loginData)){
             return response()->json([
                 'message'=>'You have passed the authentication',
-                'data'=> $user, 
+                'data'=> $user,
                 'role' => $role ,
+                'ward_id'=> $ward_id ?? '',
                 'school_id' => $school_id ?? '',
                 'educationLevel' => $educationLevel ?? '']
             );
-             
+
         }else{
 
 
@@ -86,11 +87,11 @@ class AuthController extends Controller
     return response($response, 401);
         }
 
-    
-    }   
+
+    }
 
 
-    //logout to the application 
+    //logout to the application
     public function logout (Request $request) {
         $user_id = $request->user_id;
         $user = User::find($user_id);
@@ -120,21 +121,21 @@ class AuthController extends Controller
         'password' => bcrypt($request->password),
         'api_token' => Str::random(60),
         ]);
-  
-       // save roles data   
+
+       // save roles data
         $user_id = $user->id;
         $role = User::find($user_id);
-        // role 2 is for teacher, thus we attach this role to this user object 
+        // role 2 is for teacher, thus we attach this role to this user object
         // ...this will create a record in user_role table
-        $role->roles()->attach(1);     
+        $role->roles()->attach(1);
         // Roles:::
         // Teacher = 2
         // Teacher on duty = 5
-        // admin = 
+        // admin =
 
         $response = ['message' => 'You have been successfully login!'];
         return response($response, 200);
-    
+
 }
 
 
@@ -160,10 +161,10 @@ public function webLogin(Request $request){
           $token = Str::random(60);
           $user->api_token= $token;
           $user->save();
-          
+
     }
 //ending to check and create token while login
-    
+
 // to check if user  is teacher and get school_id
    if($teacher_user){
         $school_id = $teacher_user->school_id;
@@ -181,10 +182,10 @@ public function webLogin(Request $request){
 
     }
     if($role_user){
-    $role = $role_user->Role->name; 
+    $role = $role_user->Role->name;
     }
-    if(auth()->attempt($loginData)){ 
-        $user = Auth::user(); 
+    if(auth()->attempt($loginData)){
+        $user = Auth::user();
         $user_id = $user->id;
         $role_user = RoleUser::where('user_id', $user_id)->first();
         $role_name = Role::where('id', $role_user->role_id)->first();

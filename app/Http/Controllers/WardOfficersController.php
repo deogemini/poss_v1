@@ -64,7 +64,7 @@ class WardOfficersController extends Controller
             $role = User::find($user_id);
         // role 6 is for isDistrictOfficer, thus we attach this role to this user object
         // ...this will create a record in user_role table
-            $role->roles()->attach(5);
+            $role->roles()->attach($request['role_id']);
             return response(['message' => 'A new ward Officer registered!',
                 'data'=> $user]);
 

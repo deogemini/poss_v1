@@ -34,12 +34,12 @@
           </div>
 
           </form>
-          
+
           <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
             <div class="card-body text-center">
               <div>
                 <h2>POSS</h2>
-                <p>What is poss app? POSS is a software system to be used to collect students attendances report in everyday in schools</p>
+                <p>What exactly is the Poss App? POSS is a software program that is used in schools daily to collect reports on students' attendance.</p>
               </div>
             </div>
           </div>

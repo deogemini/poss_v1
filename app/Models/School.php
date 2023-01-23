@@ -14,6 +14,8 @@ class School extends Model
         'ward_id',
     ];
 
+      protected $hidden = ['created_at', 'updated_at'];
+
      /**
      * Get the grades for the school.
      */
@@ -33,7 +35,7 @@ class School extends Model
     public function ward(){
         return $this->belongsTo(Ward::class);
     }
-    
+
       /**
      * Get the users for the school.
      */

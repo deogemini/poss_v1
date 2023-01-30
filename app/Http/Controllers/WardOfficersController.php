@@ -86,9 +86,17 @@ class WardOfficersController extends Controller
             $resultii['school_id'] = $school_id;
             $resultii['school_name'] = $school_name;
             $resultii['school_level'] = $school_level;
-            $resultii['total_students'] = AttendanceStudent::where('dateofattendance', $date)
-                ->where('school_id', $school_id)
+            $resultii['total_students'] = Student::where('school_id', $school_id)
                 ->count();
+
+            $resultii["total_boys"] = Student::where('school_id', $school_id)
+                ->where('gender','male')
+                ->count();
+
+            $resultii["total_girls"] = Student::where('school_id', $school_id)
+                ->where('gender','female')
+                ->count();
+
             $resultii["present_boys"] = AttendanceStudent::where('dateofattendance', $date)
                 ->where('attendance_id', "1")
                 ->where('school_id', $school_id)

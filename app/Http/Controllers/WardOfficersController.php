@@ -84,7 +84,7 @@ class WardOfficersController extends Controller
 
             $resultii = [];
             $resultii['school_id'] = $school_id;
-            $resultii['school_name'] = $school_name;
+            $resultii['name'] = $school_name;
             $resultii['school_level'] = $school_level;
             $resultii['total_students'] = Student::where('school_id', $school_id)
                 ->count();

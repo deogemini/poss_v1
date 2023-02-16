@@ -43,8 +43,9 @@ class StudentController extends Controller
                       $request->file('file'));
         return redirect()->back();
     }
-    public function exportStudents(Request $request){
-        return Excel::download(new ExportStudent, 'students.xlsx');
+
+    public function exportStudents($school_id){
+        return Excel::download(new ExportStudent($school_id), 'Registered Students.xlsx');
     }
 
 

@@ -2,7 +2,7 @@
 
 @section('content')
 <?php
-$user = Auth::user(); 
+$user = Auth::user();
 $user_id = $user->id;
 $role_user = App\Models\RoleUser::where('user_id', $user_id)->first();
 $role_name = App\Models\Role::where('id', $role_user->role_id)->first();
@@ -18,9 +18,12 @@ $role = $role_name->name;
     <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-student">Add Student</a>
     <!-- <a href="/teachersinschool" class="btn btn-primary btn-xs">View Teachers</a> -->
 
-    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-excelfile">Upload File</a>
-   <a href="/exportStudents" class="btn btn-info btn-xs">Download Excel File</a>
-   
+    <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-excelfile">Upload Students Excel File</a>
+    </div>
+    <div class="col-md-4" style="margin-bottom: 10px;">
+        <a href="/export/students/{{$school_id}}'}" class="btn btn-info btn-xs">Download Students Excel File</a>
+        <a href="/exportStudents" class="btn btn-info btn-xs">Download Template File</a>
+
     </div>
 </div>
 <div class="row">
@@ -91,7 +94,7 @@ $role = $role_name->name;
                     <div class="modal-body">
                         @include('dashboard.student.headMasteraddStudent')
                     </div>
-                    <div class="modal-footer">        
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
@@ -135,6 +138,6 @@ $role = $role_name->name;
 
 @endsection
 
-   
+
 
 

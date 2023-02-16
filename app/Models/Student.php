@@ -13,16 +13,17 @@ class Student extends Model
     use \Znck\Eloquent\Traits\BelongsToThrough;
 
     use HasFactory;
-    protected $appends = ['grade'];
+    public $appends = ['grade'];
     protected $fillable = [
         'student_name',
         'gender',
-        'stream_id',                                                                                                              
-        'school_id',                                                                                                              
-        'final_year_id'                                                                                                              
+        'stream_id',
+        'school_id',
+        'final_year_id'
     ];
 
-    public function getGradeAttribute(){
+    public function getGradeAttribute($school_id){
+        if (isset($this->attributes['school_id'])) {
         $school = School::where('id', $this->attributes['school_id'])->first();
         $schoolevel = $school->educationLevel;
         if( $schoolevel === 'Secondary'){
@@ -30,31 +31,13 @@ class Student extends Model
         }else{
          return $this->primary();
         }
+        }
 
-        // $finalYear = FinalYears::find($this->attributes['final_year_id']);
-
-        //     $current_year = (int) Date('Y');
-    
-        //     $level = ($finalYear->year - $current_year);
-    
-        //     switch($level){
-    
-        //         case 3:
-        //         return "Form One";
-    
-        //         case 2:
-        //         return "Form Two";
-    
-        //         case 1:
-        //         return "Form Three";
-    
-        //         default:
-        //             return "Form Four";
-        //     }
     }
 
     public function secondary(){
 
+        if (array_key_exists('final_year_id', $this->attributes)) {
         $finalYear = FinalYears::find($this->attributes['final_year_id']);
 
         $current_year = (int) Date('Y');
@@ -77,11 +60,13 @@ class Student extends Model
         }
 
 
-
+            return "";
+        }
     }
 
     public function primary(){
 
+        if (array_key_exists('final_year_id', $this->attributes)) {
         $finalYear = FinalYears::find($this->attributes['final_year_id']);
 
         $current_year = (int) Date('Y');
@@ -101,26 +86,21 @@ class Student extends Model
 
             case 3:
             return "Standard Four";
-    
+
             case 2:
             return "Standard Five";
-    
+
             case 1:
             return "Standard Six";
 
             default:
                 return "Standard Seven";
         }
+            return "";
+        }
 
     }
 
-     /**
-     * The students that belong to the attendance.
-     */
-    public function attendanceStudent()
-    {
-        return $this->belongsToMany(AttendanceStudent::class);
-    }
 
      /**
      * Get the stream that owns the student.
@@ -133,18 +113,10 @@ class Student extends Model
     {
         return $this->belongsTo(School::class);
     }
-    public function finalYear()
-    {
-        return $this->belongsTo(FinalYears::class);
-    }
-    // public function school()
-    // {
-    //     return $this->belongsTo(School::class);
-    // }
 
     public function grade(){
         return $this->belongsToThrough(Grade::class, Stream::class );
     }
- 
-  
+
+
 }

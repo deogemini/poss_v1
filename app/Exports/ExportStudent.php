@@ -33,7 +33,7 @@ class ExportStudent implements FromQuery, WithHeadings, WithMapping, WithStyles
             '#',
             'Name of Student',
             'Gender',
-            'School',
+            'Stream',
             'Grade'
         ];
     }
@@ -71,7 +71,7 @@ class ExportStudent implements FromQuery, WithHeadings, WithMapping, WithStyles
             ++$index,
             $student->student_name,
             $student->gender,
-            $student->school->name,
+            $student->stream->name,
             $grade
         ];
     }

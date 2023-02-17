@@ -53,7 +53,7 @@ class StudentController extends Controller
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ];
         $file_name = 'StudentsTemplate.xlsx';
-        $path = storage_path('/public/Students-Template.xlsx');
+        $path = public_path('files/Students-Template.xlsx');
         return response()->download($path, $file_name, $headers);
     }
 

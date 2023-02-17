@@ -50,6 +50,7 @@ Route::resource('/districts', DistrictController::class);
 Route::resource('/finishingYears', FinishingYearController::class);
 Route::post('/addBulkStudent/{school_id}', [StudentController::class, 'import'])->name('import');
 Route::get('/export/students/{school_id}', [StudentController::class, 'exportStudents'])->name('exportStudents');
+Route::get('/download-template', [StudentController::class, 'downloadTemplate'])->name('downloadTemplate');
 Route::resource('/wards', WardController::class);
 Route::resource('/grades', GradeController::class);
 Route::get('/grade', [StudentController::class, 'gradesinschool'])->name('grade.gradesinschool');

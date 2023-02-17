@@ -48,6 +48,15 @@ class StudentController extends Controller
         return Excel::download(new ExportStudent($school_id), 'Registered Students.xlsx');
     }
 
+    public function downloadTemplate(){
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ];
+        $file_name = 'StudentsTemplate.xlsx';
+        $path = storage_path('app/Students-Template.xlsx');
+        return response()->download($path, $file_name, $headers);
+    }
+
 
     public function gradesinschool(){
         $grades = Grade::whereHas('school', function($query){

@@ -32,6 +32,8 @@ class ImportStudent implements ToModel, WithHeadingRow
         $stream = Stream::where('name', $rows['Stream'])->first();
         $stream_id = $stream ? $stream->id : null;
 
+        // Convert gender value to lowercase
+        $gender = strtolower($rows['Gender']);
 
 
         // Calculate the final year based on the provided grade class and school's education level
@@ -73,7 +75,7 @@ class ImportStudent implements ToModel, WithHeadingRow
 
         $student =  new Student([
             'student_name' => $rows['Name of Student'],
-            'gender' => $rows['Gender'],
+            'gender' => $gender,
             'stream_id' => $stream_id,
             'school_id' => $this->school_id,
             'final_year_id' => $final_year_id

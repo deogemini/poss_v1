@@ -114,7 +114,7 @@ $role = $role_name->name;
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Add Excel File</h4>
                 </div>
-                <form action="/addBulkStudent" method="post" role="form" enctype="multipart/form-data">
+                <form action="/addBulkStudent/{{$school_id}}" method="post" role="form" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         @include('dashboard.student.addStudentinExcell')

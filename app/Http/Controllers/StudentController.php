@@ -38,8 +38,8 @@ class StudentController extends Controller
     public function importView(Request $request){
         return view('importFile');
     }
-    public function import(Request $request){
-        Excel::import(new ImportStudent,
+    public function import(Request $request, $school_id){
+        Excel::import(new ImportStudent($school_id),
                       $request->file('file'));
         return redirect()->back();
     }

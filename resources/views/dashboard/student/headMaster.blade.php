@@ -22,7 +22,7 @@ $role = $role_name->name;
     </div>
     <div class="col-md-4" style="margin-bottom: 10px;">
         <a href="/export/students/{{$school_id}}'}" class="btn btn-info btn-xs">Download Students Excel File</a>
-        <a href="/exportStudents" class="btn btn-info btn-xs">Download Template File</a>
+        <a href="/download-template" class="btn btn-primary btn-xs">Download Template File</a>
 
     </div>
 </div>
@@ -114,7 +114,7 @@ $role = $role_name->name;
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Add Excel File</h4>
                 </div>
-                <form action="/addBulkStudent" method="post" role="form" enctype="multipart/form-data">
+                <form action="/addBulkStudent/{{$school_id}}" method="post" role="form" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         @include('dashboard.student.addStudentinExcell')

@@ -2,7 +2,7 @@
 
 @section('content')
 <?php
-$user = Auth::user(); 
+$user = Auth::user();
 $user_id = $user->id;
 $role_user = App\Models\RoleUser::where('user_id', $user_id)->first();
 $role_name = App\Models\Role::where('id', $role_user->role_id)->first();
@@ -14,7 +14,7 @@ $role = $role_name->name;
     <a href="javascript::void()" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-add-student">Add Student</a>
     <!-- <a href="javascript::void()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-add-excelfile">Upload File</a> -->
    <a href="/exportStudents" class="btn btn-info btn-xs">Download Data in Excel File</a>
-   
+
     </div>
 </div>
 <div class="row">
@@ -47,9 +47,9 @@ $role = $role_name->name;
               <td>{{ $student->school->name }}  {{ $student->school->educationLevel }}  </td>
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-student-{{$student->id}}">Edit</a>
-                <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){
-                              	getElementById('delete-role-{{$student->id}}').submit()}">Delete</a>
-                <form action="/roles/{{$student->id}}" method="post" style="display: inline-block;" id="delete-role-{{$student->id}}">
+                <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this student ?')){
+                              	getElementById('delete-student-{{$student->id}}').submit()}">Delete</a>
+                <form action="/students/{{$student->id}}" method="post" style="display: inline-block;" id="delete-student-{{$student->id}}">
                   @csrf
                   @method('DELETE')
                 </form>
@@ -57,7 +57,7 @@ $role = $role_name->name;
               </td>
             </tr>
 
-                                    
+
       </div>
     </div>
   </div>
@@ -88,7 +88,7 @@ $role = $role_name->name;
                           </div>
                           <!-- /.modal-dialog -->
                         </div>
-            
+
             @endforeach
           </tbody>
           <tfoot>
@@ -122,7 +122,7 @@ $role = $role_name->name;
                     <div class="modal-body">
                         @include('dashboard.student.create')
                     </div>
-                    <div class="modal-footer">        
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
@@ -166,7 +166,7 @@ $role = $role_name->name;
 </script>
 @endsection
 
-   
+
 
 
 

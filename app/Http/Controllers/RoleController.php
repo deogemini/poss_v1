@@ -39,7 +39,7 @@ class RoleController extends Controller
         $request->validate(
             [
                 'name' =>  'required',
-              
+
             ]
             );
 
@@ -93,7 +93,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return back()->with('msg', 'One Role deleted successsfuli');
+        return back()->with('msg', 'One Role deleted successfully');
 
     }
 

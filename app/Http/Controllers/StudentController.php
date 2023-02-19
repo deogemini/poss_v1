@@ -208,9 +208,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return back()->with('msg', 'One Student deleted successfully ');
     }
 
 

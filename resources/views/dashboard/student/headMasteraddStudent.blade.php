@@ -17,7 +17,7 @@
             <option value="">--Select Gender--</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
-             
+
         </select>
       </div>
 </div>
@@ -26,7 +26,7 @@
     <div class="form-group {{ $errors->has('school_id') ? 'has-error':'' }}">
         <label class="required" for="school_id">School Name</label>
         <select class="form-control select2" id="school_id"  name="school_id" style="width: 100%;">
-            <option value="{{$school->id}}">{{$school->name}}</option>
+            <option value="{{$school->id}}">{{$school->name}} {{$school->educationLevel}}</option>
         </select>
           </div>
 </div>
@@ -56,4 +56,3 @@
       </div>
 </div>
 
-  

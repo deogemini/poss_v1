@@ -53,9 +53,9 @@ $role = $role_name->name;
               <td>{{ $student->grade }}</td>
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-student-{{$student->id}}">Edit</a>
-                <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){
-                              	getElementById('delete-role-{{$student->id}}').submit()}">Delete</a>
-                <form action="/roles/{{$student->id}}" method="post" style="display: inline-block;" id="delete-role-{{$student->id}}">
+                <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this student ?')){
+                              	getElementById('delete-student-{{$student->id}}').submit()}">Delete</a>
+                <form action="/studentsinschool/{{$student->id}}" method="post" style="display: inline-block;" id="delete-student-{{$student->id}}">
                   @csrf
                   @method('DELETE')
                 </form>

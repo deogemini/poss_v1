@@ -29,12 +29,12 @@ class StudentsforHeadMastersController extends Controller
     public function index()
     {
 
-        $user = Auth::user(); 
+        $user = Auth::user();
         $user_id = $user->id;
         $school = School_Teachers::where('user_id', $user_id)->first();
         $school_id = $school->school_id;
         //$school =  App\Models\School::where('id', $school_id)->first();
-    
+
         $students = Student::where('school_id', $school_id)->get();
         $finalYears = FinalYears::all();
         $schools = School::all();
@@ -62,24 +62,24 @@ class StudentsforHeadMastersController extends Controller
             $user->email = $request['email'];
             $user->password = bcrypt($user->lastname);
             $user->save();
-    
-    
+
+
             $user_id = $user->id;
             $school_id = $request['school_id'];
             $user_check = User::where('id', $user_id)->first();
             $teacher = $user_check->id;
-    
+
             $teacherinschool = School_Teachers::insert([
                 'user_id' => $teacher,
                 'school_id' => $school_id
             ]);
-    
-            if($user->save()){   
+
+            if($user->save()){
                 $user_id = $user->id;
                 $role = User::find($user_id);
-            // role 2 is for isTeacher, thus we attach this role to this user object 
+            // role 2 is for isTeacher, thus we attach this role to this user object
             // ...this will create a record in user_role table
-                $role->roles()->attach(2); 
+                $role->roles()->attach(2);
                 return back()->with('message','A new teacher registered in this school');
             }
         }
@@ -87,7 +87,7 @@ class StudentsforHeadMastersController extends Controller
     public function teachersinschool()
     {
 
-        $user = Auth::user(); 
+        $user = Auth::user();
         $user_id = $user->id;
         $schools = School::all();
         $roles = Role::all();
@@ -105,7 +105,7 @@ class StudentsforHeadMastersController extends Controller
     public function teachersondutyinschool()
     {
 
-        $user = Auth::user(); 
+        $user = Auth::user();
         $schools = School::all();
         $roles = Role::all();
         $user_id = $user->id;
@@ -121,12 +121,12 @@ class StudentsforHeadMastersController extends Controller
     }
 
     public function studentsinschool(){
-        $user = Auth::user(); 
+        $user = Auth::user();
         $user_id = $user->id;
         $school = School_Teachers::where('user_id', $user_id)->first();
         $school_id = $school->school_id;
         //$school =  App\Models\School::where('id', $school_id)->first();
-    
+
         $students = Student::where('school_id', $school_id)->get();
 
         return view('dashboard.student.teacherpage', compact(['students']));
@@ -145,9 +145,9 @@ class StudentsforHeadMastersController extends Controller
         $student->stream_id = $request['stream_id'];
         $student->school_id = $request['school_id'];
         $student->final_year_id = $request['final_year_id'];
-        $student->save();  
+        $student->save();
 
-        return response(['message' => 'A student successfully registered!', 
+        return response(['message' => 'A student successfully registered!',
                'data'=> $student]);
     }
 
@@ -165,7 +165,7 @@ class StudentsforHeadMastersController extends Controller
         $student->stream_id = $request['stream_id'];
         $student->school_id = $request['school_id'];
         $student->final_year_id = $request['final_year_id'];
-        $student->save();  
+        $student->save();
 
         return back()->with('msg' ,'A student successfully registered!');
     }
@@ -208,12 +208,12 @@ class StudentsforHeadMastersController extends Controller
         $user->phonenumber = $request->phonenumber;
 
         $user->save();
-                    
+
         $user_id = $user->id;
         //$school_id = $request['school_id'];
         // $user_check = User::where('id', $user_id)->first();
         // $teacher = $user_check->id;
-    
+
         // $teachers = School_Teachers::where('school_id', $school_id)->update([
         //     'user_id' => $user_id
         //     ]);
@@ -222,7 +222,7 @@ class StudentsforHeadMastersController extends Controller
         DB::table('role_user')->where(['user_id' => $user_id])->update([
             'role_id' => $request->role_id
         ]);
-           
+
             return back()->with('msg','Teacher was Updated successfully');
     }
     public function editTod(Request $request, $id)
@@ -234,12 +234,12 @@ class StudentsforHeadMastersController extends Controller
         $user->phonenumber = $request->phonenumber;
 
         $user->save();
-                    
+
         $user_id = $user->id;
         //$school_id = $request['school_id'];
         // $user_check = User::where('id', $user_id)->first();
         // $teacher = $user_check->id;
-    
+
         // $teachers = School_Teachers::where('school_id', $school_id)->update([
         //     'user_id' => $user_id
         //     ]);
@@ -248,7 +248,7 @@ class StudentsforHeadMastersController extends Controller
         DB::table('role_user')->where(['user_id' => $user_id])->update([
             'role_id' => $request->role_id
         ]);
-           
+
             return back()->with('msg','Teacher was Updated successfully');
     }
 
@@ -258,8 +258,11 @@ class StudentsforHeadMastersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $student)
     {
-        //
+
+        $student = Student::find($student);
+        $student->delete();
+        return back()->with('msg', 'One Student deleted successfully ');
     }
 }

@@ -42,15 +42,46 @@
            
               <td>
                 <a href="javascript::void()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit-headTeacher-{{$headTeacher->id}}">Edit</a>
-                <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this role ?')){
-                              	getElementById('delete-role-{{$headTeacher->id}}').submit()}">Delete</a>
-                <form action="/roles/{{$headTeacher->id}}" method="post" style="display: inline-block;" id="delete-role-{{$headTeacher->id}}">
+                <a href="javascript::void()" class="btn btn-danger btn-xs" onclick="if(confirm('Are you sure you want to delete this head teacher ?')){
+                              	getElementById('delete-headTeacher-{{$headTeacher->id}}').submit()}">Delete</a>
+                <form action="/headTeacher/{{$headTeacher->id}}" method="post" style="display: inline-block;" id="delete-headTeacher-{{$headTeacher->id}}">
                   @csrf
                   @method('DELETE')
                 </form>
 
               </td>
             </tr>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit modal -->
+            <div class="modal fade" id="modal-edit-headTeacher-{{ $headTeacher->id }}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Edit Head Teacher</h4>
+                              </div>
+                              <form action="/headTeacher/{{ $headTeacher->id }}" method="post" role="form">
+                                @csrf
+                                @method('PATCH')
+                                 <div class="modal-body">
+                                    @include('dashboard.headTeachers.edit')
+                                 </div>
+                               <div class="modal-footer">
+                                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                 <button type="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                             </form>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
             @endforeach
           </tbody>
           <tfoot>

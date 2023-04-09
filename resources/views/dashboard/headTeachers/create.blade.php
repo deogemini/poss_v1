@@ -23,7 +23,7 @@
 <div class="col-md-12">
     <div class="form-group {{ $errors->has('phonenumber') ? 'has-error':'' }}">
         <label class="required" for="lastname">Phone Number</label>
-        <input type="text" name="phonenumber" class="form-control" placeholder="" value="{{old('phonenumber')}}">
+        <input type="tel" name="phonenumber" class="form-control" placeholder="0676994832" pattern="[0-9]{4}[0-9]{3}[0-9]{3}"  maxlength="10"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  required>
         @error('phonenumber')
          <span class="help-block">{{ $errors->first('phonenumber') }}</span>
         @enderror
@@ -48,7 +48,7 @@
             <option value="">--Select Gender--</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
-             
+
         </select>
       </div>
 </div>

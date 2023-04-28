@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-md-3">
-                <div class="card custom-card mr-3">
+                <div class="card custom-card mr-2">
                     <div class="card-body">
                         <h5 class="card-title">Schools</h5>
                         <div class="form-group">
@@ -21,12 +21,12 @@
 
             </div>
             <div class="col-md-3">
-                <div class="card custom-card mr-3">
+                <div class="card custom-card mr-2">
                     <div class="card-body">
                         <h5 class="card-title">Start Date</h5>
                         <div class="form-group">
                             <div class="input-group date">
-                                <input type="text" class="form-control" id="startdatepicker">
+                                <input type="text" class="form-control datepicker-input" id="startdatepicker">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
@@ -37,12 +37,12 @@
 
             </div>
             <div class="col-md-3">
-                <div class="card custom-card mr-3">
+                <div class="card custom-card mr-2">
                     <div class="card-body">
                         <h5 class="card-title">End Date</h5>
                         <div class="form-group">
                             <div class="input-group date">
-                                <input type="text" class="form-control" id="enddatepicker">
+                                <input type="text" class="form-control datepicker-input" id="enddatepicker">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
@@ -53,9 +53,9 @@
 
             </div>
             <div class="col-md-3">
-                <div class="card custom-card mr-3">
+                <div class="card custom-card">
                     <div class="card-body">
-                        <h5 class="card-title">All Levels</h5>
+                        <h5 class="card-title">All Grade Levels</h5>
                         <div class="form-group">
                             <select class="form-control" id="exampleSelect1">
                                 <option>All Levels</option>

@@ -75,7 +75,41 @@ a:focus {
             height: 110px;
         }
 
-.navbar-btn {
+        .datepicker table {
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .datepicker th,
+        .datepicker td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .datepicker thead th {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .datepicker tbody td {
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+
+        .datepicker tbody td.today,
+        .datepicker tbody td.today:hover,
+        .datepicker tbody td.today.disabled,
+        .datepicker tbody td.today.disabled:hover {
+            font-weight: bold;
+            background-color: #f0ad4e;
+            color: #fff;
+        }
+
+
+
+        .navbar-btn {
     box-shadow: none;
     outline: none !important;
     border: none;

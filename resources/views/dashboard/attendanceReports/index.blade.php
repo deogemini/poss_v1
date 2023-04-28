@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <div class="container card-container">
         <div class="row">
             <div class="col-md-3">
                 <div class="card custom-card mr-3">
@@ -22,7 +21,7 @@
 
             </div>
             <div class="col-md-3">
-                <div class="card custom-card">
+                <div class="card custom-card mr-3">
                     <div class="card-body">
                         <h5 class="card-title">Start Date</h5>
                         <div class="form-group">
@@ -38,7 +37,7 @@
 
             </div>
             <div class="col-md-3">
-                <div class="card custom-card">
+                <div class="card custom-card mr-3">
                     <div class="card-body">
                         <h5 class="card-title">End Date</h5>
                         <div class="form-group">
@@ -54,7 +53,7 @@
 
             </div>
             <div class="col-md-3">
-                <div class="card custom-card">
+                <div class="card custom-card mr-3">
                     <div class="card-body">
                         <h5 class="card-title">All Levels</h5>
                         <div class="form-group">
@@ -70,7 +69,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
 
 

@@ -71,12 +71,8 @@ a:focus {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
         .custom-card {
-            width: 400px;
+            width: 350px;
             height: 110px;
-
-        }
-        .card-container {
-            padding: 20px; /* add padding to the container element */
         }
 
 .navbar-btn {

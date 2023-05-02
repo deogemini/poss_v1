@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Schools</h5>
                         <div class="form-group">
-                            <select class="form-control" id="exampleSelect1">
+                            <select class="form-control" id="exampleSelect1" onchange="updateDashboard()">
                                 <option>All Schools</option>
                                 <option>Kurasini Secondary</option>
                                 <option>Minazini Primary</option>
@@ -69,47 +69,99 @@
                 </div>
             </div>
         </div>
+{{--        <ng-content id="dashboard">--}}
+            <div class="container">
+                <canvas id="myChart"></canvas>
+            </div>
 
-        <div class="container">
-            <canvas id="myChart"></canvas>
-        </div>
+            <script>
+                var ctx = document.getElementById('myChart');
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        <script>
-            const ctx = document.getElementById('myChart');
-
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Present', 'Absent', 'WithPermit', 'No Permit'],
-                    datasets: [{
-                        label: '# No of Students',
-                        data: [12, 19, 3, 5],
-                        borderWidth: 1,
-                        backgroundColor: [
-                            'rgba(255, 99, 132)',
-                            'rgba(255, 159, 64)',
-                            'rgba(255, 205, 8)',
-                            'rgba(75, 192, 192)'
-                        ]
+                var chartJs = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Present', 'Absent', 'WithPermit', 'No Permit'],
+                        datasets: [{
+                            label: '# No of Students',
+                            data: [12, 19, 3, 5],
+                            borderWidth: 1,
+                            backgroundColor: [
+                                'rgba(255, 99, 132)',
+                                'rgba(255, 159, 64)',
+                                'rgba(255, 205, 8)',
+                                'rgba(75, 192, 192)'
+                            ]
+                        },
+                        ] ,
                     },
-                    ] ,
-                },
-                options: {
-                    indexAxis: 'y',
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                    options: {
+                        // indexAxis: 'y',
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
-                }
-            });
-        </script>
+                });
+            </script>
+{{--        </ng-content>--}}
+
 
 
 
     <script type="text/javascript">
+        function updateDashboard()
+        {
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type: "POST",
+                url: "http://127.0.0.1:8000/attendanceReports/updateDashboard",
+
+                data: JSON.stringify({
+                    school : 0,
+                    start_date : 25,
+                    end_date : "name",
+                    level:"DESC"
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                    chartJs.destroy();
+                    var ctx = document.getElementById('myChart');
+
+                    chartJs = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Present', 'Absent', 'WithPermit', 'No Permit'],
+                            datasets: [{
+                                label: '# No of Students',
+                                data: data,
+                                borderWidth: 1,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132)',
+                                    'rgba(255, 159, 64)',
+                                    'rgba(255, 205, 8)',
+                                    'rgba(75, 192, 192)'
+                                ]
+                            },
+                            ] ,
+                        },
+                        options: {
+                            // indexAxis: 'y',
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function(errMsg) {
+                    console.log(errMsg);
+                }
+            });
+        }
+
         $(document).ready(function() {
             $('#startdatepicker').datepicker({
                 format: 'dd/mm/yyyy',

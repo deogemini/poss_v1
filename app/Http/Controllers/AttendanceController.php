@@ -1215,4 +1215,10 @@ public function pendingReport($school_id, $date)
     {
          return Attendance::where('remarks', 'like', '%'.$remarks.'%')->get();
     }
+
+    public function updateDashboard(Request $request)
+    {
+
+        return response()->json([13, 10, 0, 7]);
+    }
 }

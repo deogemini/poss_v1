@@ -69,9 +69,18 @@
                 </div>
             </div>
         </div>
-{{--        <ng-content id="dashboard">--}}
-            <div class="container">
-                <canvas id="myChart"></canvas>
+
+            <div class="container  card-container" style="margin-top: 30px">
+                <div class="card">
+                    <div class="card-header">
+                       Attendance by Status
+                        <i class="fa fa-download float-right" style="margin-right: 10px; font-size: 1em;"  title="Download Attendance Data"></i>
+                        <i class="far fa-window-maximize float-right" style="margin-right: 10px; font-size: 1em;" title="Maximize the graph"></i>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
             </div>
 
             <script>

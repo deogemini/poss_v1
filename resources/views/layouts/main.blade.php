@@ -19,6 +19,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -215,6 +217,17 @@ a.article:hover {
     color: #fff !important;
 }
 
+        .fa-download:hover {
+            cursor: pointer;
+            color: red;
+            text-decoration: underline;
+        }
+        .fa-window-maximize:hover {
+            cursor: pointer;
+            color: red;
+            text-decoration: underline;
+        }
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -311,7 +324,8 @@ $role = $role_name->name;
 
             <li>
                 <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fa fa-school" aria-hidden="true"></i><span>
+                        <i class="fas fa-school" aria-hidden="true"></i><span>
+
                     School Management
                 </span>
                 </a>

@@ -23,7 +23,7 @@ class StudentController extends Controller
     private $grade;
     public function index()
     {
-        $students = Student::all();
+        $students = Student::with('school')->paginate(10);
         $finalYears = FinalYears::all();
         $schools = School::all();
         $streams = Stream::all();
@@ -32,7 +32,7 @@ class StudentController extends Controller
         // $districts =  District::all();
         // $regions =  Region::all();
 
-        return view('dashboard.student.index', compact(['students', 'streams','grades','schools', 'finalYears']));
+        return view('dashboard.student.index', compact(['students', 'streams','schools', 'grades', 'finalYears']));
     }
 
     public function importView(Request $request){

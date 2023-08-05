@@ -23,7 +23,7 @@ class StudentController extends Controller
     private $grade;
     public function index()
     {
-        $students = Student::with('school')->paginate(10);
+        $students = Student::all();
         $finalYears = FinalYears::all();
         $schools = School::all();
         $streams = Stream::all();

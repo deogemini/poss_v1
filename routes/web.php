@@ -61,6 +61,9 @@ Route::resource('/streams', StreamController::class);
 Route::resource('/students', StudentController::class);
 Route::resource('/studentsinschool', StudentsforHeadMastersController::class);
 Route::get('/attendanceReports', [AttendanceController::class, 'view'])->name('view');
+
+Route::post('/attendanceReports/updateDashboard', [AttendanceController::class, 'updateDashboard']);
+
 Route::resource('/districtOfficer', DistrictOfficersController::class);
 Route::resource('/wardOfficer', WardOfficersController::class);
 Route::resource('/headTeacher', HeadTeacherController::class);

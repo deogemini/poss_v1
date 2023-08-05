@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ImportStudent;
 use App\Exports\ExportStudent;
+use Illuminate\Support\Facades\Cache;
+
 
 class StudentController extends Controller
 {
@@ -23,16 +25,23 @@ class StudentController extends Controller
     private $grade;
     public function index()
     {
+       // Check if the data is cached
+    if (Cache::has('dashboard_data')) {
+        $data = Cache::get('dashboard_data');
+    } else {
+        // Data not found in cache, fetch it from the database and cache it.
         $students = Student::all();
         $finalYears = FinalYears::all();
         $schools = School::all();
         $streams = Stream::all();
         $grades = Grade::all();
-        // $wards = Ward::all();
-        // $districts =  District::all();
-        // $regions =  Region::all();
 
-        return view('dashboard.student.index', compact(['students', 'streams','schools', 'grades', 'finalYears']));
+        $data = compact(['students', 'streams', 'schools', 'grades', 'finalYears']);
+
+        Cache::put('dashboard_data', $data, now()->addMinutes(10));
+    }
+
+    return view('dashboard.student.index', $data);
     }
 
     public function importView(Request $request){

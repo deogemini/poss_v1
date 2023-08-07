@@ -15,8 +15,8 @@
         <label class="required">Gender</label>
            <select class="form-control select2" name="gender" style="width: 100%;">
             <option value="">--Select Gender--</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            <option value="male">male</option>
+            <option value="female">female</option>
 
         </select>
       </div>

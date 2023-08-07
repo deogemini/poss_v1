@@ -170,8 +170,24 @@ class StudentController extends Controller
 
        if(count($gradeStudent) > 0){
         $gradeStudent = collect(array_values($gradeStudent->toArray()));
-        return  response()->json(['message' => 'students in grade',
-                                  'students' => $gradeStudent]);
+
+        //calculate total male, total female, and total students
+       $totalMale = $gradeStudent->where('gender', 'male')->count();
+       $totalFemale = $gradeStudent->where('gender', 'female')->count();
+
+       // Make the gender comparison case-insensitive
+       $totalMale += $gradeStudent->where('gender', 'Male')->count();
+       $totalFemale += $gradeStudent->where('gender', 'Female')->count();
+
+        $totalStudents = count($gradeStudent);
+
+        return  response()->json([
+            'message' => 'students in grade',
+            'students' => $gradeStudent,
+            'totalMale' => $totalMale,
+            'totalFemale' => $totalFemale,
+            'totalStudents' => $totalStudents,
+    ]);
        }
        else{
         return  response('No Registered Student');

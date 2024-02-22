@@ -4,9 +4,9 @@
         </div>
 
         <ul class="list-unstyled components">
-          
+
         <li>
-                <a href="{{ url ('/dashboard') }}"> 
+                <a href="{{ url ('/dashboard') }}">
                 <i class="fa fa-home" aria-hidden="true"></i>
                 <span>Home</span>
                 </a>
@@ -47,7 +47,7 @@
                     <li>
                         <a href="/wards">Wards</a>
                     </li>
-            
+
                 </ul>
             </li>
 
@@ -64,7 +64,7 @@
                     <li>
                         <a href="/streams">Stream</a>
                     </li>
-            
+
                 </ul>
             </li>
             @if($role == 'isHeadTeacher')
@@ -111,6 +111,9 @@
                     </li>
                     <li>
                         <a href="/finishingYears">Finishing Year</a>
+                    </li>
+                    <li>
+                        <a href="/changePassword">change password</a>
                     </li>
 
                 </ul>

@@ -420,6 +420,9 @@ $role = $role_name->name;
                     <li>
                         <a href="/finishingYears">Finishing Year</a>
                     </li>
+                    <li>
+                        <a href="/finishingYears">Reset Users Password</a>
+                    </li>
 
 
                 </ul>

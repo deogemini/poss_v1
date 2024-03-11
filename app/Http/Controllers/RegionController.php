@@ -21,10 +21,14 @@ class RegionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $regions = Region::all();
-        return view('dashboard.region.index', compact('regions'));;
+        if ($request->wantsJson()) {
+            return response()->json(['regions' => $regions]);
+        }
+
+        return view('dashboard.region.index', compact('regions'));
 
     }
     // public function view()

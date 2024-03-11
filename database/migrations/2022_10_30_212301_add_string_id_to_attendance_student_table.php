@@ -13,9 +13,9 @@ class AddStringIdToAttendanceStudentTable extends Migration
      */
     public function up()
     {
-        // Schema::table('attendance_student', function (Blueprint $table) {
-        //     $table->string('stream_id');
-        // });
+        Schema::table('attendance_student', function (Blueprint $table) {
+            $table->string('stream_id');
+        });
     }
 
     /**
@@ -25,8 +25,8 @@ class AddStringIdToAttendanceStudentTable extends Migration
      */
     public function down()
     {
-        // Schema::table('attendance_student', function (Blueprint $table) {
-        //     $table->dropColumn('stream_id');
-        // });
+        Schema::table('attendance_student', function (Blueprint $table) {
+            $table->dropColumn('stream_id');
+        });
     }
 }

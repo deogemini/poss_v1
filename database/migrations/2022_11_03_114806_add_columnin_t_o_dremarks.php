@@ -13,11 +13,11 @@ class AddColumninTODremarks extends Migration
      */
     public function up()
     {
-        // Schema::table('t_o_dremarks', function (Blueprint $table) {
-        //     $table->integer('approvedbyHeadMaster')->default('0');
-        //     $table->integer('rejectedbyHeadMaster')->default('0');
-        //     $table->integer('pendingbyHeadMaster')->default('0');
-        // });
+        Schema::table('t_o_dremarks', function (Blueprint $table) {
+            $table->integer('approvedbyHeadMaster')->default('0');
+            $table->integer('rejectedbyHeadMaster')->default('0');
+            $table->integer('pendingbyHeadMaster')->default('0');
+        });
     }
 
     /**
@@ -27,10 +27,10 @@ class AddColumninTODremarks extends Migration
      */
     public function down()
     {
-        // Schema::table('t_o_dremarks', function (Blueprint $table) {
-        //     $table->dropColumn('approvedbyHeadMaster');
-        //     $table->dropColumn('rejectedbyHeadMaster');
-        //     $table->dropColumn('pendingbyHeadMaster');
-        // });
+        Schema::table('t_o_dremarks', function (Blueprint $table) {
+            $table->dropColumn('approvedbyHeadMaster');
+            $table->dropColumn('rejectedbyHeadMaster');
+            $table->dropColumn('pendingbyHeadMaster');
+        });
     }
 }

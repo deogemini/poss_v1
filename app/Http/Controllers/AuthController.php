@@ -190,7 +190,17 @@ public function webLogin(Request $request){
         $role_user = RoleUser::where('user_id', $user_id)->first();
         $role_name = Role::where('id', $role_user->role_id)->first();
         $role = $role_name->name;
-        return view('dashboard.dashboard', compact(['user_id', 'role']));
+
+
+        $teachers = User::with('schools')
+        ->whereHas(
+            'roles',
+            fn($query) => $query->where('name', 'isTeacher')
+        )
+        ->get();
+         $teacherNumbers = $teachers->count();
+
+        return view('dashboard.dashboard', compact(['user_id', 'role','teacherNumbers']));
     }else{
 
 
